@@ -1,0 +1,52 @@
+/*.backBg {
+	*/
+	/* background-color: #f8f8f8;
+	*/
+	/*
+}
+*/
+.products {
+    width: 1475px;
+}
+.container {
+    border-radius: 0;
+}
+.header-class {
+    text-align: left;
+    margin-left: 5rem;
+    font: normal normal bold 28px/34px Roboto;
+    color: #2a2a2a;
+}
+.dFlex {
+    display: flex;
+}
+.justifyBetween {
+    justify-content: space-between;
+}
+.alignItemsCenter {
+    align-items: center;
+}
+.textCenter {
+    text-align: center;
+}
+.pt30 {
+    padding-top: 30px;
+}
+.pb70 {
+    padding-bottom: 70px;
+}
+.products .heading {
+    margin-bottom: 30px;
+}
+.products .heading h2 {
+    color: #2a2a2a;
+    font-weight: bold;
+    font-size: 42px;
+    line-height: 62px;
+}
+.slick-next{
+    display: none !important;
+}
+.slick-prev{
+    display: none !important;
+}
