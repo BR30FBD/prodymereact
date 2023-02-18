@@ -11,10 +11,13 @@ import {
 import Home from './pages/Home';
 import Category from './pages/category';
 import Details from './pages/details';
+
 function App() {
 
   return (
     <>
+   
+
     <Router>
    <Header/>
 

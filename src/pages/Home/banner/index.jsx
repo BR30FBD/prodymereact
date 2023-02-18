@@ -6,7 +6,9 @@ import animationData2 from "../../../assets/json/products"
 import animationData3 from "../../../assets/json/help"
 import Searchbar from '../../../common/searchbar';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../common/Loader';
 const Banner = () => {
+  const  [load,setload]=useState(false)
   const [category,setcategory]=useState([])
     const options=[
         {
@@ -72,6 +74,7 @@ const Banner = () => {
       ]
         const nav=useNavigate()
      const handlecategory=(e)=>{
+      setload(true)
       console.log(e.target.id)
       
       fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${e.target.id}`,{
@@ -80,6 +83,7 @@ const Banner = () => {
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
+        setload(false)
         console.log(res,"rakesh")
         nav("/cateogry",{state:{id:"1",data:res.data}})
       }).catch((err)=>{
@@ -87,7 +91,7 @@ const Banner = () => {
       })
      }
    useEffect(()=>{
-       
+    setload(true)
     fetch('https://prodymeapi.revivingindia.com/api/getCategory/',{
         cache: "no-store",
        
@@ -95,6 +99,7 @@ const Banner = () => {
         console.log(res,"rakesh")
         return res.json()
     }).then((res)=>{
+      setload(false)
         setcategory(res.data)
     }).catch((err)=>{
         console.log(err,"err")
@@ -102,6 +107,10 @@ const Banner = () => {
    },[])
   return (
    <>
+       {load &&
+      <Loader/>
+    }
+   
       <section className="wrappper" style={{marginTop:"100px"}}>
         <main className="banner">
           <section className="container">

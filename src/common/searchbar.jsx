@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { fetchAllUsers } from '../action/slice'
+import Loader from './Loader'
 
 const Searchbar = () => {
+  const  [load,setload]=useState(false)
   const [productname,setpoductname]=useState('')
   const [categoryname,setcategoryname]=useState('All')
   const dispatch = useDispatch();
@@ -21,12 +23,14 @@ const Searchbar = () => {
     setcategoryname(e.target.value)
   }
 const handledata=()=>{
+setload(true)
     fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
         cache: "no-store",
       
     }).then((res)=>{
         return res.json()
     }).then((res)=>{
+      setload(false)
       console.log(res,"rakesh")
 
       nav("/cateogry",{state:{id:"1",data:res.data}})
@@ -38,6 +42,7 @@ const handledata=()=>{
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
+        setload(false)
         console.log(res,"rakesh")
         nav("/cateogry",{state:{id:"1",data:res.data}})
       }).catch((err)=>{
@@ -52,6 +57,10 @@ useEffect(() => {
 }, [dispatch, list]);
   return (
     <>
+    {load &&
+      <Loader/>
+    }
+   
      <section className="form mxAuto dFlex" style={{marginTop:"0px"}}>
               <header className="selectText" style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
                 <p>Category :</p>
