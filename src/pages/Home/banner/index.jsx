@@ -91,7 +91,6 @@ const Banner = () => {
       })
      }
    useEffect(()=>{
-    setload(true)
     fetch('https://prodymeapi.revivingindia.com/api/getCategory/',{
         cache: "no-store",
        
@@ -99,7 +98,6 @@ const Banner = () => {
         console.log(res,"rakesh")
         return res.json()
     }).then((res)=>{
-      setload(false)
         setcategory(res.data)
     }).catch((err)=>{
         console.log(err,"err")

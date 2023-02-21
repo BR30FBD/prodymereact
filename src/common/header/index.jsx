@@ -14,6 +14,18 @@ const Header = () => {
         setState({
           scrollPosition: window.scrollY
         });
+
+        if(state.scrollPosition > 330){
+          document.getElementById("inputSelectionid").style.border="1px solid #ff7a34";
+          document.getElementById("inputSelectionid").style.borderRadius="13px";
+          document.getElementById("inputSelectionid").style.marginTop="20px";
+          document.getElementById("inputSelectionid").style.height="40px";
+        }else{
+          document.getElementById("inputSelectionid").style.border="none";
+          document.getElementById("inputSelectionid").style.borderRadius="none";
+          document.getElementById("inputSelectionid").style.marginTop="0px";
+          document.getElementById("inputSelectionid").style.height="auto";
+        }
       }
       useEffect(()=>{
         window.addEventListener("scroll", updateScroll);
@@ -39,8 +51,10 @@ const Header = () => {
   className="justifyBetween dFlex topbar123"
   style={{ height: "100px",width:"85%",paddingLeft:"100px",paddingRight:"100px",position:"fixed",zIndex:"20",background:"white",top:"0px" }}
 >
+  
   <nav data-v-aaec3394="" className="navListWeb dFlex alignItemsCenter">
     <ul data-v-aaec3394="">
+    <li data-v-aaec3394="">LOGO</li>
       <li data-v-aaec3394="">Builder</li>
       <li data-v-aaec3394="">Catalogue</li>
     </ul>

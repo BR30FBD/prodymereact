@@ -65,9 +65,9 @@ useEffect(() => {
               <header className="selectText" style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
                 <p>Category :</p>
               </header>
-              <section className="inputSelection">
+              <section className="inputSelection" id="inputSelectionid">
                 <a-input-group compact="">
-                  <select style={{width:"15%",height:"100%",border:"none",outline:"none",color:"#ff7a34"}}
+                  <select style={{width:"15%",height:"100%",border:"none",outline:"none",color:"#ff7a34",borderRadius:"13px"}}
                     default-value="All"
                     onChange={(e)=>handlechange(e)}
                   >

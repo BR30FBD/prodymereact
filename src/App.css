@@ -77,6 +77,7 @@
 }
 .form .inputSelection {
   width: calc(100% - 90px);
+ 
 }
 .topBarActions button {
   background-color: #ff7a34;

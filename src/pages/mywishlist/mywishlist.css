@@ -1,0 +1,46 @@
+.box-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 3px 3px 3px #cacaca;
+    border-radius: 3px;
+    width: 200px;
+    margin: 5px;
+}
+.box-card:hover{
+    transform: scale(1.1);
+    transition: 1s;
+    border: none;
+}
+.box-card-h6{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: sans-serif;
+}
+.img-card{
+    width: 200px;
+}
+.box-card-start-icon{
+    color: #ff7a34;
+    font-size: 30px;
+   
+}
+.wishlist-icon{
+    text-align: end;
+    font-size: 30px;
+    color: #ff7a34;
+    width: 100%;
+    cursor: pointer;
+}
+.addcart-card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.mb-mywishlist{
+    margin-bottom: 50px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}

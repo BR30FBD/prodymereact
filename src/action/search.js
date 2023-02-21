@@ -27,7 +27,7 @@ export const searchdata = (a,b) => (dispatch) => {
       dispatch(setSearchList(response.data.data));
       
     })
-    .catch((error) => console.log(error));
+    .catch((error) => console.log(error,"myerr"));
 };
 
 export default userSlice.reducer;

@@ -1,127 +1,90 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { NavLink} from 'react-router-dom'
 import img from "./b1.png"
-import "./details.css"
+import  styledetails from "./details.css"
 const Details = () => {
- const nav=useNavigate()
-    const location=useLocation()
-    const data=location.state.data || {
-        brandName:"",
-        category_name_id:"",
-        price:"",
-        productImage:"",
-        productName:"",
-        product_id:""
-    }
-    const productdata=location.state.relateddata || []
-    const handledetails=(e)=>{
-        console.log(productdata[e.target.id],"target")
-        nav('/details',{state:{id:"1",data:productdata[e.target.id],relateddata:productdata}})
-      }
-      useEffect(()=>{
-        window.scrollTo(0,0)
-      },[])
-    console.log(data,"details")
   return (
-    <>
-     <section className="container" style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+    <div {...styledetails}>
+     <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
            
            <h1 style={{color:"whitesmoke"}}>
             <NavLink to='/' style={{color:"whitesmoke",textDecoration:"none"}}>Home</NavLink>\Productdetails
            </h1>
         
         </section>
-        <main className="container detailspage">
-        {/* Left Column / Headphones Image */}
-        <div className="left-column">
-          <img data-image="black" src="https://designmodo.com/demo/product-page/images/red.png" alt="" />
-          <img data-image="blue" src="https://designmodo.com/demo/product-page/images/red.pngg" alt="" />
-          <img data-image="red" className="active" src={data.productImage} alt="" style={{width:"500px"}}/>
-        </div>
-        {/* Right Column */}
-        <div className="right-column">
-          {/* Product Description */}
-          <div className="product-description">
-            <span>{data.category_name_id}</span>
-            <h1>{data.productName}</h1>
-            <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
-          </div>
-          {/* Product Configuration */}
-          <div className="product-configuration">
-            {/* Product Color */}
-            {/* <div className="product-color">
-              <span>Color</span>
-              <div className="color-choose">
-                <div>
-                  <input data-image="red" type="radio" id="red" name="color" defaultValue="red" defaultChecked />
-                  <label htmlFor="red"><span /></label>
-                </div>
-                <div>
-                  <input data-image="blue" type="radio" id="blue" name="color" defaultValue="blue" />
-                  <label htmlFor="blue"><span /></label>
-                </div>
-                <div>
-                  <input data-image="black" type="radio" id="black" name="color" defaultValue="black" />
-                  <label htmlFor="black"><span /></label>
-                </div>
-              </div>
-            </div> */}
-            {/* Cable Configuration */}
-            <div className="cable-config">
-              <span>Cable configuration</span>
-              <div className="cable-choose">
-                <button>Straight</button>
-                <button>Coiled</button>
-                <button>Long-coiled</button>
-              </div>
-              <a href="#">How to configurate your headphones</a>
-            </div>
-          </div>
-          {/* Product Pricing */}
-          <div className="product-price">
-            <span>{data.price} INR</span>
-            <a href="#" className="cart-btn">Add to cart</a>
-          </div>
-        </div>
-      </main>
+<section className='product-details-continer'>
+  <div className='product-details-continer-child-side1'>
+    <h1 className='product-details-continer-child-side1-h1'><NavLink to='/' style={{textDecoration:"none"}}>Home/</NavLink><strong>Product Details</strong></h1>
+    <div className='sidebar-tags'>
+    <h2 className='sidebar-tags-h2'>
+      Tags:
+    </h2>
+    <div className='sidebar-tags-btn-container'>
+      <div className='sidebar-tags-btn-container-nested'>
+    <button className='sidebar-tags-btn'>Kitchen</button>
+    <button className='sidebar-tags-btn'>Kitchen</button>   
+    <button className='sidebar-tags-btn'>Sustainable</button>
+    </div>
+    </div>
+  </div>
+  <div className='carousal-sidebar'>
+    <div className='carousal-sidebar-child1'>
+      <img className='imgtag-carousal' src="https://m.media-amazon.com/images/I/41vD9a3rPQL.jpg" alt="" srcset="" />
+      <img className='imgtag-carousal' src="https://m.media-amazon.com/images/I/41vD9a3rPQL.jpg" alt="" srcset="" />
+      <img className='imgtag-carousal' src="https://m.media-amazon.com/images/I/41vD9a3rPQL.jpg" alt="" srcset="" />
+      <img className='imgtag-carousal' src="https://m.media-amazon.com/images/I/41vD9a3rPQL.jpg" alt="" srcset="" />
+      
+    </div>
+    <div className='carousal-sidebar-child2'>
+    <img className='imgtag-carousal-active' src="https://m.media-amazon.com/images/I/41vD9a3rPQL.jpg" alt="" srcset="" />
+      
+    </div>
+  </div>
+  </div>
+  <div className='product-details-continer-child-side2' >
+    <div className='side2-title'>
       <div>
-          <h2 className="product-heading">Related Products</h2>
-          <aside className="card-p20" style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
-            {productdata.length >0 ? 
-            productdata.slice(0,4).map((item,index) => (
-        
-               <div className="cardc">
-               <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"150px" }}/>
-               <div className="containerc">
-                 <h4><b>{item.productName}</b></h4> 
-                 <aside className="_rating mb10">
-                 <span className="fa fa-star checked" style={{color:"#ff7a34"}}></span>
-           <span className="fa fa-star checked" style={{color:"#ff7a34"}}></span>
-           <span className="fa fa-star checked" style={{color:"#ff7a34"}}></span>
-           <span className="fa fa-star"></span>
-           <span className="fa fa-star"></span>
-                 </aside>
-                 <article className="_price mb24 dFlex alignItemsCenter">
-                   <strong className="fs28">₹ {item.price}</strong>
-                   <b className="fs16 pl10">per box</b>
-                 </article>
-                 <footer className="_comparator mb20">
-                  <span>
-                   {/* <input type="checkbox" className='ant-checkbox' style={{backgroundColor:"#ff7a34"}}/>
-                   <a-checkbox > Compare </a-checkbox> */}
-                      <a href="#" className="detail-btn">Add To Cart</a>
-                   </span>
-                   <a   className="detail-btn" id={index} onClick={(e)=>handledetails(e)}>View</a>
-                   
-                 </footer>
-               </div>
-             </div>
-            )) :
-            <h1>Result Not Found !</h1>
-            }
-          </aside>
-        </div>
-    </>
+        <h1 className='side2-title-h1'>Product Name ABC</h1>
+        <p className='side2-title-p'>Product Category Name (PlyWood)</p>
+      </div>
+    </div>
+<div className='review-section'>
+  <div className='icon-star-container'>
+    {[1,2,3,4,5].map((data,index)=>(
+ <span className='start-icon'>	&#10029;</span>
+    ))}
+ <strong style={{marginLeft:"20px"}}>   4.4 (800 Review)</strong>
+  </div>
+  <a href="#" className='href-link'>Build My Project</a>
+  <div>
+  <strong>280.9</strong><span> per sheet</span>
+  </div>
+</div>
+<div className='dicription-details'>
+  <div className='emptybox'></div>
+  <div className='discription-text'>
+
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid est, laborum architecto, iusto porro quia nostrum necessitatibus quam vel similique blanditiis culpa possimus sed? Et dolorum quis numquam. Aspernatur, sequi quod, dicta reprehenderit nam, nostrum quidem quis ipsum saepe sed earum soluta sit pariatur recusandae quisquam veritatis. Quaerat ex voluptatem nostrum voluptates officiis deserunt, odit distinctio fugit velit ut id ipsum molestias, sint, dolorum necessitatibus? Tempore, earum magnam dicta, quaerat facere harum et hic quibusdam, eligendi sint nisi. Nostrum, quo animi. Itaque laboriosam nobis quis dolorum beatae, numquam magni pariatur asperiores, quasi natus aperiam quod iure nesciunt illum. Maiores voluptate sequi laborum at quisquam cupiditate tempore repellendus est aspernatur corporis quam, repudiandae nostrum unde numquam laboriosam dolorum corrupti, tenetur dolorem. Facilis fuga eum nobis ab sint voluptate unde enim provident, harum in ipsa. Nemo consectetur veniam aut quod quo officia voluptate iure accusantium minima, inventore, iste delectus quos maxime deserunt.
+  </div>
+
+</div>
+<div className='review-section'>
+<div className='emptybox'></div>
+  <div className='icon-star-container mt-details' style={{marginTop:"50px"}}>
+  
+ <strong style={{marginLeft:"20px"}}>Available Online 189</strong>
+  </div>
+<div className='qty-details' style={{marginTop:"50px"}}><strong>Quantity</strong>
+<div className='qty-details' ><span className='checkout-table-body-td-icon-details-page'>-</span><div className='qty-value'>1</div><span className='checkout-table-body-td-icon-details-page'>+</span></div>
+</div>
+  <div  style={{marginTop:"50px"}}>
+  <button className='checkout-main-child-btn'>Add To Cart</button>
+  </div>
+</div>
+  </div>
+</section>
+       
+    </div>
   )
 }
 
