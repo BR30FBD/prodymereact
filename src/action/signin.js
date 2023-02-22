@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const userSlice = createSlice({
   name: "SignIn",
   initialState: {
@@ -15,8 +16,7 @@ export const userSlice = createSlice({
 
 export const { setUserList } = userSlice.actions;
 
-export const signInUser = (data) => (dispatch) => {
-    console.log(data,"dataget")
+export const signInUser = (data,fun) => (dispatch) => {
   axios
     .post("https://prodymeapi.revivingindia.com/login/",{
         email:data.email,
@@ -24,7 +24,15 @@ export const signInUser = (data) => (dispatch) => {
     })
     .then((response) => {
         console.log(response,"response")
+       
+        localStorage.setItem('prodymeApiToken',response.data.token.token)
       dispatch(setUserList(response.data));
+      if(response.data.message=='Login Successful'){
+        setTimeout(()=>{
+    fun()
+        },1000)
+      }
+   
     })
     .catch((error) => console.log(error));
 };

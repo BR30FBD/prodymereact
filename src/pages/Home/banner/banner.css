@@ -193,6 +193,7 @@ figure.noMargin {
 .listNone ul li:hover {
     cursor: pointer;
     color: #ff7a34;
+    background-color:#2a2a2a !important ;
 }
 @media (max-width: 1080px) {
     form {

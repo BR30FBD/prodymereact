@@ -91,6 +91,7 @@ const Banner = () => {
       })
      }
    useEffect(()=>{
+    setload(true)
     fetch('https://prodymeapi.revivingindia.com/api/getCategory/',{
         cache: "no-store",
        
@@ -98,8 +99,10 @@ const Banner = () => {
         console.log(res,"rakesh")
         return res.json()
     }).then((res)=>{
+      setload(false)
         setcategory(res.data)
     }).catch((err)=>{
+      setload(false)
         console.log(err,"err")
     })
    },[])
@@ -113,7 +116,7 @@ const Banner = () => {
         <main className="banner">
           <section className="container">
             <header className="head">
-              <h1 data-v-679263eb >
+              <h1 data-v-679263eb  className="label-form">
                 {" "}
                 Welcome to <strong>Prodyme</strong>, <br></br>your all-in-one
                 construction solution.{" "}
@@ -135,18 +138,18 @@ const Banner = () => {
                 </header>
                 <figcaption className="cardContent p20">
                   <header>
-                    <h4>{option.title}</h4>
+                    <h4  className="label-form">{option.title}</h4>
                   </header>
                   <section className="listNone">
                     <ul className="listNone">
                       {option.optsList.map(opt => (
-                        <li id={opt}  key={opt} onClick={(e)=>handlecategory(e)}>
+                        <li id={opt}  className="label-form"  key={opt} onClick={(e)=>handlecategory(e)}>
                           {" "}
                           {opt}{" "}
                         </li>
                       ))}
                     </ul>
-                    <p>More ...</p>
+                    <p className="label-form">More ...</p>
                   </section>
                 </figcaption>
               </figure>

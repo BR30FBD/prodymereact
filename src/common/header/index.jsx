@@ -1,15 +1,23 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Auth from '../../auth';
+import Profileicon from '../profileicon';
 import Searchbar from '../searchbar';
-import "./header.css"
+import styleheader from "./header.css"
 
 const Header = () => {
+  const token=localStorage.getItem('prodymeApiToken');
+  const nav=useNavigate()
   const [category,setcategory]=useState([])
     const [state,setState]=useState({
         scrollPosition: null
       })
       const [display,setdisplay]=useState(false)
+   
+      const auth=()=>{
+        setdisplay(false)
+      }
       const updateScroll=()=>{
         setState({
           scrollPosition: window.scrollY
@@ -46,7 +54,7 @@ const Header = () => {
    },[])
   return (
     <>
-<section
+<section {...styleheader}
   data-v-aaec3394=""
   className="justifyBetween dFlex topbar123"
   style={{ height: "100px",width:"85%",paddingLeft:"100px",paddingRight:"100px",position:"fixed",zIndex:"20",background:"white",top:"0px" }}
@@ -54,9 +62,13 @@ const Header = () => {
   
   <nav data-v-aaec3394="" className="navListWeb dFlex alignItemsCenter">
     <ul data-v-aaec3394="">
-    <li data-v-aaec3394="">LOGO</li>
-      <li data-v-aaec3394="">Builder</li>
-      <li data-v-aaec3394="">Catalogue</li>
+    <li data-v-aaec3394="">
+    <NavLink to='/' className="label-form" style={{textDecoration:"none"}}>
+      LOGO
+      </NavLink>
+      </li>
+      <li data-v-aaec3394=""  className="label-form">Builder</li>
+      <li data-v-aaec3394=""  className="label-form">Catalogue</li>
     </ul>
   </nav>
   <nav data-v-aaec3394="" className="navListMob">
@@ -88,10 +100,15 @@ const Header = () => {
   <section
     data-v-aaec3394=""
     className="topBarActions dFlex alignItemsCenter positionRelative"
-  >
-    <button data-v-aaec3394="" onClick={()=>setdisplay(!display)}>Login / Sign Up</button>
+  >{token ? 
+    
+    <Profileicon/>
+    :
+    <button data-v-aaec3394=""  className="label-form" onClick={()=>setdisplay(!display)}>Login / Sign Up</button>
+  }
+    
    {display &&
-    <Auth/>
+    <Auth fun={auth}/>
    
    }
 

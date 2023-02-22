@@ -6,7 +6,7 @@ const Offering = () => {
     <section className="pt30 pb70 backBg offering">
     <article className="container">
       <header className="heading textCenter">
-        <h2>Get the Perfect Product</h2>
+        <h2 className='label-form'>Get the Perfect Product</h2>
       </header>
       <article className="wrapper dFlex justifyBetween alignItemsCenter" data-v-dfd357c6>
         <section className="video">

@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { signInUser } from '../action/signin'
 import { signupUser } from '../action/signup'
 import "./auth.css"
-const Auth = () => {
+const Auth = ({fun}) => {
+  const nav=useNavigate()
    const [isHidden,setIsHidden]=useState(false)
    const [signup,setSignUp]=useState({
     email:"",
@@ -16,19 +18,32 @@ const Auth = () => {
    })
    const dispatch = useDispatch();
    const list = useSelector((state) => state);
-   console.log(list,"list")
+
    const handlesignup=(e)=>{
     const newdata={...signup};
     newdata[e.target.id]=e.target.value;
     setSignUp(newdata)
-    console.log(signup)
    }
    const handlesignin=(e)=>{
     const newdata={...signin};
     newdata[e.target.id]=e.target.value;
     setSignIn(newdata)
-    console.log(signin)
    }
+const hide=()=>{setIsHidden(false)}
+ const handlesubmit=()=>{
+  dispatch(signupUser(signup,hide))
+  if(list.userSignUp.list.message=='Registration Successfully'){
+    setTimeout(()=>{
+      setIsHidden(false)
+
+    },500)
+  }
+ }
+
+ const handlelogin=()=>{
+  dispatch(signInUser(signin,fun))
+ 
+  }
  
   return (
 <>
@@ -56,7 +71,7 @@ const Auth = () => {
                           />
                         </section>
                         <section className="inputFeed">
-                          <label>Enter Email/Mobile Number: </label>
+                          <label>Enter Email: </label>
                           <br/>
                           <input
                             type="email"
@@ -79,7 +94,7 @@ const Auth = () => {
                             onChange={(e)=>handlesignup(e)}
                           ></input>
                         </section>
-                        <button className="ctaBtn" onClick={()=>dispatch(signupUser(signup))}>
+                        <button className="ctaBtn" onClick={handlesubmit}>
                           Create Account
                         </button>
                         <footer className="altCta dFlex" style={{justifyContent:"flex-start",alignItems:"center"}}>
@@ -93,16 +108,16 @@ const Auth = () => {
                         </footer>
                       </article>:
                        <article>
-                          <h3 className="heading textCenter">{list.userSignIn.list.message}</h3>
+                          <h3 className="heading textCenter">{list.userSignIn.list.message==='Login Successful'? 'Login Successfully !':list.userSignIn.list.message}</h3>
                        <h4 className="heading textCenter">Sign In</h4>
                        
                        <section className="inputFeed">
-                         <label>Enter Email/Mobile Number: </label>
+                         <label>Enter Email: </label>
                          <br/>
                          <input
-                           type="text"
+                           type="email"
                            className='ant-input'
-                           placeholder="Email/Mobile Number"
+                           placeholder="Email"
                            id="email"
                            value={signin.email}
                           onChange={(e)=>handlesignin(e)}
@@ -129,7 +144,7 @@ const Auth = () => {
                         Forgot password
                          </a>
                          </section>
-                       <button className="ctaBtn" onClick={()=>dispatch(signInUser(signin))}>
+                       <button className="ctaBtn" onClick={handlelogin}>
                          Login
                        </button>
                        <footer className="altCta dFlex" style={{justifyContent:"flex-start",alignItems:"center"}}>

@@ -15,7 +15,7 @@ export const userSlice = createSlice({
 
 export const { setUserList } = userSlice.actions;
 
-export const signupUser = (data) => (dispatch) => {
+export const signupUser = (data,hide) => (dispatch) => {
     console.log(data,"dataget")
   axios
     .post("https://prodymeapi.revivingindia.com/signup/",{
@@ -25,6 +25,12 @@ export const signupUser = (data) => (dispatch) => {
     })
     .then((response) => {
         console.log(response,"response")
+        if(response.data.message==='Registration Successfully'){
+          setTimeout(()=>{
+            hide()
+      
+          },1000)
+        }
       dispatch(setUserList(response.data));
     })
     .catch((error) => console.log(error));

@@ -19,36 +19,69 @@ const Searchbar = () => {
  
   const nav=useNavigate()
   const handlechange=(e)=>{
-    console.log(e.target.value)
+    
     setcategoryname(e.target.value)
   }
 const handledata=()=>{
 setload(true)
-    fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
-        cache: "no-store",
-      
-    }).then((res)=>{
-        return res.json()
-    }).then((res)=>{
-      setload(false)
-      console.log(res,"rakesh")
+if(productname!==''){
+  fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
+    cache: "no-store",
+  
+}).then((res)=>{
+    return res.json()
+}).then((res)=>{
+  setload(false)
+  if(res.data.length>0){
+    console.log("category0",res)
+    nav("/cateogry",{state:{id:"1",data:res.data}})
+  }else{
+    fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+      cache: "no-store",
+     
+  }).then((res)=>{
+      return res.json()
+  }).then((res)=>{
+    setload(false)
+    console.log("category",res)
 
-      nav("/cateogry",{state:{id:"1",data:res.data}})
-    }).catch((err)=>{
-        console.log(err,"err")
-        fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
-          cache: "no-store",
-         
-      }).then((res)=>{
-          return res.json()
-      }).then((res)=>{
-        setload(false)
-        console.log(res,"rakesh")
-        nav("/cateogry",{state:{id:"1",data:res.data}})
-      }).catch((err)=>{
-          console.log(err,"err")
-      })
-    })
+    nav("/cateogry",{state:{id:"1",data:res.data}})
+  }).catch((err)=>{
+  
+  })
+  }
+
+  
+}).catch((err)=>{
+  
+    fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+      cache: "no-store",
+     
+  }).then((res)=>{
+      return res.json()
+  }).then((res)=>{
+    setload(false)
+    console.log("category1",res)
+    nav("/cateogry",{state:{id:"1",data:res.data}})
+  }).catch((err)=>{
+  
+  })
+})
+}else{
+  fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+    cache: "no-store",
+   
+}).then((res)=>{
+    return res.json()
+}).then((res)=>{
+  setload(false)
+  console.log("category1",res)
+  nav("/cateogry",{state:{id:"1",data:res.data}})
+}).catch((err)=>{
+
+})
+}
+   
 
 }
 useEffect(() => {
@@ -63,7 +96,7 @@ useEffect(() => {
    
      <section className="form mxAuto dFlex" style={{marginTop:"0px"}}>
               <header className="selectText" style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
-                <p>Category :</p>
+                <p  className="label-form">Category :</p>
               </header>
               <section className="inputSelection" id="inputSelectionid">
                 <a-input-group compact="">
@@ -74,7 +107,7 @@ useEffect(() => {
                    
                     {users && users.map(item => (
                       
-                      <option value={item} style={{color:"#ff7a34"}}>
+                      <option value={item}  className="label-form" style={{color:"#ff7a34",padding:"10px"}}>
                         {" "}
                         {item}{" "}
                       </option>
