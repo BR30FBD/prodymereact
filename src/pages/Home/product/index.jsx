@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick';
 import Card from '../../../common/Card'
 import "./product.css"
+
 const Product = () => {
- 
+ const [data,setdata]=useState([])
     var settings123 = {
         dots: true,
         infinite: false,
@@ -38,65 +39,21 @@ const Product = () => {
           }
         ]
       };
-       const  prods=[
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 1",
-            rating: 0,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore",
-            price: 23.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 2",
-            rating: 1,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore",
-            price: 24.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 3",
-            rating: 3,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Et",
-            price: 25.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 4",
-            rating: 2.1,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore",
-            price: 27.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 5",
-            rating: 1,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore",
-            price: 24.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 6",
-            rating: 3,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Et",
-            price: 25.65
-          },
-          {
-            image: "http://placehold.it/300x200",
-            name: "Product Name 7",
-            rating: 2.1,
-            description:
-              "Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore",
-            price: 27.65
-          }
-        ]
     
+    useEffect(()=>{
+      fetch('https://prodymeapi.revivingindia.com/getTodayDeals/',{
+            cache: "no-store",
+           
+        }).then((res)=>{
+            return res.json()
+        }).then((res)=>{
+            console.log(res)
+            setdata(res.data)
+        }).catch((err)=>{
+            console.log(err,"err")
+        })
+    },[])
+      
   return (
     <section className="pt30 pb70 backBg products" style={{width:"100%"}}>
     <section className="container">
@@ -106,7 +63,7 @@ const Product = () => {
       </header>
       <aside  >
       <Slider {...settings123}>
-          {prods.map(card => (
+          {data.map(card => (
             <Card card={card} />
           ))}
         </Slider>

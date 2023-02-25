@@ -40,7 +40,7 @@ nav('/')
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }} />
+          <Avatar sx={{ width: 32, height: 32,background:"#ff7a34" }} />
         </Box>
       </Tooltip>
     </Box>
@@ -80,8 +80,8 @@ nav('/')
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
            <NavLink to='/myaccount' style={{textDecoration:"none"}}>
-      <MenuItem onClick={handleClose}>
-        <Avatar /> My Profile
+      <MenuItem onClick={handleClose} sx={{color:"#ff7a34"}}>
+        <Avatar sx={{background:"#ff7a34"}} /> My Profile
       </MenuItem>
       </NavLink>
       <Divider />
@@ -98,7 +98,7 @@ nav('/')
         </ListItemIcon>
         Settings
       </MenuItem> */}
-      <MenuItem onClick={handlelogout}>
+      <MenuItem onClick={handlelogout} sx={{color:"#ff7a34"}}>
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>

@@ -13,7 +13,7 @@ const Insight = () => {
             <h3>New Innovative Plastering solution</h3>
           </header>
           <article>
-            <p>
+            <p className='label-form'>
               {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
               do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -37,7 +37,7 @@ const Insight = () => {
             <section className="fullWidth insightWrapper">
               
                 {/* <img src="http://placehold.it/500x400" alt=""></img> */}
-                <img src="http://placehold.it/400x300" alt=""></img>
+                <img src="https://photo.mybuilder.com/2_thumb/15175574_969e235d51.jpg" style={{width:"400px",height:"500px"}} alt=""></img>
                 {/* <img src="http://placehold.it/600x400" alt=""></img> */}
            
             </section>

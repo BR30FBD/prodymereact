@@ -84,6 +84,9 @@
 .form .inputSelection {
     width: calc(100% - 90px);
 }
+.t-form{
+    width: calc(80% - 90px) !important;
+}
 .topBarActions button {
     /* background-color: #ff7a34; */
     color: white;
@@ -98,6 +101,12 @@
 }
 .topnavbar{
     margin-top: 10px !important;
+}
+.btn-clor{
+    background-color: white !important;
+}
+.btn-cl{
+    color: skyblue !important;
 }
 @media (max-width: 1080px) {
     .topBar {

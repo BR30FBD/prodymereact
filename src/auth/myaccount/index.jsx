@@ -3,12 +3,33 @@ import { NavLink } from 'react-router-dom'
 import stylemyaccount from "./myaccount.css"
 import img from "./b1.png"
 import { useDispatch, useSelector } from 'react-redux'
-import { getprofileData } from '../../action/getprofile'
 import { updateprofileData } from '../../action/updateprofile'
-import axios from 'axios'
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  // border: '1px solid #000',
+  boxShadow: 24,
+  outline: "none",
+  borderRadius:"3px",
+  p: 4
+};
+
 const MyAccount = () => {
-  let accessToken=localStorage.getItem('prodymeApiToken')
+let accessToken=localStorage.getItem('prodymeApiToken')
 const [textarea,settextarea]=useState(false)
+const [open, setOpen] = React.useState(false);
+const handleOpen = () => setOpen(true);
+const handleClose = () => setOpen(false);
   const { list } = useSelector((state) => state.userGetProfile);
   const { list1 } = useSelector((state) => state.ueserupdateprofile);
   const [data,setData]=useState({
@@ -53,6 +74,45 @@ const [textarea,settextarea]=useState(false)
   },[])
   return (
     <div {...stylemyaccount}>
+  <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} >
+          <Typography id="modal-modal-title" variant="h6" component="h2" className="h3-font" sx={{textAlign:"center"}}>
+        Add Your Address
+          </Typography>
+          <div className='main-child'>
+          <div className='form-control'>
+        <label className='label-form'>House No.</label>
+        
+        <input type="text"  required placeholder='House No.'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>Town</label>
+        
+        <input type="text"  required placeholder='Town'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>Land Mark*</label>
+        
+        <input type="text"  required placeholder='Land Mark*'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>PIN Code</label>
+        
+        <input type="text"  required placeholder='PIN Code'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
+        </div>
+          </div>
+          <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
+          <button className='main-child-btn 'onClick={()=>settextarea(!textarea)}>Cancel</button>
+          <button className='main-child-btn'onClick={()=>settextarea(!textarea)}>Submit</button>
+
+          </div>
+        </Box>
+      </Modal>
       <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
            
            <h1 style={{color:"whitesmoke"}}>
@@ -80,8 +140,8 @@ const [textarea,settextarea]=useState(false)
     <h3 className='main-child-h3'>{list1}</h3>
 
      </div>
-<div style={{width:"65%"}}>
-<h3 className='h3-font'>Your Personal Details</h3>
+<div style={{width:"90%"}}>
+<h2 className='h3-font'>Your Personal Details</h2>
 
 </div>
        <div className='main-child'>
@@ -129,25 +189,30 @@ const [textarea,settextarea]=useState(false)
       <hr/>
       <section className="main-myaccount">
     <div className='main-child' style={{justifyContent:"space-between"}}>
-    <h3 style={{textAlign:"left"}} className='h3-font'>Your Addresses</h3>
+    <h2 style={{textAlign:"left"}} className='h3-font'>Your Addresses</h2>
     {textarea ?
     <button className='main-child-btn'onClick={()=>settextarea(!textarea)}>Submit</button>
 
     :
-    <button className='main-child-btn'onClick={()=>settextarea(!textarea)}>Add Address</button>
+    <div className='main-child-btn'onClick={handleOpen}>Add Address</div>
 
 
   }
 
    
      </div>
-       <div className='main-child-address' style={{justifyContent:"flex-start",width:"70%"}}>
+       <div className='main-child-address' style={{justifyContent:"flex-start",width:"90%"}}>
         {[1,2].map((data,index)=>(
+          <div>
+            <div style={{display:"flex",justifyContent:"space-between"}}>
+              <EditIcon/>
+              <CloseIcon/>
+            </div>
        <textarea cols="25" rows="5" id="textarea" className='label-form'>Rakesh Jhunjhunwala 101, Silver oak society, Copernicus marg, Near India Gate, New Delhi 100001</textarea>
-
+</div>
         ))}
         {textarea && 
-         <textarea cols="25" rows="5" id="textarea" className='label-form'>></textarea>
+         <textarea cols="25" rows="5" id="textarea" className='label-form'></textarea>
 
         }
         
@@ -160,12 +225,12 @@ const [textarea,settextarea]=useState(false)
       <hr/>
       <section className="main-myaccount">
     <div className='main-child' style={{justifyContent:"space-between"}}>
-    <h3 style={{textAlign:"left"}} className='h3-font' >Communication Perferences</h3>
+    <h2 style={{textAlign:"left"}} className='h3-font' >Communication Perferences</h2>
   
 
    
      </div>
-       <div className='main-child-address text-100' style={{justifyContent:"flex-start",width:"80%"}}>
+       <div className='main-child-address ' style={{justifyContent:"flex-start",width:"100%"}}>
     <input type="checkbox"/>
         <p className='labe-form'>I would like to receive communication from ProDyme</p>
       
@@ -177,11 +242,11 @@ const [textarea,settextarea]=useState(false)
       <hr/>
       <section className="main-myaccount">
     <div className='password-container' >
-    <h3 style={{textAlign:"left",marginLeft:"50px"}} className='h3-font' >Change Password</h3>
-    <p style={{textAlign:"left",marginLeft:"50px"}} className='label-form'>Please set a strong password by referring to the below guidelines.</p>
+    <h2 style={{textAlign:"left"}} className='h3-font' >Change Password</h2>
+    <p style={{textAlign:"left"}} className='label-form'>Please set a strong password by referring to the below guidelines.</p>
   
 <div className='profile-password-container'>
-  <div>
+  <div style={{width:"40%"}}>
 <div className='form-control w-100'>
         <label className='label-form'>New Password</label>
         
@@ -192,7 +257,7 @@ const [textarea,settextarea]=useState(false)
         
         <input type="text"  required placeholder='Confirm Password'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
         </div>
-      <button className='main-child-btn w-100' type='submit'>Create New Password</button>
+      <button className='w-100 btn-create' type='submit'>Create New Password</button>
 
         </div>
         <div>
@@ -208,6 +273,7 @@ const [textarea,settextarea]=useState(false)
     
      
       </section>
+      <hr/>
       </form>
       </div>
       </div>

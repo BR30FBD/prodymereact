@@ -117,9 +117,9 @@ const Banner = () => {
           <section className="container">
             <header className="head">
               <h1 data-v-679263eb  className="label-form">
-                {" "}
+            
                 Welcome to <strong>Prodyme</strong>, <br></br>your all-in-one
-                construction solution.{" "}
+                construction solution.
               </h1>
             </header>
            <Searchbar category={category}/>
@@ -143,9 +143,9 @@ const Banner = () => {
                   <section className="listNone">
                     <ul className="listNone">
                       {option.optsList.map(opt => (
-                        <li id={opt}  className="label-form"  key={opt} onClick={(e)=>handlecategory(e)}>
-                          {" "}
-                          {opt}{" "}
+                        <li id={opt}  className="label-form " style={{width:"100%"}}  key={opt} onClick={(e)=>handlecategory(e)}>
+                         
+                          {opt}
                         </li>
                       ))}
                     </ul>

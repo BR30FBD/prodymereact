@@ -47,7 +47,7 @@ const hide=()=>{setIsHidden(false)}
  
   return (
 <>
-<section className="topBarActions dFlex alignItemsCenter positionRelative">
+<section id="auth" className="topBarActions dFlex alignItemsCenter positionRelative">
       
             <transition name="auth-fade">
           
@@ -55,9 +55,13 @@ const hide=()=>{setIsHidden(false)}
                   <section className="sign-in whiteBg positionRelative" style={{paddingTop:"10px",paddingBottom:"0px"}}>
                  {isHidden ? 
                  <article>
+                  {list.userSignUp.list.message!=='' &&
                         <h3 className="heading textCenter">{list.userSignUp.list.message}</h3>
 
-                        <h4 className="heading textCenter">Sign Up</h4>
+                  
+                  }
+
+                        <h4 className="heading textCenter label-form" style={{margin:"0px"}}>Sign Up</h4>
                         <section className="inputFeed">
                           <label>Enter Name: </label>
                           <br/>
@@ -94,13 +98,13 @@ const hide=()=>{setIsHidden(false)}
                             onChange={(e)=>handlesignup(e)}
                           ></input>
                         </section>
-                        <button className="ctaBtn" onClick={handlesubmit}>
+                        <button className="ctaBtn label-form" onClick={handlesubmit}>
                           Create Account
                         </button>
-                        <footer className="altCta dFlex" style={{justifyContent:"flex-start",alignItems:"center"}}>
+                        <footer className="altCta dFlex label-form" style={{justifyContent:"flex-start",alignItems:"center"}}>
                           <p>Existing user ?</p>
                           <a
-                            className="txtBtn"
+                            className="txtBtn label-form"
                             onClick={()=>setIsHidden(!isHidden)}
                           >
                             Sign in
@@ -108,10 +112,13 @@ const hide=()=>{setIsHidden(false)}
                         </footer>
                       </article>:
                        <article>
+                        {list.userSignIn.list.message!=='' &&
                           <h3 className="heading textCenter">{list.userSignIn.list.message==='Login Successful'? 'Login Successfully !':list.userSignIn.list.message}</h3>
-                       <h4 className="heading textCenter">Sign In</h4>
+                        
+                        }
+                       <h4 className="heading textCenter label-form" style={{margin:"0px"}}>Sign In</h4>
                        
-                       <section className="inputFeed">
+                       <section className="inputFeed ">
                          <label>Enter Email: </label>
                          <br/>
                          <input
@@ -137,20 +144,20 @@ const hide=()=>{setIsHidden(false)}
                        </section>
                        <section className="inputFeed"       style={{textAlign:"center",width:"100%"}}>
                        <a
-                           className="txtBtn" 
+                           className="txtBtn label-form" 
                      
                           
                          >
                         Forgot password
                          </a>
                          </section>
-                       <button className="ctaBtn" onClick={handlelogin}>
+                       <button className="ctaBtn " onClick={handlelogin}>
                          Login
                        </button>
                        <footer className="altCta dFlex" style={{justifyContent:"flex-start",alignItems:"center"}}>
-                         <p>New user ?</p>
+                         <p className='label-form'>New user ?</p>
                          <a
-                           className="txtBtn"
+                           className="txtBtn label-form"
                            onClick={()=>setIsHidden(!isHidden)}
                           
                          >

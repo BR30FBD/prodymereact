@@ -161,3 +161,49 @@
   .containerc {
     padding: 2px 16px;
   }
+  .box-value{
+    width: 12%;
+    text-align: center;
+    border: 1px solid #ff7a34;
+    border-radius: 6px;
+    height: 20px;
+    
+  }
+  h4{
+    height: 50px !important;
+  }
+  .pagnation{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-weight: 700;
+    font-size:30px;
+  }
+  .pagination-item{
+    font-size: 20px !important;
+  }
+  .h4-txt{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    
+    
+  }
+  .text-overflow{
+    min-height: 100px !important;
+  }
+  .qty-add-sub{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width:50%;
+  }
+  
+  .addicon{
+    font-size: xx-large;
+    font-weight: 700;
+    margin: 5px;
+    cursor: pointer;
+  }

@@ -3,10 +3,9 @@ import "./loader.css"
 const Loader = () => {
   return (
 <>
-<div style={{width:"100vw",height:"100vh",zIndex:"99999999999999999",background:"#fdfdfdb0",position:"fixed",top:"0"}}>
-<div class="ring">Loading
-  <span className='spanitem'></span>
-</div>
+<div style={{width:"100vw",height:"100vh",zIndex:"99999999999999999",background:"#fdfdfdb0",position:"fixed",top:"0",display:"flex",justifyContent:"center",alignItems:"center"}}>
+<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
 </div>
 </>
   )

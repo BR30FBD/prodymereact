@@ -1,7 +1,7 @@
 .product-details-continer{
   width: 100%;
   display: flex;
- height: 100vh;
+ height: 100%;
  background-color: #f8f8f8;
 }
 .product-details-continer-child-side1{
@@ -15,7 +15,7 @@
   text-align: center;
 }
 .sidebar-tags{
-  margin-top: 100px;
+  margin-top: 20px;
   margin-bottom: 100px;
 }
 .sidebar-tags-h2{
@@ -44,7 +44,11 @@
   bottom: 100px;
 }
 .sidebar-tags-btn-container-nested{
-  width: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: inherit;
+
   
 }
 .carousal-sidebar{
@@ -59,11 +63,12 @@
 .carousal-sidebar-child1{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: baseline;
+  align-items: baseline;
 }
 .imgtag-carousal{
   width: 80px;
+  height: 100px;
   border-radius: 9px;
   margin: 5px;
   cursor: pointer;
@@ -71,10 +76,11 @@
 .carousal-sidebar-child2{
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
 }
 .imgtag-carousal-active{
-  width: 300px;
+  width: 500px;
+  height: 550px;
   border-radius: 9px;
   margin: 5px;
 }
@@ -87,11 +93,13 @@
   font-family: sans-serif;
   font-size: 50px;
   margin-bottom: 0px;
-  color: #6c7f85;
+  color: #000000;
 }
 .side2-title-p{
-  margin-top: 0px;
-  color: #6c7f85;
+  font-family: sans-serif;
+  font-size: 30px;
+  margin-bottom: 0px;
+  color: #ff7a34;
 }
 .start-icon{
   font-size: 30px;
@@ -104,8 +112,9 @@
 }
 .review-section{
   display: flex;
-  justify-content: space-around;
+  justify-content:center;
   align-items: center;
+  
 }
 .product-details-continer-child-side2{
   width: 100%;
@@ -116,13 +125,14 @@
   justify-content: space-between;
 }
 .emptybox{
-  width: 30%;
+  width: 40%;
 }
 .discription-text{
-  margin-top: 50px;
-  width: 70%;
+  /* margin-top: 50px; */
+  width: 100%;
   font-weight: 500;
   font-family: sans-serif;
+  padding: 10px;
 }
 .qty-details{
   display: flex;
@@ -140,4 +150,51 @@
   background-color: #fff;
   border-radius: 13px;
   cursor: pointer;
+}
+.offer-section{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  margin: 50px;
+  margin-top: 0px;
+}
+.offer-section-card{
+  width: 150px;
+  height: 100px;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 13px;
+  cursor: pointer;
+  border: 1px solid #ff7a34 ;
+}
+.offer-title{
+  width: 80%;
+  text-align: start;
+  margin-left: 50px;
+}
+.offer-container{
+  width: 100%;
+  display: flex;
+  height: 170px;
+}
+.about-section{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.about-child1{
+  width: 50%;
+}
+.about-child2{
+  width: 50%;
+}
+.mt-10{
+  margin-top: 10px;
+}
+.tr-details{
+  background-color: #ff7a34 !important;
+}
+.text-center{
+  text-align: center;
 }

@@ -30,6 +30,7 @@ export const signInUser = (data,fun) => (dispatch) => {
       if(response.data.message=='Login Successful'){
         setTimeout(()=>{
     fun()
+    dispatch(setUserList(''))
         },1000)
       }
    

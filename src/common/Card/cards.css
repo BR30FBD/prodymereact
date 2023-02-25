@@ -66,7 +66,7 @@
     border-radius: 20px;
 }
 .globalCard .cardImage {
-    height: 190px;
+    height: 250px;
 }
 .globalCard .cardImage ._image {
     height: inherit;
@@ -74,8 +74,8 @@
 .globalCard .cardImage ._image img {
     max-width: 100%;
     max-height: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    /* border-top-left-radius: 20px; */
+    /* border-top-right-radius: 20px; */
     object-fit: contain;
     object-position: top;
 }

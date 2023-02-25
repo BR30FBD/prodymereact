@@ -15,15 +15,16 @@ import MyAccount from './auth/myaccount';
 import Checkout from './pages/checkout';
 import MyOrder from './pages/myorder';
 import MyWishlist from './pages/mywishlist';
+import { useState } from 'react';
 
 function App() {
-
+const [dis,setdis]=useState(false)
   return (
-    <>
+    <div onClick={()=>setdis(false)}>
    
 
     <Router>
-   <Header/>
+   <Header close={dis}/>
 
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -38,7 +39,7 @@ function App() {
 
     </Router>
   
-  </>
+  </div>
   );
 }
 

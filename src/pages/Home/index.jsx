@@ -16,7 +16,6 @@ useEffect(()=>{
      <Banner/>
   
    <Offering/>
-<Modal/>
 
    <Insight/>
    <Product/>

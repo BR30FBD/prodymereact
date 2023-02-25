@@ -1,17 +1,15 @@
-import axios from 'axios'
+import  Axios  from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { fetchAllUsers } from '../action/slice'
 import Loader from './Loader'
-
+import style from '../pages/Home/banner/banner.css'
 const Searchbar = () => {
   const  [load,setload]=useState(false)
   const [productname,setpoductname]=useState('')
-  const [categoryname,setcategoryname]=useState('All')
-  const dispatch = useDispatch();
+  const [categoryname,setcategoryname]=useState('Kitchen')
 
-  const { list } = useSelector((state) => state.category);
   
 
   const [users, setUsers] = useState([]);
@@ -22,7 +20,8 @@ const Searchbar = () => {
     
     setcategoryname(e.target.value)
   }
-const handledata=()=>{
+const handledata=(e)=>{
+  e.preventDefault()
 setload(true)
 if(productname!==''){
   fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
@@ -85,36 +84,41 @@ if(productname!==''){
 
 }
 useEffect(() => {
-  dispatch(fetchAllUsers());
-  setUsers(list);
-}, [dispatch, list]);
+  Axios.get('https://prodymeapi.revivingindia.com/api/getCategory/').then((res)=>{
+    setUsers(res.data.data)
+  })
+ 
+}, []);
   return (
     <>
     {load &&
       <Loader/>
     }
-   
-     <section className="form mxAuto dFlex" style={{marginTop:"0px"}}>
+   <form onSubmit={handledata} >
+     <section  {...style} className="form mxAuto dFlex" style={{marginTop:"0px"}}>
               <header className="selectText" style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
                 <p  className="label-form">Category :</p>
               </header>
               <section className="inputSelection" id="inputSelectionid">
-                <a-input-group compact="">
-                  <select style={{width:"15%",height:"100%",border:"none",outline:"none",color:"#ff7a34",borderRadius:"13px"}}
+                <a compact="">
+                  <select style={{width:"20%",padding:"10px",height:"100%",border:"none",outline:"none",borderRadius:"13px"}}
                     default-value="All"
                     onChange={(e)=>handlechange(e)}
                   >
                    
                     {users && users.map(item => (
                       
-                      <option value={item}  className="label-form" style={{color:"#ff7a34",padding:"10px"}}>
-                        {" "}
-                        {item}{" "}
+                      <option value={item} >
+                 
+                        {item}
                       </option>
                     ))}
                   </select>
-                  <input type="search" className='inputsearch' style={{width:"80%",height:"100%",outline:"none",borderRadius:"13px"}} placeholder="Search Categories" onChange={(e)=>setpoductname(e.target.value)}></input>
-                  <span className="ant-input-suffix" onClick={handledata}>
+                  
+                  
+                  <input type="search" className='inputsearch' style={{width:"75%",height:"100%",outline:"none",borderRadius:"13px"}} placeholder="Search Categories" onChange={(e)=>setpoductname(e.target.value)}></input>
+                  
+                  <span className="ant-input-suffix"  onClick={(e)=>handledata(e)}>
             <i
               aria-label="icon: search"
               tabIndex={-1}
@@ -134,9 +138,10 @@ useEffect(() => {
               </svg>
             </i>
           </span>
-                </a-input-group>
+                </a>
               </section>
             </section>
+            </form>
     </>
   )
 }
