@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import  Axios  from 'axios'
+import { IP_ADDRESS } from '../../ip'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -60,7 +62,7 @@ const Details = () => {
     window.scrollTo(0,0)
     setDetails(data)
     setIMG(data.productImage)
-    fetch(`https://prodymeapi.revivingindia.com/api/getProductSimilar/${data.product_id_id}/`,{
+    fetch(`${IP_ADDRESS}api/getProductSimilar/${data.product_id_id}/`,{
       cache: "no-store",
      
   }).then((res)=>{
@@ -81,98 +83,56 @@ const Details = () => {
         handleClose()
             },2000)
     }else{
-      handleOpen()
-      setmsg('Order Place Successfully!')
-      setTimeout(()=>{
-        nav('/myorder')
+      let accessToken=localStorage.getItem('prodymeApiToken')
+
+      let config={
+          headers: { Authorization: `Token ${accessToken}` }
+      }
+      const obj={
+        orderData:[details],
+        totalAmount:details.price*NUM
+      }
+      Axios.post(`${IP_ADDRESS}postOrder/`,obj,config)
+      .then((res)=>{
+  console.log(res.data,"buy") 
+  handleOpen()
+  setmsg(res.data.message)
+  
+  setTimeout(()=>{
+    nav('/myorder')
   handleClose()
-      },2000)
+  },2000)
+      }).catch((err)=>{
+        console.log(err)
+        handleOpen()
+        setmsg(err.message)
+        
+        setTimeout(()=>{
+        handleClose()
+        },2000)
+      })
     }
   }
   const handlecart=()=>{
     let qtyval=NUM;
-
+let neobj=details;
+neobj.qty=qtyval;
     let ID=details.product_id_id || details.product_id;
-
     let productcart=JSON.parse(localStorage.getItem('Cart')) || [];
-    if(productcart.length>0){
-      let arr=productcart.filter((data,index)=>{
-        if(productcart.length>0){
-         if(data.product_id==ID){
-           console.log("cart",data)
-             
-               if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-                 var array = []; }
-                 data.qty=qtyval;
-                 console.log(data,"newobj")
-               array.push(data)
-               let uniqueArr = array.filter((obj, index, self) =>
-         index === self.findIndex((o) => o.product_id === obj.product_id)
-       );
-       
-                 localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-                 setmsg("Product Cart Added Successfully !")
-                 handleOpen()
-                 setTimeout(()=>{
-                   handleClose()
-                 },1000)
-             }else   if(data.product_id_id==ID){
-           
-                 
-                   if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-                     var array = []; }
-                     data.qty=qtyval;
-                     console.log(data,"newobj")
-                   array.push(data)
-                   let uniqueArr = array.filter((obj, index, self) =>
-             index === self.findIndex((o) => o.product_id === obj.product_id)
-           );
-           
-                     localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-                     setmsg("Product Cart Added Successfully !")
-                     handleOpen()
-                     setTimeout(()=>{
-                       handleClose()
-                     },1000)
-                 }
-        }else{
-         if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-           var array = []; }
-           data.qty=qtyval;
-        
-         array.push(data)
-         let uniqueArr = array.filter((obj, index, self) =>
-   index === self.findIndex((o) => o.product_id === obj.product_id)
-   );
-   
-           localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-           handleOpen()
-           setmsg("Product Cart Added Successfully !")
-           setTimeout(()=>{
-   
-             handleClose()
-           },1000)
-        }
+    if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
+      var array = []; }
+      data.qty=qtyval;
       
-       })
-    }else{
-       if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-           var array = []; }
-           data.qty=qtyval;
-        
-         array.push(data)
-         let uniqueArr = array.filter((obj, index, self) =>
-   index === self.findIndex((o) => o.product_id === obj.product_id)
-   );
-   
-           localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-           handleOpen()
-           setmsg("Product Cart Added Successfully !")
-           setTimeout(()=>{
-   
-             handleClose()
-           },1000)
-        }
+  array.push(data)
+    
+    localStorage.setItem('Cart',JSON.stringify(array));
+    handleOpen()
+    setmsg("Product Cart Added Successfully !")
+    setTimeout(()=>{
+
+      handleClose()
+    },1000)
+  
       
        
     
@@ -369,16 +329,15 @@ Upto ₹2,486.65 EMI interest savings on select Credit ...
 </div>
 <div className='review-section' style={{justifyContent:"center"}}>
 <div className='emptybox'></div>
-<div  style={{marginTop:"50px",width:"400px"}}>
-<div className='checkout-main-div' style={{width:"80%"}}>
-                <h5 className='header-checkout h3-font'>Product Feature</h5>
+<div  style={{marginTop:"10px",width:"400px"}}>
+<div className='checkout-main-div' style={{width:"100%"}}>
             <table className='checkout-main-table'>
                 <thead className='checkout-table-head'>
                     <tr className='checkout-table-head-tr tr-details h3-font' style={{fontSize:"20px",border:"1px solid dark"}}>
                         <td  style={{color:"#fff",textAlign:"center"}}>General</td> <td  style={{color:"#fff",textAlign:"center"}}>Item</td> 
                     </tr>
                 </thead>
-                <tbody className='checkout-table-body'>
+                <tbody className='checkout-table-body' style={{height:"100px"}}>
                     
                     
   <tr className='checkout-table-body-tr'>

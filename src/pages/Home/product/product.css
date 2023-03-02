@@ -45,8 +45,15 @@
     line-height: 62px;
 }
 .slick-next{
-    display: none !important;
+    right:0px;
+    z-index: 3;
+    color: black;
 }
 .slick-prev{
-    display: none !important;
+    left: 0px;
+    z-index: 3;
+    color: black;
+}
+.slick-next:before, .slick-prev:before{
+    color: black;
 }

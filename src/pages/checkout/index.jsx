@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import  Axios  from 'axios';
+import { IP_ADDRESS } from '../../ip';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -20,6 +22,10 @@ const style = {
 };
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
+  const [email,setemail]=useState('');
+  const [name,setname]=useState('');
+  const [guest,setguest]=useState(false)
+
   const [msg,setmsg]=useState('')
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,38 +38,61 @@ const total=localStorage.getItem('Cart') && JSON.parse(localStorage.getItem('Car
 }).reduce((partialSum, a) => partialSum + a, 0)
 
 const handleAdd=(e)=>{
+  const datalocal=JSON.parse(localStorage.getItem('Cart'))
   let newdata=cardata[e.target.id]
-  let uniqueId=newdata.product_id;
-  for(let i=0;i<cardata.length;i++){
-    if(cardata[i].product_id===uniqueId){
-      cardata[i].qty=cardata[i].qty+1;
-    }
-  setcardata(cardata)
+  let uniqueId=newdata.product_id || newdata.product_id_id;
+  
 
-  localStorage.setItem('Cart',JSON.stringify(cardata))
+  for(let i=0;i<datalocal.length;i++){
+    if(datalocal[i].product_id==uniqueId){
+      console.log(uniqueId)
+      datalocal[i].qty=parseInt(cardata[i].qty)+1;
+    }else if(datalocal[i].product_id_id==uniqueId){
+      console.log(newdata)
+          
+          datalocal[i].qty=parseInt(cardata[i].qty)+1;
+         
+        }
+  setcardata(datalocal)
+
+  localStorage.setItem('Cart',JSON.stringify(datalocal))
 
   }
  
 }
 const handleSub=(e)=>{
+  const datalocal=JSON.parse(localStorage.getItem('Cart'))
   let newdata=cardata[e.target.id]
-  let uniqueId=newdata.product_id;
-  for(let i=0;i<cardata.length;i++){
-    if(cardata[i].product_id===uniqueId){
+  let uniqueId=newdata.product_id || newdata.product_id_id;
+  for(let i=0;i<datalocal.length;i++){
+    if(datalocal[i].product_id==uniqueId){
+  console.log(newdata)
       
-      cardata[i].qty=cardata[i].qty-1;
-      if(cardata[i].qty===0){
-        for(let j=i;j<cardata.length;j++){
-          cardata[j]=cardata[j+1]
+      datalocal[i].qty=parseInt(cardata[i].qty)-1;
+      if(datalocal[i].qty===0){
+        for(let j=i;j<datalocal.length;j++){
+          datalocal[j]=cardata[j+1]
         }
-        cardata.length=cardata.length-1
-        setcardata(cardata)
-        localStorage.setItem('Cart',JSON.stringify(cardata))
+        datalocal.length=datalocal.length-1
+        setcardata(datalocal)
+        localStorage.setItem('Cart',JSON.stringify(datalocal))
       }
-    }
-  setcardata(cardata)
+    }else if(datalocal[i].product_id_id==uniqueId){
+      console.log(newdata)
+          
+          datalocal[i].qty=parseInt(cardata[i].qty)-1;
+          if(datalocal[i].qty===0){
+            for(let j=i;j<datalocal.length;j++){
+              datalocal[j]=cardata[j+1]
+            }
+            datalocal.length=datalocal.length-1
+            setcardata(datalocal)
+            localStorage.setItem('Cart',JSON.stringify(datalocal))
+          }
+        }
+  setcardata(datalocal)
 
-  localStorage.setItem('Cart',JSON.stringify(cardata))
+  localStorage.setItem('Cart',JSON.stringify(datalocal))
 
   }
  
@@ -71,18 +100,68 @@ const handleSub=(e)=>{
 const handleCheckout=()=>{
   if(!accessToken){
     handleOpen()
-    setmsg('Please Login First !')
+    setmsg('Please Fill The Information !')
+    setguest(true)
     setTimeout(()=>{
-      handleClose()
+      // handleClose()
           },2000)
   }else{
-    handleOpen()
-    setmsg('Order Place Successfully!')
-    setTimeout(()=>{
-      nav('/myorder')
+    let accessToken=localStorage.getItem('prodymeApiToken')
+
+    let config={
+        headers: { Authorization: `Token ${accessToken}` }
+    }
+    const obj={
+      orderData:cardata,
+      totalAmount:total
+    }
+    Axios.post(`${IP_ADDRESS}postOrder/`,obj,config)
+    .then((res)=>{
+console.log(res.data) 
+handleOpen()
+setmsg(res.data.message)
+
+setTimeout(()=>{
+  nav('/myorder')
+  localStorage.removeItem('Cart');
+
 handleClose()
-    },2000)
+},2000)
+    }).catch((err)=>{
+      console.log(err)
+      handleOpen()
+      setmsg(err.message)
+      
+      setTimeout(()=>{
+        nav('/myorder')
+      handleClose()
+      },2000)
+    })
+   
   }
+}
+const handlesubmit=(e)=>{
+  e.preventDefault()
+  const obj={
+    email:email,
+    name:name,
+    totalAmount:total,
+    orderData:cardata
+  }
+  console.log(obj,"obj")
+  Axios.post(`${IP_ADDRESS}GuestCheckout/`,obj).then((res)=>{
+    console.log(res)
+    setmsg(res.data.message)
+    setTimeout(()=>{
+      setmsg('')
+      nav('/')
+      localStorage.removeItem('Cart')
+      handleClose()
+    },2000)
+  }).catch((err)=>{
+    console.log(err)
+    setmsg(err.message)
+  })
 }
 useEffect(()=>{
   setcardata(cardata1)
@@ -97,10 +176,32 @@ useEffect(()=>{
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center"}}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center",marginBottom:"20px"}}>
          {msg}
           </Typography>
-       
+          {guest &&
+           <form onSubmit={handlesubmit}>
+           <div className='main-child'>
+           <div className='form-control'>
+         <label className='label-form'>Name</label>
+         
+         <input type="text"  required placeholder='Name'className='form-input'  onChange={(e)=>setname(e.target.value)} />
+         </div>
+         <div className='form-control'>
+         <label className='label-form'>Email</label>
+         
+         <input type="email"  required placeholder='Email'className='form-input' onChange={(e)=>setemail(e.target.value)} />
+         </div>
+      
+           </div>
+           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
+           <button className='main-child-btn ' onClick={()=>handleClose()}>Cancel</button>
+           <button className='main-child-btn' type='submit'>Submit</button>
+ 
+           </div>
+           </form>
+          }
+         
         </Box>
       </Modal>
       <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>

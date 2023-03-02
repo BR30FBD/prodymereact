@@ -7,6 +7,7 @@ import animationData3 from "../../../assets/json/help"
 import Searchbar from '../../../common/searchbar';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../common/Loader';
+import { IP_ADDRESS } from '../../../ip';
 const Banner = () => {
   const  [load,setload]=useState(false)
   const [category,setcategory]=useState([])
@@ -75,28 +76,25 @@ const Banner = () => {
         const nav=useNavigate()
      const handlecategory=(e)=>{
       setload(true)
-      console.log(e.target.id)
       
-      fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${e.target.id}`,{
+      fetch(`${IP_ADDRESS}api/getproduct/${e.target.id}`,{
           cache: "no-store",
          
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
         setload(false)
-        console.log(res,"rakesh")
-        nav("/cateogry",{state:{id:"1",data:res.data}})
+        nav("/cateogry",{state:{id:"1",data:res.data,category:e.target.id}})
       }).catch((err)=>{
           console.log(err,"err")
       })
      }
    useEffect(()=>{
     setload(true)
-    fetch('https://prodymeapi.revivingindia.com/api/getCategory/',{
+    fetch(`${IP_ADDRESS}api/getCategory/`,{
         cache: "no-store",
        
     }).then((res)=>{
-        console.log(res,"rakesh")
         return res.json()
     }).then((res)=>{
       setload(false)

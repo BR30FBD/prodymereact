@@ -14,7 +14,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-let PageSize = 8;
+import  Axios  from 'axios';
+import { IP_ADDRESS } from '../../ip';
+let PageSize = 4;
 let PageSize1 = 4;
 const style = {
   position: 'absolute',
@@ -30,6 +32,7 @@ const style = {
 };
 
 const Category = () => {
+  const [msg,setmsg]=useState('')
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,16 +54,12 @@ const Category = () => {
     }, [currentPage]);
   
     const handlecart=(e)=>{
-      console.log(e.target.parentElement.childNodes[0].childNodes[1].value)
       let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
-      // console.log(currentTableData[e.target.id])
       let arr=productdata.filter((data,index)=>{
         if(data.product_id==e.target.id){
-          console.log(data)
           if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
             var array = []; }
             data.qty=qtyval;
-            console.log(data,"newobj")
           array.push(data)
           let uniqueArr = array.filter((obj, index, self) =>
     index === self.findIndex((o) => o.product_id === obj.product_id)
@@ -68,29 +67,30 @@ const Category = () => {
   
             localStorage.setItem('Cart',JSON.stringify(uniqueArr));
             handleOpen()
+            setmsg('Product Cart Added Successfully !')
             setTimeout(()=>{
               handleClose()
+              setmsg('')
             },1000)
         }
       })
 
     }
    const handlecategory=(e)=>{
-    fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${e.target.id}`,{
+    fetch(`${IP_ADDRESS}api/getproduct/${e.target.id}`,{
       cache: "no-store",
      
   }).then((res)=>{
       return res.json()
   }).then((res)=>{
-    // setload(false)
-    console.log("category",res)
+   
 
     nav("/cateogry",{state:{id:"1",data:res.data}})
     window.location.reload()
   })
    }
     const handledetails=(e)=>{
-      fetch(`https://prodymeapi.revivingindia.com/api/getProductDetailOneData/${e.target.id}/`,{
+      fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
         cache: "no-store",
        
     }).then((res)=>{
@@ -106,7 +106,7 @@ const Category = () => {
     }
 
     useEffect(()=>{
-    fetch('https://prodymeapi.revivingindia.com/api/getCategoryImage/',{
+    fetch(`${IP_ADDRESS}api/getCategoryImage/`,{
         cache: "no-store",
        
     }).then((res)=>{
@@ -126,7 +126,7 @@ const Category = () => {
 
 
     useEffect(()=>{
-      fetch('https://prodymeapi.revivingindia.com/getFiveRatingData/',{
+      fetch(`${IP_ADDRESS}getFiveRatingData/`,{
         cache: "no-store",
        
     }).then((res)=>{
@@ -138,7 +138,7 @@ const Category = () => {
     })
     },[])
     useEffect(()=>{
-      fetch('https://prodymeapi.revivingindia.com/getThreeRatingData/',{
+      fetch(`${IP_ADDRESS}getThreeRatingData/`,{
         cache: "no-store",
        
     }).then((res)=>{
@@ -156,20 +156,17 @@ const Category = () => {
     }, [currentPage1,state]);
     const handleAdd=(e)=>{
 
-      console.log(e.target.id)
       if(!e.target.id){
         console.log("not found")
       }else{
         let ele=document.getElementById(e.target.id).parentElement;
         let val=ele.childNodes[1].value;
         ele.childNodes[1].value=parseInt(val)+1;
-        console.log(ele.childNodes[1])
       }
 
      
     }
     const handleSub=(e)=>{
-      console.log(e.target.id)
       if(!e.target.id){
         console.log("not found")
       }else{
@@ -179,11 +176,42 @@ const Category = () => {
         if(val>1){
        
           ele.childNodes[1].value=parseInt(val)-1;
-          console.log(ele.childNodes[1])
         }
        
       }
 
+    }
+    const handlewishlist=(e)=>{
+      let accessToken=localStorage.getItem('prodymeApiToken')
+      if(!accessToken){
+        handleOpen()
+        setmsg('Please Login First !')
+        setTimeout(()=>{
+          handleClose()
+          setmsg('')
+        },2000)
+      }
+      let wishlistData=productdata.filter((data,index)=>{
+        if(data.product_id===e){
+          return data;
+        }
+      });
+      let newobj={
+        product_list:wishlistData
+      }
+      let config={
+          headers: { Authorization: `Token ${accessToken}` }
+      }
+      Axios.post(`${IP_ADDRESS}wishlist/`,newobj,config).then((res)=>{
+        handleOpen()
+        setmsg(res.data.message)
+        setTimeout(()=>{
+          handleClose()
+          setmsg('')
+        },2000)
+      }).catch((err)=>{
+        console.log(err)
+      })
     }
   return (
     <>
@@ -195,7 +223,7 @@ const Category = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center"}}>
-           Product Cart Added Successfully !
+         {msg}
           </Typography>
        
         </Box>
@@ -210,7 +238,7 @@ const Category = () => {
      <section style={{marginTop:"10px",borderTop:"2px #ff7a34"}}>
         <div  style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
           {currentTableData1.map((item,index) => (
-            <div className="cardc" id={item.category_name} onClick={(e)=>handlecategory(e)}>
+            <div className="cardc" id={item.category_name} key={index} onClick={(e)=>handlecategory(e)}>
             <img src={item.categoryImage} id={item.category_name}  alt="Avatar" style={{width:"100%",height:"250px" }}/>
             <div className="containerc" id={item.category_name} >
               <h4 id={item.category_name} ><b id={item.category_name}  className='h3-font'> {item.category_name}</b></h4> 
@@ -283,14 +311,14 @@ const Category = () => {
           </span>
         </div>
         <div>
-          <h2 className="product-heading h3-font">Category of Products</h2>
+          <h2 className="product-heading h3-font">{location.state.category || ""} Products</h2>
           <aside className="card-p20" style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
             {currentTableData.length >0 ? 
             currentTableData.map((item,index) => (
         
-               <div className="cardc" id={item.product_id}>
+               <div className="cardc" key={index} id={item.product_id}>
                 <div style={{width:"100%",textAlign:"end"}}>
-                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}}/>
+                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist(`${item.product_id}`)} />
                 </div>
                <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }}  onClick={(e)=>handledetails(e)} id={item.product_id}/>
                <div className="containerc" id={item.product_id}>
@@ -391,6 +419,99 @@ const Category = () => {
         </div>
       </section>
       <Carousal fivestar={fivestar} threestar={threestar}/>
+      <h2 className="product-heading h3-font">{location.state.category || ""} Products</h2>
+          <aside className="card-p20" style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
+            {currentTableData.length >0 ? 
+            currentTableData.map((item,index) => (
+        
+               <div className="cardc" key={index} id={item.product_id}>
+                <div style={{width:"100%",textAlign:"end"}}>
+                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist(`${item.product_id}`)} />
+                </div>
+               <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }}  onClick={(e)=>handledetails(e)} id={item.product_id}/>
+               <div className="containerc" id={item.product_id}>
+                 <h4 style={{height:"50px"}}><b className='h3-font text-overflow'  id={item.product_id} onClick={(e)=>handledetails(e)} >{item.productName}</b></h4> 
+                 <aside className="_rating mb10" id={item.product_id}>
+                 {Math.round(item.ratingProduct)===1 &&
+                 <>
+                          <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                 </>
+                 }
+                 {Math.round(item.ratingProduct)===2 &&
+                 <>
+                  <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                 </>
+                 }
+                 {Math.round(item.ratingProduct)===3 &&
+                 <>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                 </>
+                 }
+                {
+                  Math.round(item.ratingProduct)===4 &&
+                  <>
+             <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+           <StarOutlineIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                  </>
+                }
+                {Math.round(item.ratingProduct)===5 &&
+                <>
+               <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                <StarIcon sx={{color:"#ff7a34",fontSize:"30px"}}  id={item.product_id}/>
+                </>
+                }
+                 </aside>
+                 <hr/>
+                 <article className="_price dFlex alignItemsCenter" id={item.product_id}>
+                   <strong className="fs28 h3-font" id={item.product_id}>₹ {item.price}</strong>
+                   {/* <b className="fs16 pl10 h3-font" id={item.product_id}>per box</b> */}
+                 </article>
+                 
+                 <footer className="_comparator ">
+                 <div className='qty-details' style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+<div className='qty-add-sub' >
+<div className='addicon' id={item.product_id+"sub"+index} onClick={(e)=>handleSub(e)}>-</div>
+  <input type="text" value={1} className='box-value'/>
+  <div className='addicon' id={item.product_id+"add"+index} onClick={(e)=>handleAdd(e)}>+</div>
+  </div>
+<input type="checkbox" className='box-value' style={{marginLeft:"26px"}} id={item.product_id} onClick={(e)=>handlecart(e)}/><h5 className='h3-font' >Add To Cart</h5>
+</div>
+                 </footer>
+               </div>
+             </div>
+
+            )) :
+            <h1 className='h3-font'>Result Not Found !</h1>
+            }
+            
+          </aside>
+          <div className='pagnation'>
+          <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={productdata.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
+      </div>
     </>
   )
 }

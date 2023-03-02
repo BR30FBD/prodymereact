@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IP_ADDRESS } from "../ip";
 
 export const userSlice = createSlice({
   name: "search",
@@ -18,9 +19,8 @@ export const { setSearchList } = userSlice.actions;
 
 export const searchdata = (a,b) => (dispatch) => {
   axios
-    .get(`https://prodymeapi.revivingindia.com/api/searchFilter/${a}/${b}`)
+    .get(`${IP_ADDRESS}api/searchFilter/${a}/${b}`)
     .then((response) => {
-        console.log(response,"response")
       if(response.data.status===200){
 
       }

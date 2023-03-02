@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import getwishlist, { getwishlistData } from '../../action/getwishlist';
+import { IP_ADDRESS } from '../../ip';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -33,18 +35,17 @@ const Header = ({dis}) => {
       const [display,setdisplay]=useState(dis)
       const  [load,setload]=useState(false)
       const [productname,setpoductname]=useState('')
-      const [categoryname,setcategoryname]=useState('Kitchen')
+      const [categoryname,setcategoryname]=useState('ALL')
       const dispatch = useDispatch();
       const [style,setstyle]=useState(false)
     
       const { list } = useSelector((state) => state.category);
+      const { wishlist } = useSelector((state) => state.wishlistData);
       
-    
       const [users, setUsers] = useState([]);
     let cartData=JSON.parse(localStorage.getItem('Cart')) || [];
    
   
-     
       const handlechange=(e)=>{
         
         setcategoryname(e.target.value)
@@ -53,7 +54,7 @@ const Header = ({dis}) => {
       e.preventDefault()
     setload(true)
     if(productname!==''){
-      fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
+      fetch(`${IP_ADDRESS}api/searchFilter/${productname}/${categoryname}`,{
         cache: "no-store",
       
     }).then((res)=>{
@@ -61,19 +62,21 @@ const Header = ({dis}) => {
     }).then((res)=>{
       setload(false)
       if(res.data.length>0){
-        console.log("category0",res)
-        nav("/cateogry",{state:{id:"1",data:res.data}})
+        nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
+    window.location.reload()
+
       }else{
-        fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+        fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
           cache: "no-store",
          
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
         setload(false)
-        console.log("category",res)
     
-        nav("/cateogry",{state:{id:"1",data:res.data}})
+        nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
+    window.location.reload()
+
       }).catch((err)=>{
       
       })
@@ -82,35 +85,36 @@ const Header = ({dis}) => {
       
     }).catch((err)=>{
       
-        fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+        fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
           cache: "no-store",
          
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
         setload(false)
-        console.log("category1",res)
-        nav("/cateogry",{state:{id:"1",data:res.data}})
+        nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
+    window.location.reload()
+
       }).catch((err)=>{
       
       })
     })
     }else{
-      fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+      fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
         cache: "no-store",
        
     }).then((res)=>{
         return res.json()
     }).then((res)=>{
       setload(false)
-      console.log("category1",res)
-      nav("/cateogry",{state:{id:"1",data:res.data}})
+      nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
+    window.location.reload()
+
     }).catch((err)=>{
     
     })
     }
        
-    window.location.reload()
     
     }
       const auth=()=>{
@@ -130,22 +134,24 @@ const Header = ({dis}) => {
       useEffect(()=>{
         window.addEventListener("scroll", updateScroll);
       })
+      let accessToken=localStorage.getItem('prodymeApiToken')
       useEffect(()=>{
         
-    fetch('https://prodymeapi.revivingindia.com/api/getCategory/',{
+    fetch(`${IP_ADDRESS}api/getCategory/`,{
         cache: "no-store",
        
     }).then((res)=>{
-        console.log(res,"rakesh")
         return res.json()
     }).then((res)=>{
         setcategory(res.data)
-    }).catch((err)=>{
-        console.log(err,"err")
     })
    },[])
    useEffect(() => {
     dispatch(fetchAllUsers());
+    if(accessToken){
+      dispatch(getwishlistData());
+
+    }
     setUsers(list);
   }, [dispatch, list]);
   
@@ -246,7 +252,14 @@ const Header = ({dis}) => {
     data-v-aaec3394=""
     className="topBarActions dFlex alignItemsCenter positionRelative"
   >
-    <FavoriteBorderIcon sx={{margin:"20px"}} className='btn-cl' />
+    <NavLink to='/mywishlist'>
+    <IconButton aria-label="cart" className='btn-clor' sx={{background:"#ffff"}}>
+      <StyledBadge badgeContent={wishlist.length} color="secondary" className='btn-cl'>
+      <FavoriteBorderIcon sx={{margin:"20px"}} className='btn-cl' />
+
+      </StyledBadge>
+    </IconButton>
+    </NavLink>
     <NavLink to='/checkout'>
     <IconButton aria-label="cart" className='btn-clor' sx={{background:"#ffff"}}>
       <StyledBadge badgeContent={cartData.length} color="secondary" className='btn-cl'>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IP_ADDRESS } from "../ip";
 export const userSlice = createSlice({
   name: "usersUpdateProfile",
   initialState: {
@@ -22,11 +23,9 @@ export const updateprofileData = (data) => (dispatch) => {
         headers: { Authorization: `Token ${accessToken}` }
     }
     let updatedData=data;
-    console.log("testing")
   axios
-    .post("https://prodymeapi.revivingindia.com/updateprofile/",updatedData,config)
+    .post(`${IP_ADDRESS}updateprofile/`,updatedData,config)
     .then((response) => {
-        console.log("testingupdate",response)
       dispatch(setProfileData(response.data.message));
     })
     .catch((error) => console.log(error));

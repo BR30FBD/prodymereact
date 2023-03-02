@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { fetchAllUsers } from '../action/slice'
 import Loader from './Loader'
 import style from '../pages/Home/banner/banner.css'
+import { IP_ADDRESS } from '../ip'
 const Searchbar = () => {
   const  [load,setload]=useState(false)
   const [productname,setpoductname]=useState('')
-  const [categoryname,setcategoryname]=useState('Kitchen')
+  const [categoryname,setcategoryname]=useState('ALL')
 
   
 
@@ -24,7 +25,7 @@ const handledata=(e)=>{
   e.preventDefault()
 setload(true)
 if(productname!==''){
-  fetch(`https://prodymeapi.revivingindia.com/api/searchFilter/${productname}/${categoryname}`,{
+  fetch(`${IP_ADDRESS}api/searchFilter/${productname}/${categoryname}`,{
     cache: "no-store",
   
 }).then((res)=>{
@@ -32,19 +33,17 @@ if(productname!==''){
 }).then((res)=>{
   setload(false)
   if(res.data.length>0){
-    console.log("category0",res)
-    nav("/cateogry",{state:{id:"1",data:res.data}})
+    nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
   }else{
-    fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+    fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
       cache: "no-store",
      
   }).then((res)=>{
       return res.json()
   }).then((res)=>{
     setload(false)
-    console.log("category",res)
 
-    nav("/cateogry",{state:{id:"1",data:res.data}})
+    nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
   }).catch((err)=>{
   
   })
@@ -53,29 +52,27 @@ if(productname!==''){
   
 }).catch((err)=>{
   
-    fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+    fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
       cache: "no-store",
      
   }).then((res)=>{
       return res.json()
   }).then((res)=>{
     setload(false)
-    console.log("category1",res)
-    nav("/cateogry",{state:{id:"1",data:res.data}})
+    nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
   }).catch((err)=>{
   
   })
 })
 }else{
-  fetch(`https://prodymeapi.revivingindia.com/api/getproduct/${categoryname}`,{
+  fetch(`${IP_ADDRESS}api/getproduct/${categoryname}`,{
     cache: "no-store",
    
 }).then((res)=>{
     return res.json()
 }).then((res)=>{
   setload(false)
-  console.log("category1",res)
-  nav("/cateogry",{state:{id:"1",data:res.data}})
+  nav("/searchresults",{state:{id:"1",data:res.data,category:categoryname,product:productname}})
 }).catch((err)=>{
 
 })
@@ -84,7 +81,7 @@ if(productname!==''){
 
 }
 useEffect(() => {
-  Axios.get('https://prodymeapi.revivingindia.com/api/getCategory/').then((res)=>{
+  Axios.get(`${IP_ADDRESS}api/getCategory/`,{ mode: 'no-cors'}).then((res)=>{
     setUsers(res.data.data)
   })
  

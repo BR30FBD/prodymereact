@@ -51,17 +51,15 @@ const handleClose = () => setOpen(false);
     const newdata={...data};
     newdata[e.target.id]=e.target.value;
     setData(newdata)
-    console.log(data)
   }
   const dataget=()=>{
-    fetch("https://prodymeapi.revivingindia.com/getprofile/",{
+    fetch("https://49fc-103-209-71-109.in.ngrok.io/getprofile/",{
       cache: "no-store",
       headers: { Authorization: `Token ${accessToken}` }
   }).then((response) => {
    return response.json()
 })
   .then((response) => {
-      console.log("testing",response)
    setData(response.data);
   })
   .catch((error) => console.log(error));

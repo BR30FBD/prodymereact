@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import  Axios  from 'axios';
+import { IP_ADDRESS } from '../../ip';
 let PageSize1 = 4;
 const style = {
   position: 'absolute',
@@ -25,19 +27,16 @@ const SimilarProduct = ({data}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-    console.log(data,"simi")
+  const [msg,setmsg]=useState('')
     const [currentPage1, setCurrentPage1] = useState(1);
     const nav=useNavigate()
     const handledetails=(e)=>{
-        console.log(e.target.id,"target")
-        fetch(`https://prodymeapi.revivingindia.com/api/getProductDetailOneData/${e.target.id}/`,{
+        fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
           cache: "no-store",
          
       }).then((res)=>{
           return res.json()
       }).then((res)=>{
-        console.log(res,"rakeshnhkjhuh")
   
         // setState(res.data)
   
@@ -56,20 +55,17 @@ const SimilarProduct = ({data}) => {
       }, [currentPage1,data]);
       const handleAdd=(e)=>{
 
-        console.log(e.target.id)
         if(!e.target.id){
           console.log("not found")
         }else{
           let ele=document.getElementById(e.target.id).parentElement;
           let val=ele.childNodes[1].value;
           ele.childNodes[1].value=parseInt(val)+1;
-          console.log(ele.childNodes[1])
         }
   
        
       }
       const handleSub=(e)=>{
-        console.log(e.target.id)
         if(!e.target.id){
           console.log("not found")
         }else{
@@ -79,23 +75,18 @@ const SimilarProduct = ({data}) => {
           if(val>1){
          
             ele.childNodes[1].value=parseInt(val)-1;
-            console.log(ele.childNodes[1])
           }
          
         }
   
       }
       const handlecart=(e)=>{
-        console.log(e.target.parentElement.childNodes[0].childNodes[1].value)
         let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
-        // console.log(currentTableData[e.target.id])
         let arr=data.filter((data,index)=>{
           if(data.product_id==e.target.id){
-            console.log(data)
             if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
               var array = []; }
               data.qty=qtyval;
-              console.log(data,"newobj")
             array.push(data)
             let uniqueArr = array.filter((obj, index, self) =>
       index === self.findIndex((o) => o.product_id === obj.product_id)
@@ -103,12 +94,46 @@ const SimilarProduct = ({data}) => {
     
               localStorage.setItem('Cart',JSON.stringify(uniqueArr));
               handleOpen()
+              setmsg('Product Cart Added Successfully !')
               setTimeout(()=>{
                 handleClose()
+                setmsg('')
               },1000)
           }
         })
   
+      }
+      const handlewishlist=(e)=>{
+        let accessToken=localStorage.getItem('prodymeApiToken')
+        if(!accessToken){
+          handleOpen()
+          setmsg('Please Login First !')
+          setTimeout(()=>{
+            handleClose()
+            setmsg('')
+          },2000)
+        }
+        let wishlistData=data.filter((data,index)=>{
+          if(data.product_id===e){
+            return data;
+          }
+        });
+        let newobj={
+          product_list:wishlistData
+        }
+        let config={
+            headers: { Authorization: `Token ${accessToken}` }
+        }
+        Axios.post(`${IP_ADDRESS}wishlist/`,newobj,config).then((res)=>{
+          handleOpen()
+          setmsg(res.data.message)
+          setTimeout(()=>{
+            handleClose()
+            setmsg('')
+          },2000)
+        }).catch((err)=>{
+          console.log(err)
+        })
       }
   return (
 <>
@@ -120,7 +145,7 @@ const SimilarProduct = ({data}) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center"}}>
-           Product Cart Added Successfully !
+         {msg}
           </Typography>
        
         </Box>
@@ -133,7 +158,7 @@ const SimilarProduct = ({data}) => {
             
               <div className="cardc" id={item.product_id} >
                  <div style={{width:"100%",textAlign:"end"}}>
-                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}}/>
+                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist(`${item.product_id}`)}/>
                 </div>
               <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }} onClick={(e)=>handledetails(e)} id={item.product_id}/>
               <div className="containerc" id={item.product_id}>

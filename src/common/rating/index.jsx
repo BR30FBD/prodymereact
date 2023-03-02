@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 const Rating = ({num}) => {
     let newnum=Math.round(num);
-    console.log(newnum,"num")
    const data=[];
     useEffect(()=>{
         for(let i=0;i<Math.round(num);i++){

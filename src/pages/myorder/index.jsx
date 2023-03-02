@@ -1,8 +1,31 @@
-import React from 'react'
+import  Axios  from 'axios'
+import React, { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { IP_ADDRESS } from '../../ip'
+import Pagination from '../../pagination'
 import img from "./b1.png"
 import  style from "./myorder.css"
+let PageSize = 8;
 const MyOrder = () => {
+  const [data,setdata]=useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+  let accessToken=localStorage.getItem('prodymeApiToken')
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize|| 0;
+    const lastPageIndex = firstPageIndex + PageSize || PageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage,data]);
+  useEffect(()=>{
+    Axios.get(`${IP_ADDRESS}getOrder/`,{
+      headers:{
+        Authorization: `Token ${accessToken}`
+      }
+    }).then((res)=>{
+      setdata(res.data.data) 
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
   return (
     <div {...style}>
      <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -59,13 +82,13 @@ Order Status</td>
         </tr>
     </thead>
     <tbody className='myorder-tbody'>
-        {[1,2,3,4,5,6,7,8,9,10].map((data,index)=>(
+        {data.length>0 && currentTableData.map((data,index)=>(
   <tr>
-  <td>MM-DD-YY</td>
-  <td><a className='href-link' href="#">xxxxxxxxxxx</a></td>
-  <td>MM-DD-YY</td>
-  <td>INR 100</td>
-  <td><button className='myorder-tbody-btn' style={{background:`${data%2==0 ? "#ffd2c4":""}`}}>In Progress</button></td>
+  <td>{data.Date}</td>
+  <td><a className='href-link' href="#">{data.orderId}</a></td>
+  <td>{data.DeliveryDate}</td>
+  <td>INR {data.totalAmount}</td>
+  <td><button className='myorder-tbody-btn' style={{background:`${data%2==0 ? "#ffd2c4":""}`}}>{data.status}</button></td>
   <td>&#9993;</td>
   </tr>
         ))}
@@ -74,6 +97,14 @@ Order Status</td>
 </table>
         </section>
         </div>
+        <div className='pagnation'>
+        <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={data.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      /></div>
         </div>
     
     </div>

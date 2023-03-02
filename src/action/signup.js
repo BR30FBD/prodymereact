@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IP_ADDRESS } from "../ip";
 export const userSlice = createSlice({
   name: "Signup",
   initialState: {
@@ -16,15 +17,13 @@ export const userSlice = createSlice({
 export const { setUserList } = userSlice.actions;
 
 export const signupUser = (data,hide) => (dispatch) => {
-    console.log(data,"dataget")
   axios
-    .post("https://prodymeapi.revivingindia.com/signup/",{
+    .post(`${IP_ADDRESS}signup/`,{
         name:data.name,
         email:data.email,
         password:data.password
     })
     .then((response) => {
-        console.log(response,"response")
         if(response.data.message==='Registration Successfully'){
           setTimeout(()=>{
             hide()

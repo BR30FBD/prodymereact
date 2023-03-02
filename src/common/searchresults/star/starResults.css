@@ -1,0 +1,46 @@
+.carousal-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.carousal-container-40{
+    width: 33%;
+    height: 100%;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 3px 3px 20px rgb(0 0 0 / 16%);
+    background-color: #fff;
+}
+h4{
+    text-overflow: ellipsis;
+    /* width: 97px; */
+    overflow: hidden;
+}
+.margin-0{
+    margin: 0px !important;
+}
+.carousal-container-60{
+    width: 60%;
+    height: 100%;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 3px 3px 20px rgb(0 0 0 / 16%);
+    background-color: #fff;
+}
+.h1-font-txt{
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: rgba(0,0,0,.85);
+    font-weight: 700;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    background-color: #fff;
+    font-feature-settings: "tnum";
+    font-size: 30px;
+
+}
+.fivestart-container{
+    display: flex;
+    flex-wrap: wrap;
+}

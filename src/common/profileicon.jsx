@@ -8,8 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import Logout from '@mui/icons-material/Logout';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -40,7 +39,7 @@ nav('/')
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32,background:"#ff7a34" }} />
+          <Avatar sx={{ width: 32, height: 32,background:"#86cdea" }} />
         </Box>
       </Tooltip>
     </Box>
@@ -80,27 +79,20 @@ nav('/')
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
            <NavLink to='/myaccount' style={{textDecoration:"none"}}>
-      <MenuItem onClick={handleClose} sx={{color:"#ff7a34"}}>
-        <Avatar sx={{background:"#ff7a34"}} /> My Profile
+      <MenuItem onClick={handleClose} className='btn-clor'  sx={{color:"#86cdea"}}>
+        <Avatar sx={{background:"#86cdea"}} /> My Profile
       </MenuItem>
       </NavLink>
       <Divider />
-      {/* <MenuItem onClick={handleClose}>
-   
+      <NavLink to='/myorder' style={{textDecoration:"none"}}>
+      <MenuItem onClick={handleClose} sx={{color:"#86cdea"}}>
+        <AssignmentIcon  /> My Order
+      </MenuItem>
+      </NavLink>
+      <Divider />
+      <MenuItem onClick={handlelogout} sx={{color:"#86cdea"}}>
         <ListItemIcon>
-          <PersonAdd fontSize="small" />
-        </ListItemIcon>
-        Add another account
-      </MenuItem> */}
-      {/* <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-          <Settings fontSize="small" />
-        </ListItemIcon>
-        Settings
-      </MenuItem> */}
-      <MenuItem onClick={handlelogout} sx={{color:"#ff7a34"}}>
-        <ListItemIcon>
-          <Logout fontSize="small" />
+          <Logout fontSize="small"  sx={{color:"#86cdea"}}   />
         </ListItemIcon>
         Logout
       </MenuItem>

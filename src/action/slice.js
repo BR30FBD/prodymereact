@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IP_ADDRESS } from "../ip";
 export const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -17,7 +18,7 @@ export const { setUserList } = userSlice.actions;
 
 export const fetchAllUsers = () => (dispatch) => {
   axios
-    .get("https://prodymeapi.revivingindia.com/api/getCategory/")
+    .get(`${IP_ADDRESS}api/getCategory/`)
     .then((response) => {
       dispatch(setUserList(response.data.data));
     })

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import getprofile from "./action/getprofile";
+import getwishlist from "./action/getwishlist";
 import search from "./action/search";
 import signin from "./action/signin";
 import signup from "./action/signup";
@@ -13,5 +14,6 @@ export default configureStore({
     userSignIn:signin,
     userGetProfile:getprofile,
     ueserupdateprofile:updateprofile,
+    wishlistData:getwishlist
   }
 });

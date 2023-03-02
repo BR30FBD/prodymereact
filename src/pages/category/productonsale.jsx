@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { IP_ADDRESS } from '../../ip';
 let PageSize1 = 4;
 const style = {
   position: 'absolute',
@@ -26,6 +27,7 @@ const style = {
 };
 const Productonsale = () => {
   const [open, setOpen] = React.useState(false);
+  const [msg,setmsg]=useState('')
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
     const [sale,setsale]=useState([])
@@ -33,7 +35,7 @@ const Productonsale = () => {
   
       const nav=useNavigate()
     const handledetails=(e)=>{
-        fetch(`https://prodymeapi.revivingindia.com/api/getProductDetailOneData/${e.target.id}/`,{
+        fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
           cache: "no-store",
          
       }).then((res)=>{
@@ -48,15 +50,14 @@ const Productonsale = () => {
      
       }
       useEffect(()=>{
-        Axios.get('https://prodymeapi.revivingindia.com/getDataProductSale/',{
+        Axios.get(`${IP_ADDRESS}getDataProductSale/`,{
           cache: "no-store",
          
       }).then((data)=>{
         setsale(data.data.data)
     
       }).catch((err)=>{
-          console.log(err,"err")
-          Axios.get('https://prodymeapi.revivingindia.com/getDataProductSale/',{
+          Axios.get(`${IP_ADDRESS}getDataProductSale/`,{
             cache: "no-store",
            
         }).then((data)=>{
@@ -72,10 +73,8 @@ const Productonsale = () => {
         return sale.slice(firstPageIndex, lastPageIndex);
       }, [currentPage1,sale]);
       const handlecart=(e)=>{
-        console.log(e.target.parentElement.childNodes[0].childNodes[1].value)
         let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
         let ele=document.getElementById(e.target.id);
-        console.log(ele)
         let arr=sale.filter((data,index)=>{
           if(data.product_id==e.target.id){
             
@@ -83,15 +82,16 @@ const Productonsale = () => {
             if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
               var array = []; }
               data.qty=qtyval;
-            console.log(data,"newobj")
             array.push(data)
             let uniqueArr = array.filter((obj, index, self) =>
             index === self.findIndex((o) => o.product_id === obj.product_id)
           );
               localStorage.setItem('Cart',JSON.stringify(uniqueArr));
               handleOpen()
+              setmsg('Product Cart Added Successfully !')
               setTimeout(()=>{
                 handleClose()
+                setmsg('')
               },1000)
           }
         })
@@ -100,20 +100,17 @@ const Productonsale = () => {
       }
       const handleAdd=(e)=>{
 
-        console.log(e.target.id)
         if(!e.target.id){
           console.log("not found")
         }else{
           let ele=document.getElementById(e.target.id).parentElement;
           let val=ele.childNodes[1].value;
           ele.childNodes[1].value=parseInt(val)+1;
-          console.log(ele.childNodes[1])
         }
   
        
       }
       const handleSub=(e)=>{
-        console.log(e.target.id)
         if(!e.target.id){
           console.log("not found")
         }else{
@@ -123,11 +120,42 @@ const Productonsale = () => {
           if(val>1){
          
             ele.childNodes[1].value=parseInt(val)-1;
-            console.log(ele.childNodes[1])
           }
          
         }
   
+      }
+      const handlewishlist=(e)=>{
+        let accessToken=localStorage.getItem('prodymeApiToken')
+        if(!accessToken){
+          handleOpen()
+          setmsg('Please Login First !')
+          setTimeout(()=>{
+            handleClose()
+            setmsg('')
+          },2000)
+        }
+        let wishlistData=sale.filter((data,index)=>{
+          if(data.product_id===e){
+            return data;
+          }
+        });
+        let newobj={
+          product_list:wishlistData
+        }
+        let config={
+            headers: { Authorization: `Token ${accessToken}` }
+        }
+        Axios.post(`${IP_ADDRESS}wishlist/`,newobj,config).then((res)=>{
+          handleOpen()
+          setmsg(res.data.message)
+          setTimeout(()=>{
+            handleClose()
+            setmsg('')
+          },2000)
+        }).catch((err)=>{
+          console.log(err)
+        })
       }
   return (
 <>
@@ -139,7 +167,7 @@ const Productonsale = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center"}}>
-           Product Cart Added Successfully !
+         {msg}
           </Typography>
        
         </Box>
@@ -151,7 +179,7 @@ const Productonsale = () => {
             
               <div className="cardc" id={item.product_id} >
                  <div style={{width:"100%",textAlign:"end"}}>
-                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}}/>
+                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist(`${item.product_id}`)}/>
                 </div>
               <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }} onClick={(e)=>handledetails(e)}  id={item.product_id}/>
               <div className="containerc" id={item.product_id}>
@@ -217,7 +245,7 @@ const Productonsale = () => {
   <input type="text" value={1} className='box-value'/>
   <div className='addicon' id={item.product_id+"add"+index} onClick={(e)=>handleAdd(e)}>+</div>
   </div>
-<input type="checkbox" className='box-value'style={{marginLeft:"26px"}} id={item.product_id} role="kk" onClick={(e)=>handlecart(e)}/><h5 className='h3-font' >Add To Cart</h5>
+<input type="checkbox" className='box-value' id={item.product_id} role="kk" onClick={(e)=>handlecart(e)}/><h5 className='h3-font' >Add To Cart</h5>
 </div>
                 </footer>
               </div>

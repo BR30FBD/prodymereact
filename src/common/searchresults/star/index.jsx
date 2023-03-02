@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import stylecarousal from "./carousal.css"
 import Slider from "react-slick";
 import { useNavigate } from 'react-router-dom';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
@@ -12,7 +11,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Axios from 'axios';
-import { IP_ADDRESS } from '../../ip';
+import stylecarousal from  "./starResults.css"
+import { IP_ADDRESS } from '../../../ip';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,239 +26,239 @@ const style = {
   p: 4,
 };
 
-const Carousal = ({fivestar,threestar}) => {
-  const [msg,setmsg]=useState('')
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-    const nav=useNavigate()
-    var settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 0,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              dots: false,
+const StarResults = ({fivestar,threestar}) => {
+    const [msg,setmsg]=useState('')
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+      const nav=useNavigate()
+      var settings = {
+          dots: false,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 0,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: false
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
             }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              initialSlide: 2
+          ]
+        };
+        var settings1 = {
+          dots: false,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          initialSlide: 0,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: false
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
             }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
-      };
-      var settings1 = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        initialSlide: 0,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              dots: false
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              initialSlide: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
-      };
-      const handledetails=(e)=>{
-        fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
-          cache: "no-store",
-         
-      }).then((res)=>{
-          return res.json()
-      }).then((res)=>{
-  
-        
-  
-           nav('/details',{state:{id:"1",data:res.data}})
-      }).catch((err)=>{
-          console.log(err,"err")
-      })
-     
-      }
-      const handlecart=(e)=>{
-        let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
-        let arr=threestar[0].filter((data,index)=>{
-          if(data.product_id==e.target.id){
-            if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-              var array = []; }
-              data.qty=qtyval;
-            array.push(data)
-            let uniqueArr = array.filter((obj, index, self) =>
-      index === self.findIndex((o) => o.product_id === obj.product_id  )
-    );
+          ]
+        };
+        const handledetails=(e)=>{
+          fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
+            cache: "no-store",
+           
+        }).then((res)=>{
+            return res.json()
+        }).then((res)=>{
     
-              localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-              handleOpen()
-              setmsg('Product Cart Added Successfully !')
-            setTimeout(()=>{
-              handleClose()
-              setmsg('')
-            },1000)
-          }
-        })
-  
-      }
-      const handlecart5=(e)=>{
-        let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
-        let arr=fivestar[0].filter((data,index)=>{
-          if(data.product_id==e.target.id){
-            if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
-              var array = []; }
-              data.qty=qtyval;
-            array.push(data)
-            let uniqueArr = array.filter((obj, index, self) =>
-      index === self.findIndex((o) => o.product_id === obj.product_id  )
-    );
-    
-              localStorage.setItem('Cart',JSON.stringify(uniqueArr));
-              handleOpen()
-              setmsg('Product Cart Added Successfully !')
-            setTimeout(()=>{
-              handleClose()
-              setmsg('')
-            },1000)
-          }
-        })
-  
-      }
-      const handleAdd=(e)=>{
-
-        if(!e.target.id){
-          console.log("not found")
-        }else{
-          let ele=document.getElementById(e.target.id).parentElement;
-          let val=ele.childNodes[1].value;
-
-          ele.childNodes[1].value=parseInt(val)+1;
-
           
-        }
-  
+    
+             nav('/details',{state:{id:"1",data:res.data}})
+        }).catch((err)=>{
+            console.log(err,"err")
+        })
        
-      }
-      const handleSub=(e)=>{
-        if(!e.target.id){
-          console.log("not found")
-        }else{
-          let ele=document.getElementById(e.target.id).parentElement;
+        }
+        const handlecart=(e)=>{
+          let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
+          let arr=threestar[0].filter((data,index)=>{
+            if(data.product_id==e.target.id){
+              if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
+                var array = []; }
+                data.qty=qtyval;
+              array.push(data)
+              let uniqueArr = array.filter((obj, index, self) =>
+        index === self.findIndex((o) => o.product_id === obj.product_id  )
+      );
+      
+                localStorage.setItem('Cart',JSON.stringify(uniqueArr));
+                handleOpen()
+                setmsg('Product Cart Added Successfully !')
+              setTimeout(()=>{
+                handleClose()
+                setmsg('')
+              },1000)
+            }
+          })
+    
+        }
+        const handlecart5=(e)=>{
+          let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
+          let arr=fivestar[0].filter((data,index)=>{
+            if(data.product_id==e.target.id){
+              if(localStorage.getItem('Cart')){  array = JSON.parse(localStorage.getItem('Cart')) } else {
+                var array = []; }
+                data.qty=qtyval;
+              array.push(data)
+              let uniqueArr = array.filter((obj, index, self) =>
+        index === self.findIndex((o) => o.product_id === obj.product_id  )
+      );
+      
+                localStorage.setItem('Cart',JSON.stringify(uniqueArr));
+                handleOpen()
+                setmsg('Product Cart Added Successfully !')
+              setTimeout(()=>{
+                handleClose()
+                setmsg('')
+              },1000)
+            }
+          })
+    
+        }
+        const handleAdd=(e)=>{
   
-          let val=ele.childNodes[1].value;
-          if(val>1){
-         
-            ele.childNodes[1].value=parseInt(val)-1;
-          }
-         
-        }
+          if(!e.target.id){
+            console.log("not found")
+          }else{
+            let ele=document.getElementById(e.target.id).parentElement;
+            let val=ele.childNodes[1].value;
   
-      }
-      const handlewishlist=(e)=>{
-        let accessToken=localStorage.getItem('prodymeApiToken')
-        if(!accessToken){
-          handleOpen()
-          setmsg('Please Login First !')
-          setTimeout(()=>{
-            handleClose()
-            setmsg('')
-          },2000)
-        }
-        let wishlistData=fivestar.filter((data,index)=>{
-          if(data.product_id===e){
-            return data;
+            ele.childNodes[1].value=parseInt(val)+1;
+  
+            
           }
-        });
-        let newobj={
-          product_list:wishlistData
+    
+         
         }
-        let config={
-            headers: { Authorization: `Token ${accessToken}` }
-        }
-        Axios.post('https://49fc-103-209-71-109.in.ngrok.io/wishlist/',newobj,config).then((res)=>{
-          handleOpen()
-          setmsg(res.data.message)
-          setTimeout(()=>{
-            handleClose()
-            setmsg('')
-          },2000)
-        }).catch((err)=>{
-          console.log(err)
-        })
-      }
-      const handlewishlist3=(e)=>{
-        let accessToken=localStorage.getItem('prodymeApiToken')
-        if(!accessToken){
-          handleOpen()
-          setmsg('Please Login First !')
-          setTimeout(()=>{
-            handleClose()
-            setmsg('')
-          },2000)
-        }
-        let wishlistData=threestar.filter((data,index)=>{
-          if(data.product_id===e){
-            return data;
+        const handleSub=(e)=>{
+          if(!e.target.id){
+            console.log("not found")
+          }else{
+            let ele=document.getElementById(e.target.id).parentElement;
+    
+            let val=ele.childNodes[1].value;
+            if(val>1){
+           
+              ele.childNodes[1].value=parseInt(val)-1;
+            }
+           
           }
-        });
-        let newobj={
-          product_list:wishlistData
+    
         }
-        let config={
-            headers: { Authorization: `Token ${accessToken}` }
+        const handlewishlist=(e)=>{
+          let accessToken=localStorage.getItem('prodymeApiToken')
+          if(!accessToken){
+            handleOpen()
+            setmsg('Please Login First !')
+            setTimeout(()=>{
+              handleClose()
+              setmsg('')
+            },2000)
+          }
+          let wishlistData=fivestar.filter((data,index)=>{
+            if(data.product_id===e){
+              return data;
+            }
+          });
+          let newobj={
+            product_list:wishlistData
+          }
+          let config={
+              headers: { Authorization: `Token ${accessToken}` }
+          }
+          Axios.post(`${IP_ADDRESS}wishlist/`,newobj,config).then((res)=>{
+            handleOpen()
+            setmsg(res.data.message)
+            setTimeout(()=>{
+              handleClose()
+              setmsg('')
+            },2000)
+          }).catch((err)=>{
+            console.log(err)
+          })
         }
-        Axios.post('https://49fc-103-209-71-109.in.ngrok.io/wishlist/',newobj,config).then((res)=>{
-          handleOpen()
-          setmsg(res.data.message)
-          setTimeout(()=>{
-            handleClose()
-            setmsg('')
-          },2000)
-        }).catch((err)=>{
-          console.log(err)
-        })
-      }
+        const handlewishlist3=(e)=>{
+          let accessToken=localStorage.getItem('prodymeApiToken')
+          if(!accessToken){
+            handleOpen()
+            setmsg('Please Login First !')
+            setTimeout(()=>{
+              handleClose()
+              setmsg('')
+            },2000)
+          }
+          let wishlistData=threestar.filter((data,index)=>{
+            if(data.product_id===e){
+              return data;
+            }
+          });
+          let newobj={
+            product_list:wishlistData
+          }
+          let config={
+              headers: { Authorization: `Token ${accessToken}` }
+          }
+          Axios.post(`${IP_ADDRESS}wishlist/`,newobj,config).then((res)=>{
+            handleOpen()
+            setmsg(res.data.message)
+            setTimeout(()=>{
+              handleClose()
+              setmsg('')
+            },2000)
+          }).catch((err)=>{
+            console.log(err)
+          })
+        }
   return (
     <>
-    <Modal
+     <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -280,11 +280,11 @@ const Carousal = ({fivestar,threestar}) => {
           {fivestar.length >0 ? 
             fivestar[0].map((item,index) => (
 
-    <div  id={item.product_id} style={{width:"44%",margin:"5px",boxShadow:"none"}}  >
+    <div className='cardc margin-0' id={item.product_id} style={{width:"44%",margin:"5px"}}  >
              <div style={{width:"100%",textAlign:"end"}}>
                 <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist(`${item.product_id}`)}/>
                 </div>
-              <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }} onDoubleClick={(e)=>handledetails(e)}  id={item.product_id}/>
+              <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"200px" }} onDoubleClick={(e)=>handledetails(e)}  id={item.product_id}/>
               <div className="containerc" id={item.product_id}>
                 <h4><b className='h3-font' id={item.product_id } onDoubleClick={(e)=>handledetails(e)}>{item.productName}</b></h4> 
                 <aside className="_rating mb10" id={item.product_id}>
@@ -337,18 +337,18 @@ const Carousal = ({fivestar,threestar}) => {
                 </aside>
                 <hr/>
                 <article className="_price  dFlex alignItemsCenter" id={item.product_id}>
-                  <strong className="fs28 h3-font" id={item.product_id}>₹ {item.price}</strong>
+                  <strong className="fs28 h3-font" style={{fontSize:"20px"}} id={item.product_id}>₹ {item.price}</strong>
                   <b className="fs16 pl10 h3-font" id={item.product_id}>per box</b>
                 </article>
                 
                 <footer className="_comparator ">
-                <div className='qty-details' style={{display:"flex",justifyContent:"center",width:"90%"}}>
-                <div className='qty-add-sub'style={{width:"97%"}} >
+                <div className='qty-details' style={{display:"flex",justifyContent:"center",width:"100%"}}>
+                <div className='qty-add-sub'style={{width:"100%"}} >
                 <div className='addicon' id={item.product_id+"sub"+index} onClick={(e)=>handleSub(e)}>-</div>
   <input type="text" value={1} className='box-value'  style={{height:"15px"}} id={item.product_id+"addsub"+index}/>
   <div className='addicon' id={item.product_id+"add"+index} onClick={(e)=>handleAdd(e)}>+</div>
   </div>
-<input type="checkbox" className='box-value'  style={{width:"20px"}} id={item.product_id} onClick={(e)=>handlecart5(e)}/><h5 className='h3-font' style={{width:"100%",fontSize:"small"}} >Add To Cart</h5>
+<input type="checkbox" className='box-value'  style={{width:"10px"}} id={item.product_id} onClick={(e)=>handlecart5(e)}/><h5 className='h3-font' style={{width:"100%",fontSize:"10px"}} >Add To Cart</h5>
 </div>
                 </footer>
               </div>
@@ -367,11 +367,11 @@ const Carousal = ({fivestar,threestar}) => {
       {threestar.length >0 ? 
         threestar[0].map((item,index) => (
 
-<div  id={item.product_id} style={{width:"44%",margin:"5px",boxShadow:"none"}}  >
+<div className='cardc' id={item.product_id} style={{width:"44%",margin:"5px",boxShadow:"none"}}  >
 <div style={{width:"100%",textAlign:"end"}}>
                 <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>handlewishlist3(`${item.product_id}`)}/>
                 </div>
-          <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"250px" }} onDoubleClick={(e)=>handledetails(e)} id={item.product_id}/>
+          <img src={item.productImage} alt="Avatar" style={{width:"100%",height:"200px" }} onDoubleClick={(e)=>handledetails(e)} id={item.product_id}/>
           <div className="containerc" id={item.product_id}>
             <h4><b className='h3-font' id={item.product_id} onDoubleClick={(e)=>handledetails(e)}>{item.productName}</b></h4> 
             <aside className="_rating mb10" id={item.product_id}>
@@ -424,18 +424,19 @@ const Carousal = ({fivestar,threestar}) => {
             </aside>
             <hr/>
             <article className="_price  dFlex alignItemsCenter" id={item.product_id}>
-              <strong className="fs28 h3-font" id={item.product_id}>₹ {item.price}</strong>
+              <strong className="fs28 h3-font" style={{fontSize:"20px"}} id={item.product_id}>₹ {item.price}</strong>
               <b className="fs16 pl10 h3-font" id={item.product_id}>per box</b>
             </article>
             
             <footer className="_comparator ">
-            <div className='qty-details' style={{display:"flex",justifyContent:"center",width:"90%"}}>
+            <div className='qty-details' style={{display:"flex",justifyContent:"center",width:"100%"}}>
             <div className='qty-add-sub'style={{width:"100%"}} >
 <div className='addicon' id={item.product_id+"sub"+index} onClick={(e)=>handleSub(e)}>-</div>
   <input type="text" value={1} className='box-value' style={{height:"15px"}} id={item.product_id+"addsub"+index}/>
   <div className='addicon' id={item.product_id+"add"+index} onClick={(e)=>handleAdd(e)}>+</div>
   </div>
-<input type="checkbox" className='box-value' style={{width:"20px"}} id={item.product_id} onClick={(e)=>handlecart(e)}/><h5 className='h3-font' style={{width:"100%"}}>Add To Cart</h5>
+<input type="checkbox" className='box-value' style={{width:"10px"}} id={item.product_id} onClick={(e)=>handlecart(e)}/>
+<h5 className='h3-font' style={{width:"100%",fontSize:"10px"}}>Add To Cart</h5>
 </div>
             </footer>
           </div>
@@ -451,4 +452,4 @@ const Carousal = ({fivestar,threestar}) => {
   )
 }
 
-export default Carousal
+export default StarResults

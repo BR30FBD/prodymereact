@@ -4,10 +4,11 @@ import "./cards.css"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
-const Card = ({card}) => {
+import { IP_ADDRESS } from '../../ip';
+const Card = ({card,fun}) => {
   const nav=useNavigate()
   const handledetails=(e)=>{
-    fetch(`https://prodymeapi.revivingindia.com/api/getProductDetailOneData/${e.target.id}/`,{
+    fetch(`${IP_ADDRESS}api/getProductDetailOneData/${e.target.id}/`,{
       cache: "no-store",
      
   }).then((res)=>{
@@ -25,7 +26,7 @@ const Card = ({card}) => {
     
     <section className="globalCard whiteBg br20 cardBorder" style={{margin:"20px"}} id={card.product_id} onClick={(e)=>handledetails(e)}>
       <div style={{width:"100%",textAlign:"end"}}>
-                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}}/>
+                <FavoriteBorderIcon sx={{color:"#ff7a34",margin:"10px",fontSize:"30px",cursor:"pointer"}} onClick={()=>fun(`${card.product_id}`)}/>
                 </div>
     <section className="cardImage" id={card.product_id}  >
       <figure className="_image noMargin dFlex" id={card.product_id} >
