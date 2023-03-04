@@ -1,1 +1,1 @@
-export const IP_ADDRESS="http://prodymeapi.revivingindia.com/";
+export const IP_ADDRESS="https://praveenrrc.pythonanywhere.com/";

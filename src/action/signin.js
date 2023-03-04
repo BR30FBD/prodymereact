@@ -24,7 +24,7 @@ export const signInUser = (data,fun) => (dispatch) => {
         password:data.password
     })
     .then((response) => {
-       
+       console.log(response,"login")
         localStorage.setItem('prodymeApiToken',response.data.token.token)
       dispatch(setUserList(response.data));
       if(response.data.message=='Login Successful'){

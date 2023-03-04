@@ -115,3 +115,16 @@
     cursor: pointer;
     margin-bottom: 1.5rem;
 }
+.edit-btn{
+	color: #ff7a34;
+	cursor: pointer;
+}
+.address-card{
+	background-color: #F8F8F8 !important;
+	margin: 5px !important;
+	/* width: 33% !important; */
+}
+input[type=radio]:checked {
+	border-color: #ff7a34 !important;
+	background-color: #ff7a34 !important;
+  }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import img from "./b1.png"
 import stylecheckout from "./checkout.css"
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -216,7 +217,14 @@ useEffect(()=>{
      </div>
         <section className='checkout-main'>
             <div className='checkout-main-div'>
-                <h1 className='header-checkout h3-font'>Products Cart</h1>
+              <div className='product-cart'>
+              <h1 className=' h3-font'>Products Cart</h1>
+              <div className='pincode-container'>
+<LocationOnOutlinedIcon/>
+<input type="text" className='pincode' placeholder='Pincode'/>
+</div>
+
+              </div>
             <table className='checkout-main-table'>
                 <thead className='checkout-table-head'>
                     <tr className='checkout-table-head-tr h3-font'>
@@ -230,7 +238,9 @@ useEffect(()=>{
   <tr className='checkout-table-body-tr'>
     <td><input type="checkbox" className='checkbox-checkout'/>
     </td>
-  <td>{data.productName}</td> <td>{data.price}</td> <td className='checkout-table-body-td'>
+  <td style={{display:"flex",justifyContent:"space-between"}}>
+    <img src={data.productImage} alt="" style={{width:"50px"}} />
+    {data.productName}</td> <td>{data.price}</td> <td className='checkout-table-body-td'>
     <span className='checkout-table-body-td-icon' id={index} onClick={(e)=>handleSub(e)}>-</span>
     {data.qty}
     <span className='checkout-table-body-td-icon' id={index} onClick={(e)=>handleAdd(e)}>+</span>

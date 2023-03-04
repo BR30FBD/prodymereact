@@ -93,3 +93,23 @@
 .header-checkout{
     margin-top: -50px;
 }
+.pincode{
+    padding: 10px;
+    margin-left: 20px;
+    border: none;
+    outline: none;
+
+}
+.product-cart{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+.pincode-container{
+    position: relative;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}

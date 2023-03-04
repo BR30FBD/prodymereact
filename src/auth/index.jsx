@@ -113,7 +113,7 @@ const hide=()=>{setIsHidden(false)}
                       </article>:
                        <article>
                         {list.userSignIn.list.message!=='' &&
-                          <h3 className="heading textCenter">{list.userSignIn.list.message==='Login Successful'? 'Login Successfully !':list.userSignIn.list.message}</h3>
+                          <h3 className="heading textCenter">{list.userSignIn.list.message==='Login Successful'? 'Login Successfully !':"Something Went Wrong"}</h3>
                         
                         }
                        <h4 className="heading textCenter label-form" style={{margin:"0px"}}>Sign In</h4>
