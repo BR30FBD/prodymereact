@@ -1,0 +1,383 @@
+.container{
+    width: 100%;
+    height: 250vh;
+    display: flex;
+    /* justify-content: baseline; */
+    position: relative;
+    left: 0px;
+}
+.sidebar{
+    width: 201px;
+    height: 100%;
+    background-color: black;
+    margin-top: 100px;
+    left: 0px;
+}
+.section{
+    background-color: #F8F8F8;
+    height: 100%;
+    width: 100%;
+    margin-top: 100px;
+}
+.breadcrumb{
+    top: 90px;
+    left: 225px;
+    width: 100px;
+    height: 14px;
+    /* UI Properties */
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+    text-transform: capitalize;
+    opacity: 1;
+}
+.checkouttitle{
+    top: 124px;
+left: 225px;
+width: 186px;
+height: 51px;
+text-align: left;
+font: normal normal normal 42px/62px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.flexbox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.step{
+    top: 0px;
+left: 53px;
+width: 200px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/32px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+}
+.border{
+    display: flex;
+    justify-content: space-around;
+}
+.hr{
+    height: 5px;
+    border-radius: 3px;
+    background-color: #FF7A34;
+    width: 60px;
+}
+.hrnone{
+    height: 5px;
+    border-radius: 3px;
+    background-color: #E1E1E1;
+    width: 60px;  
+}
+.groupicon{
+    top: 154px;
+left: 982px;
+width: 253px;
+height: 21px;
+/* UI Properties */
+opacity: 1;
+display: flex;
+justify-content: space-around;
+}
+.download{
+    top: 155px;
+left: 1011px;
+width: 107px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+text-decoration: underline;
+font: normal normal normal 16px/19px Roboto;
+letter-spacing: 0px;
+color: #FF7A34;
+opacity: 1;
+}
+.containerchild{
+    position: absolute;
+    left: 100px;
+    width: 85%;
+    height: 100%;
+    /* background-color: #2A2A2A; */
+    display: flex;
+    justify-content: space-between;
+}
+.form{
+    width: 65%;
+    height: 100%;
+    background-color: #FFFFFF;
+}
+.cart{
+    width: 30%;
+    height: 100%;
+    background-color: #FFFFFF; 
+}
+.backbtn{
+    top: 209px;
+left: 131px;
+width: 728px;
+/* height: 1297px; */
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+opacity: 1;
+}
+.backicon{
+    top: 340px;
+left: 250px;
+margin-left: 50px;
+margin-top: 50px;
+width: 14px;
+height: 11px;
+/* UI Properties */
+opacity: 1;
+}
+.backbutton{
+    top: 239px;
+left: 200px;
+width: 123px;
+height: 14px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 12px/16px Roboto;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+letter-spacing: 0px;
+color: #FF7A34;
+text-transform: capitalize;
+opacity: 1;
+}
+.billingInfo{
+    display: flex;
+    justify-content: space-between;
+}
+.billingtitle{
+    top: 273px;
+left: 225px;
+margin: 20px;
+width: 155px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.edit{
+    top: 277px;
+left: 745px;
+width: 20px;
+margin: 20px;
+height: 14px;
+/* UI Properties */
+text-align: right;
+text-decoration: underline;
+font: normal normal normal 12px/14px Roboto;
+letter-spacing: 0px;
+color: #FF7A34;
+opacity: 1;
+}
+.formconatiner{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 90%;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.formcontrol{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    flex-direction: column;
+    width: 45%;
+    padding: 10px;
+}
+.label{
+    top: 310px;
+margin-left: 40px;
+width: 100%;
+height: 14px;
+/* UI Properties */
+font-size: medium;
+text-align: left;
+font: normal normal normal 12px/14px Roboto;
+letter-spacing: 0px;
+color: #888888;
+opacity: 1;
+}
+.input{
+    top: 326px;
+left: 225px;
+width: 258px;
+height: 40px;
+/* UI Properties */
+border: 1px solid #E1E1E1;
+opacity: 1;
+}
+.inputotp{
+    top: 326px;
+    left: 225px;
+    width: 30px;
+    height: 40px;
+    /* UI Properties */
+    border: 1px solid #E1E1E1;
+    opacity: 1;   
+    margin: 10px;
+}
+.otp{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.buttonverify{
+    top: 554px;
+left: 695px;
+width: 70px;
+height: 40px;
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 1px solid #FF7A34;
+border-radius: 20px;
+opacity: 1;
+}
+.timing{
+    top: 606px;
+left: 509px;
+width: 111px;
+height: 14px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 12px/14px Roboto;
+letter-spacing: 0px;
+color: #888888;
+opacity: 1;
+}
+.hrbottom{
+    top: 624px;
+left: 225px;
+width: 500px;
+height: 0px;
+/* UI Properties */
+border: 1px solid #D9D9D9;
+opacity: 1;
+}
+.addresscontainer{
+    top: 239px;
+left: 175px;
+width: 620px;
+/* height:100%; */
+/* UI Properties */
+opacity: 1;
+}
+.shopping{
+    top: 644px;
+left: 225px;
+width: 200px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+text-transform: capitalize;
+opacity: 1;
+margin: 20px;
+}
+.saveaddress{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 10px;
+    height: 400px;
+
+}
+.radioactive{
+    top: 681px;
+left: 250px;
+width: 15px;
+height: 15px;
+/* UI Properties */
+border: 1px solid #FF7A34;
+opacity: 1;
+}
+.saveaddress{
+    top: 680px;
+left: 260px;
+width: 150px;
+height: 17px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.addressform{
+    height: 400px;
+    /* background-color:; */
+}
+.billingaddress{
+    top: 1324px;
+left: 225px;
+width: 109px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+margin-left: 50px;
+}
+.checkbox{
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    margin-left: 50px;
+}
+.inputcheck{
+    top: 1376px;
+left: 225px;
+width: 20px;
+height: 20px;
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 1px solid #FF7A34;
+border-radius: 3px;
+opacity: 1;
+}
+.spantext{
+top: 1377px;
+left: 259px;
+width: 206px;
+height: 17px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+opacity: 1;
+}
+.proceed{
+    top: 1436px;
+left: 225px;
+width: 164px;
+height: 40px;
+/* UI Properties */
+background: #FF7A34 0% 0% no-repeat padding-box;
+border-radius: 20px;
+opacity: 1;
+border: 1px solid #fff;
+color:#fff;
+margin: 20px;
+}

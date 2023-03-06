@@ -14,10 +14,17 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  height:"80px",
   bgcolor: 'background.paper',
   // border: '2px solid #000',
+  outline:"none",
   borderRadius:"6px",
   boxShadow: 24,
+  borderRadius:"13px",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  fontFamily:"Roboto,Helvetica,Arial,sans-serif",
   p: 4,
 };
 const Product = () => {
@@ -115,7 +122,7 @@ const Product = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center"}}>
+          <Typography id="modal-modal-title" className="label-form" variant="h6" component="h2" sx={{textAlign:"center",fontWeight:"700"}}>
          {msg}
           </Typography>
        

@@ -87,12 +87,12 @@ setTimeout(()=>{
 <div className='form-control w-100'>
         <label className='label-form'>New Password</label>
         
-        <input type="password"  required placeholder='New Password'className='form-input' id="password" value={data.password} onChange={(e)=>handlechange(e)} />
+        <input type="password"  placeholder='New Password'className='form-input' id="password" value={data.password} onChange={(e)=>handlechange(e)} />
         </div>
         <div className='form-control w-100' >
         <label className='label-form'>Confirm Password</label>
         
-        <input type="password"  required placeholder='Confirm Password'className='form-input' id="cpassword" value={data.cpassword} onChange={(e)=>handlechange(e)} />
+        <input type="password" placeholder='Confirm Password'className='form-input' id="cpassword" value={data.cpassword} onChange={(e)=>handlechange(e)} />
         </div>
       <button className='w-100 btn-create' onClick={handlesubmit}>Create New Password</button>
 

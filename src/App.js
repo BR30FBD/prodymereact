@@ -17,6 +17,7 @@ import MyOrder from './pages/myorder';
 import MyWishlist from './pages/mywishlist';
 import { useState } from 'react';
 import SearchResults from './common/searchresults';
+import Shipping from './pages/shipping';
 
 function App() {
 const [dis,setdis]=useState(false)
@@ -36,6 +37,7 @@ const [dis,setdis]=useState(false)
         <Route path='/myorder' element={<MyOrder/>}/>
         <Route path='/searchresults' element={<SearchResults/>}/>
         <Route path='/mywishlist' element={<MyWishlist/>}/>
+        <Route path='/shipping' element={<Shipping/>}/>
       </Routes>
    <Footer/>
 

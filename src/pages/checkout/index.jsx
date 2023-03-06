@@ -23,6 +23,7 @@ const style = {
 };
 const Checkout = () => {
   const [open, setOpen] = React.useState(false);
+  const [box,setbox]=useState([])
   const [email,setemail]=useState('');
   const [name,setname]=useState('');
   const [guest,setguest]=useState(false)
@@ -37,6 +38,7 @@ const Checkout = () => {
 const total=localStorage.getItem('Cart') && JSON.parse(localStorage.getItem('Cart')).map((data,index)=>{
   return data.price*data.qty
 }).reduce((partialSum, a) => partialSum + a, 0)
+const [sum,setsum]=useState(total)
 
 const handleAdd=(e)=>{
   const datalocal=JSON.parse(localStorage.getItem('Cart'))
@@ -164,6 +166,27 @@ const handlesubmit=(e)=>{
     setmsg(err.message)
   })
 }
+const handlecheckbox=(e)=>{
+  let elementToRemove =cardata[e.target.id];
+  console.log(elementToRemove)
+    let index = box.findIndex(item => item.product_id === elementToRemove.product_id);
+    console.log(index)
+  if (index !== -1) {
+    box.splice(index, 1);
+     console.log(box,"1")
+  }else{
+    box.push(elementToRemove)
+     console.log(box)
+  }
+   
+  
+  const totalamt=box.map((data,index)=>{
+    return data.price*data.qty
+  }).reduce((partialSum, a) => partialSum + a, 0)
+  setsum(totalamt)
+  console.log(box,"box",totalamt)
+
+}
 useEffect(()=>{
   setcardata(cardata1)
 })
@@ -236,7 +259,7 @@ useEffect(()=>{
                 <tbody className='checkout-table-body'>
                     {cardata && cardata.map((data,index)=>(
   <tr className='checkout-table-body-tr'>
-    <td><input type="checkbox" className='checkbox-checkout'/>
+    <td><input type="checkbox" className='checkbox-checkout' id={index} onClick={(e)=>handlecheckbox(e)}/>
     </td>
   <td style={{display:"flex",justifyContent:"space-between"}}>
     <img src={data.productImage} alt="" style={{width:"50px"}} />
@@ -253,13 +276,13 @@ useEffect(()=>{
                 </tbody>
                 <tfoot className='checkout-table-foot'>
                 <tr className='checkout-table-foot-tr'>
-  <td>Sub Total</td> <td colSpan="3" ></td> <td>INR {total}</td>
+  <td>Sub Total</td> <td colSpan="3" ></td> <td>INR {sum}</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
   <td>Shipping</td> <td colSpan="3"></td> <td>INR 100</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
-  <td>Total</td> <td colSpan="3"></td> <td>INR {total+100}</td>
+  <td>Total</td> <td colSpan="3"></td> <td>INR {sum+100}</td>
   </tr>
                 </tfoot>
             </table>

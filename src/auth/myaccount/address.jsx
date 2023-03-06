@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import { IP_ADDRESS } from '../../ip'
 import  Axios  from 'axios';
 import axios from 'axios';
+import { BorderStyleTwoTone } from '@mui/icons-material';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -65,11 +66,21 @@ if (list.length > 4) {
   settings.dots = true;
   settings.arrows = true;
 }
+const [houseNo,setHouseNo]=useState('');
+const [town,settown]=useState('');
+const [landmark,setlandmark]=useState('');
+const [pincode,setpincode]=useState('');
 const [data,setdata]=useState({
     address_type:"",
     address_nickname:"",
-    address:""
+    address:{
+      houseNo:"",
+      town:"",
+      landmark:"",
+      pincode:""
+    }
 })
+
 
 const [textarea,settextarea]=useState(false)
 const [open, setOpen] = React.useState(false);
@@ -91,7 +102,17 @@ const handlesubmit=(e)=>{
     let config={
         headers: { Authorization: `Token ${accessToken}` }
     }
-    Axios.post(`${IP_ADDRESS}api/postaddress/`,data,config).then((res)=>{
+    const body={
+      address_type:data.address_type,
+      address_nickname:data.address_nickname,
+      address:{
+        houseNo:houseNo,
+        town:town,
+        landmark:landmark,
+        pincode:pincode
+      }
+    }
+    Axios.post(`${IP_ADDRESS}api/postaddress/`,body,config).then((res)=>{
         console.log(res)
         setmsg(res.data.data)
         setTimeout(()=>{
@@ -198,14 +219,31 @@ useEffect(()=>{
         
         <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
         </div>
-        <div className='form-control' style={{width:"100%",padding:"10px"}}>
-        <label className='label-form'>Address*</label>
-        <input type="text" style={{width:"95%",marginLeft:"10px"}}  required placeholder='Address'className='form-input' id="address" value={data.address} onChange={(e)=>handlechange(e)} />
+        <div className='form-control'>
+        <label className='label-form'>House No</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname"   onChange={(e)=>setHouseNo(e.target.value)} />
         </div>
+        <div className='form-control'>
+        <label className='label-form'>Town</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" onChange={(e)=>settown(e.target.value)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>LandMark</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname"  onChange={(e)=>setlandmark(e.target.value)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>Pincode</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" onChange={(e)=>setpincode(e.target.value)} />
+        </div>
+        
        
           </div>
           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
-          <button className='main-child-btn 'onClick={()=>settextarea(!textarea)}>Cancel</button>
+          <button className='main-child-btn 'onClick={handleClose}>Cancel</button>
           <button className='main-child-btn'onClick={handlesubmit}>Submit</button>
 
           </div>
@@ -226,6 +264,16 @@ useEffect(()=>{
         <label className='label-form'>Address Type</label>
         
         <input type="text"  required placeholder='Address Type'className='form-input' id="address_type" value={data.address_type} onChange={(e)=>handlechange(e)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>Address Nickname</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
+        </div>
+        <div className='form-control'>
+        <label className='label-form'>Address Nickname</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
         </div>
         <div className='form-control'>
         <label className='label-form'>Address Nickname</label>

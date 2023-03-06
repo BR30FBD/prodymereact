@@ -82,11 +82,11 @@ const [disable,setdisable]=useState(true)
           }}>
     <section className="main-myaccount">
     <div className='myorder-main-child' style={{background:"#fff"}}>
-              <NavLink to='/' className="myorder-main-child-link">MY PROFILE</NavLink>
+    <NavLink to='/myaccount' className="myorder-main-child-link">MY PROFILE</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY MESSAGES</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">MY ORDERS</NavLink>
+              <NavLink to='/myorder' className="myorder-main-child-link">MY ORDERS</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY DESIGNS</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">WISHLIST</NavLink>
+              <NavLink to='/mywishlist' className="myorder-main-child-link">WISHLIST</NavLink>
 
                
             </div>
@@ -104,23 +104,23 @@ const [disable,setdisable]=useState(true)
         <div className='form-control'>
         <label className='label-form'>Business Name</label>
         
-        <input type="text"  disabled={disable} required placeholder='Business Name'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
+        <input type="text"  disabled={disable}  placeholder='Business Name'className='form-input' id="business_name" value={data.business_name} onChange={(e)=>handlechange(e)} />
         </div>
         <div className='form-control'>
         <label className='label-form'>First Name</label>
-        <input type="text"  disabled={disable}  required placeholder='First Name'className='form-input' id="first_name" value={data.first_name}  onChange={(e)=>handlechange(e)}/>
+        <input type="text"  disabled={disable}   placeholder='First Name'className='form-input' id="first_name" value={data.first_name}  onChange={(e)=>handlechange(e)}/>
        </div>
        <div className='form-control'>
         <label className='label-form'>Last Name'</label>
-        <input type="text" disabled={disable}   required placeholder='Last Name'className='form-input' id="last_name" value={data.last_name} onChange={(e)=>handlechange(e)} />
+        <input type="text" disabled={disable}   placeholder='Last Name'className='form-input' id="last_name" value={data.last_name} onChange={(e)=>handlechange(e)} />
         </div>
         <div className='form-control'>
         <label className='label-form'>Email Address</label>
-        <input type="text" disabled={disable}   required placeholder='Email Address'className='form-input' id="email" value={data.email}  onChange={(e)=>handlechange(e)}/>
+        <input type="text" disabled={disable}   placeholder='Email Address'className='form-input' id="email" value={data.email}  onChange={(e)=>handlechange(e)}/>
        </div>
        <div className='form-control'>
         <label className='label-form'>Mobile Number</label>
-        <input type="number" disabled={disable}   required placeholder='Mobile Number'className='form-input' id="mobile" value={data.mobile}  onChange={(e)=>handlechange(e)}/>
+        <input type="number" disabled={disable}  placeholder='Mobile Number'className='form-input' id="mobile" value={data.mobile}  onChange={(e)=>handlechange(e)}/>
         </div>
         <div className='form-control'>
         <label className='label-form'>GST</label>
@@ -128,13 +128,13 @@ const [disable,setdisable]=useState(true)
        </div>
        <div className='form-control'>
         <label className='label-form'>zipcode</label>
-        <input type="text" disabled={disable}   required placeholder='zipcode'className='form-input' id="zipcode" value={data.zipcode}  onChange={(e)=>handlechange(e)}/>
+        <input type="text" disabled={disable}    placeholder='zipcode'className='form-input' id="zipcode" value={data.zipcode}  onChange={(e)=>handlechange(e)}/>
        </div>
       
      
        <div className='form-control'>
         <label className='label-form'>Password</label>
-        <input type="text" disabled={disable}   required placeholder='Password'className='form-input' id="password" value={data.password} onChange={(e)=>handlechange(e)} />
+        <input type="text" disabled={disable}   placeholder='Password'className='form-input' id="password" value={data.password} onChange={(e)=>handlechange(e)} />
        </div>
        </div>
      <div className='main-child'>

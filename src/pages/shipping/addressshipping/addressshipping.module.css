@@ -1,0 +1,68 @@
+.conatinerrrr{
+    /* top: 717px; */
+left: 207px;
+width: 100%;
+display: flex;
+justify-content: center;
+/* height: 400px; */
+/* UI Properties */
+opacity: 1;
+}
+.boxcard{
+    top: 717px;
+left: 225px;
+width: 258px;
+height: 162px;
+/* UI Properties */
+background: #F8F8F8 0% 0% no-repeat padding-box;
+opacity: 1;
+margin: 10px;
+}
+.radiobox{
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+}
+.radio{
+    top: 735px;
+    margin: 10px;
+left: 242px;
+width: 13px;
+height: 13px;
+/* UI Properties */
+background: #FF7A34 0% 0% no-repeat padding-box;
+opacity: 1;
+}
+.addresstxt{
+    top: 730px;
+    left: 265px;
+    width: 198px;
+    height: 85px;
+    /* UI Properties */
+    text-align: left;
+    font: normal normal normal 14px/17px Roboto;
+    letter-spacing: 0px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #2A2A2A;
+    opacity: 1;
+    padding: 10px;
+}
+.boxfooter{
+    display: flex;
+    justify-content: space-around;
+
+}
+.edit{
+    top: 852px;
+left: 371px;
+width: 24px;
+height: 17px;
+/* UI Properties */
+text-align: left;
+text-decoration: underline;
+font: normal normal normal 14px/17px Roboto;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+letter-spacing: 0px;
+color: #FF7A34;
+opacity: 1;
+}

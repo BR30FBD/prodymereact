@@ -184,11 +184,11 @@ console.log(data,uniqueArr,"arr")
      <div className='myorder-container'>
         <section className='myorder-main'>
             <div className='myorder-main-child'>
-              <NavLink to='/' className="myorder-main-child-link">MY PROFILE</NavLink>
+            <NavLink to='/myaccount' className="myorder-main-child-link">MY PROFILE</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY MESSAGES</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">MY ORDERS</NavLink>
+              <NavLink to='/myorder' className="myorder-main-child-link">MY ORDERS</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY DESIGNS</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">WISHLIST</NavLink>
+              <NavLink to='/mywishlist' className="myorder-main-child-link">WISHLIST</NavLink>
 
                
             </div>

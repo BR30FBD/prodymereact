@@ -1,0 +1,217 @@
+.cartconatiner{
+    top: 209px;
+left: 883px;
+width:100%;
+height: 49px;
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 15px #C1C1C129;
+opacity: 1;
+}
+.cartheader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+.carticon{
+    top: 220px;
+left: 903px;
+width: 26px;
+height: 26px;
+/* UI Properties */
+opacity: 1;
+}
+.carttxt{
+    left: 949px;
+width: 133px;
+height: 19px;
+text-align: left;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.editcart{
+    top: 229px;
+left: 1131px;
+width: 46px;
+height: 14px;
+/* UI Properties */
+text-align: right;
+text-decoration: underline;
+font: normal normal normal 12px/20px Roboto;
+letter-spacing: 0px;
+color: #FF7A34;
+text-transform: capitalize;
+opacity: 1;
+}
+.carttitle{
+    top: 278px;
+left: 910px;
+width: 61px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+margin: 20px;
+}
+.listcontainer{
+    width: 100%;
+
+}
+.listitem{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.name{
+    top: 317px;
+left: 995px;
+width: 77px;
+height: 46px;
+text-align: left;
+font: normal normal normal 12px/16px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.size{
+left: 1098px;
+width: 43px;
+height: 13px;
+/* UI Properties */
+font-size: medium;
+text-align: right;
+font: normal normal 300 10px/12px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.price{
+    top: 335px;
+left: 1165px;
+width: 43px;
+height: 17px;
+/* UI Properties */
+text-align: right;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.cartfooter{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 3px 15px #C1C1C129;
+    height: 40px;
+}
+.qty{
+    top: 685px;
+left: 912px;
+width: 200px;
+height: 14px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 12px/16px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+.servicecartheader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #C1C1C129;
+    height: 50px;
+}
+.carttxtservices{
+    left: 949px;
+    width: 133px;
+    height: 19px;
+    text-align: left;
+    letter-spacing: 0px;
+    width: 200px;
+    color: #2A2A2A;
+    text-transform: capitalize;
+    font-size: medium;
+    opacity: 1;
+}
+.listservice{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+.servicename{
+    top: 817px;
+left: 913px;
+width: 94px;
+height: 30px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 12px/16px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+opacity: 1;
+}
+.days{
+    top: 817px;
+left: 1084px;
+width: 12px;
+height: 13px;
+/* UI Properties */
+text-align: center;
+font: normal normal normal 10px/13px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.priceservices{
+    top: 0px;
+left: 9px;
+width: 100px;
+height: 22px;
+/* UI Properties */
+text-align: right;
+font: normal normal bold 18px/18px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+}
+.servicefooter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    margin-left: auto;
+    /* margin-right: auto; */
+    box-shadow: 0px 3px 15px #C1C1C129;
+    height: 40px;
+}
+.daysservice{
+    top: 817px;
+    left: 1150px;
+    margin-left: 50px;
+    width: 100px;
+    text-align: left;
+    height: 13px;
+    /* UI Properties */
+    text-align: center;
+    font: normal normal normal 10px/13px Roboto;
+    letter-spacing: 0px;
+    color: #2A2A2A;
+    opacity: 1;
+}
