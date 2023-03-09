@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import style from "./checkout.module.css"
+import pdf from "./pdf.svg"
+import share from "./share.svg"
+import save from "./save.png"
+import backarrow from "./backarrow.svg"
+import Cart from '../shipping/cart'
 import { NavLink, useNavigate } from 'react-router-dom'
-import img from "./b1.png"
-import stylecheckout from "./checkout.css"
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import  Axios  from 'axios';
+import deletes from "./delete.png";
 import { IP_ADDRESS } from '../../ip';
-const style = {
+const styles = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -21,8 +26,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Checkout = () => {
-  const [open, setOpen] = React.useState(false);
+const CheckoutOne = () => {
+    const [open, setOpen] = React.useState(false);
   const [box,setbox]=useState([])
   const [email,setemail]=useState('');
   const [name,setname]=useState('');
@@ -188,59 +193,53 @@ const handlecheckbox=(e)=>{
   console.log(box,"box",totalamt)
 
 }
+const handledelete=(e)=>{
+  console.log(cardata[e.target.id])
+  for(let i=0;i<cardata.length;i++){
+    if(cardata[e.target.id].product_id===cardata[i].product_id){
+      cardata[i]=cardata[i+1]
+    }
+  }
+  cardata.length=cardata.length-1;
+  localStorage.setItem('Cart',JSON.stringify(cardata))
+}
 useEffect(()=>{
   setcardata(cardata1)
 })
-
   return (
-    <div {...stylecheckout}>
-          <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center",marginBottom:"20px"}}>
-         {msg}
-          </Typography>
-          {guest &&
-           <form onSubmit={handlesubmit}>
-           <div className='main-child'>
-           <div className='form-control'>
-         <label className='label-form'>Name</label>
-         
-         <input type="text"  required placeholder='Name'className='form-input'  onChange={(e)=>setname(e.target.value)} />
-         </div>
-         <div className='form-control'>
-         <label className='label-form'>Email</label>
-         
-         <input type="email"  required placeholder='Email'className='form-input' onChange={(e)=>setemail(e.target.value)} />
-         </div>
+   <>
+       <div className={`${style.container}`}>
+  <div className={style.sidebar}>
       
-           </div>
-           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
-           <button className='main-child-btn ' onClick={()=>handleClose()}>Cancel</button>
-           <button className='main-child-btn' type='submit'>Submit</button>
- 
-           </div>
-           </form>
-          }
-         
-        </Box>
-      </Modal>
-      <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-           
-           <h1 style={{color:"whitesmoke"}}>
-            <NavLink to='/' style={{color:"whitesmoke",textDecoration:"none"}}>Home</NavLink>\Checkout
-           </h1>
-        
-        </section>
-        <div className='main-child text-center'>
-      <h1 className='main-child-h3'>Checkout</h1>
-     </div>
-        <section className='checkout-main'>
-            <div className='checkout-main-div'>
+  </div>
+  <div className={style.section}>
+      <div className={style.breadcrumb}>
+          <h5>Home / Checkout</h5>
+      </div>
+      <div className={style.flexbox}>
+      <h1  className={style.checkouttitle}>Checkout</h1>
+      <div>
+          <p className={style.step}>Step 1: Shopping Cart</p>
+          <div className={style.border}>
+          <hr className={style.hr} />
+          <hr className={style.hrnone}/>
+          <hr className={style.hrnone} />
+          <hr className={style.hrnone} />
+          </div>
+      </div>
+      <div style={{width:"250px"}}></div>
+      <div className={style.groupicon}>
+          <img src={pdf} alt="" />
+          <span className={style.download}>
+          Download BOQ
+          </span>
+          <img src={share} alt="" />
+          <img src={save} alt="" />
+      </div>
+      </div>
+      <div className={style.containerchild}>
+          <div className={style.form}>
+          <div className='checkout-main-div' style={{width:"100%"}}>
               <div className='product-cart'>
               <h1 className=' h3-font'>Products Cart</h1>
               <div className='pincode-container'>
@@ -254,7 +253,7 @@ useEffect(()=>{
                     <tr className='checkout-table-head-tr h3-font'>
                         <td></td>
                         <td>YOUR PRODUCT</td> <td>RATE</td> <td>QUANTITY
-</td><td>PRICE</td>
+</td><td colSpan="2">PRICE</td>
                     </tr>
                 </thead>
                 <tbody className='checkout-table-body'>
@@ -270,6 +269,9 @@ useEffect(()=>{
     <span className='checkout-table-body-td-icon' id={index} onClick={(e)=>handleAdd(e)}>+</span>
     </td>
     <td>{data.qty*data.price}</td>
+    <td>
+        <img src={deletes} alt="" className={style.deleteicon} id={index} onClick={(e)=>handledelete(e)} />
+    </td>
   </tr>
                     ))}
                   
@@ -277,13 +279,13 @@ useEffect(()=>{
                 </tbody>
                 <tfoot className='checkout-table-foot'>
                 <tr className='checkout-table-foot-tr'>
-  <td>Sub Total</td> <td colSpan="3" ></td> <td>INR {sum}</td>
+  <td>Sub Total</td> <td colSpan="4" ></td> <td>INR {sum}</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
-  <td>Shipping</td> <td colSpan="3"></td> <td>INR 100</td>
+  <td>Shipping</td> <td colSpan="4"></td> <td>INR 100</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
-  <td>Total</td> <td colSpan="3"></td> <td>INR {sum+100}</td>
+  <td>Total</td> <td colSpan="4"></td> <td>INR {sum+100}</td>
   </tr>
                 </tfoot>
             </table>
@@ -291,8 +293,19 @@ useEffect(()=>{
         <button className='checkout-main-child-btn' onClick={handleCheckout}>Proceed To Checkout</button>
         </section>
             </div>
-            <div className='checkout-main-div'>
-                <h1>Service Cart</h1>
+
+
+          
+           
+          </div>
+          <div className={style.cart}>
+          <div className='checkout-main-div'>
+            <div className={style.titlecontainer}>
+            <h1 className={style.servicetitle}>Service Cart</h1>
+                <span>Total cost<br/><strong>₹21200.58</strong></span>
+                <button className={style.btncheckout}>Checkout</button>
+            </div>
+                
             <table className='checkout-main-table'>
                 <thead className='checkout-table-head'>
                     <tr className='checkout-table-head-tr'>
@@ -318,13 +331,13 @@ useEffect(()=>{
                 </tbody>
                 <tfoot className='checkout-table-foot'>
                 <tr className='checkout-table-foot-tr'>
-  <td>Sub Total</td> <td colSpan="3"></td> <td>INR 100</td>
+  <td colSpan="2">Sub Total</td> <td colSpan="2"></td> <td>INR 100</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
-  <td>Shipping</td> <td colSpan="3"></td> <td>INR 100</td>
+  <td colSpan="2">Shipping</td> <td colSpan="2"></td> <td>INR 100</td>
   </tr>
   <tr className='checkout-table-foot-tr'>
-  <td>Total</td> <td colSpan="3"></td> <td>INR 100</td>
+  <td colSpan="2">Total</td> <td colSpan="2"></td> <td>INR 100</td>
   </tr>
                 </tfoot>
             </table>
@@ -332,10 +345,13 @@ useEffect(()=>{
         <button className='checkout-main-child-btn'>Proceed To Checkout</button>
         </section>
             </div>
-        </section>
-     
-    </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+   </>
   )
 }
 
-export default Checkout
+export default CheckoutOne

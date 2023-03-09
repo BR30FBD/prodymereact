@@ -60,3 +60,6 @@
     background-color: transparent;
     cursor: default;
   }
+  button{
+    cursor: pointer;
+  }

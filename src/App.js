@@ -18,6 +18,9 @@ import MyWishlist from './pages/mywishlist';
 import { useState } from 'react';
 import SearchResults from './common/searchresults';
 import Shipping from './pages/shipping';
+import Payments from './pages/payment';
+import ThankYouOrder from './pages/thankyouorder';
+import CheckoutOne from './pages/checkoutone';
 
 function App() {
 const [dis,setdis]=useState(false)
@@ -33,11 +36,14 @@ const [dis,setdis]=useState(false)
         <Route path='/cateogry' element={<Category/>}/>
         <Route path='/details' element={<Details/>}/>
         <Route path='/myaccount' element={<MyAccount/>}/>
-        <Route path='/checkout' element={<Checkout/>}/>
+        {/* <Route path='/checkout' element={<Checkout/>}/> */}
         <Route path='/myorder' element={<MyOrder/>}/>
         <Route path='/searchresults' element={<SearchResults/>}/>
         <Route path='/mywishlist' element={<MyWishlist/>}/>
         <Route path='/shipping' element={<Shipping/>}/>
+        <Route path='/payments' element={<Payments/>}/>
+        <Route path='/thankyou' element={<ThankYouOrder/>}/>
+        <Route path='/checkout' element={<CheckoutOne/>}/>
       </Routes>
    <Footer/>
 

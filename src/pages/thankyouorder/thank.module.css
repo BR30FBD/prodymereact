@@ -1,0 +1,244 @@
+.container{
+    width: 100%;
+    height: 200vh;
+    display: flex;
+    /* justify-content: baseline; */
+    position: relative;
+    left: 0px;
+}
+.sidebar{
+    width: 201px;
+    height: 100%;
+    background-color: black;
+    margin-top: 100px;
+    left: 0px;
+}
+.section{
+    background-color: #F8F8F8;
+    height: 100%;
+    width: 100%;
+    margin-top: 100px;
+}
+.breadcrumb{
+    top: 90px;
+    left: 225px;
+    width: 100px;
+    height: 14px;
+    /* UI Properties */
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+    text-transform: capitalize;
+    opacity: 1;
+}
+.checkouttitle{
+    top: 124px;
+left: 225px;
+width: 186px;
+height: 51px;
+text-align: left;
+font: normal normal normal 42px/62px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.flexbox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.step{
+    top: 0px;
+left: 53px;
+width: 200px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/32px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+}
+.border{
+    display: flex;
+    justify-content: space-around;
+}
+.hr{
+    height: 5px;
+    border-radius: 3px;
+    background-color: #FF7A34;
+    width: 60px;
+}
+.hrnone{
+    height: 5px;
+    border-radius: 3px;
+    background-color: #E1E1E1;
+    width: 60px;  
+}
+.groupicon{
+    top: 154px;
+left: 982px;
+width: 253px;
+height: 21px;
+/* UI Properties */
+opacity: 1;
+display: flex;
+justify-content: space-around;
+}
+.download{
+    top: 155px;
+left: 1011px;
+width: 107px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+text-decoration: underline;
+font: normal normal normal 16px/19px Roboto;
+letter-spacing: 0px;
+color: #FF7A34;
+opacity: 1;
+}
+.containerchild{
+    position: absolute;
+    left: 100px;
+    width: 85%;
+    height: 100%;
+    /* background-color: #2A2A2A; */
+    display: flex;
+    justify-content: space-between;
+}
+.form{
+    width: 65%;
+    height: 100%;
+    background-color: #FFFFFF;
+}
+.cart{
+    width: 30%;
+    height: 100%;
+    background-color: #FFFFFF; 
+}
+.backbtn{
+    top: 209px;
+left: 131px;
+width: 728px;
+/* height: 1297px; */
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+opacity: 1;
+}
+.backicon{
+    top: 340px;
+left: 250px;
+margin-left: 50px;
+margin-top: 50px;
+width: 14px;
+height: 11px;
+/* UI Properties */
+opacity: 1;
+}
+.backbutton{
+    top: 239px;
+left: 200px;
+width: 123px;
+height: 14px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 12px/16px Roboto;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+letter-spacing: 0px;
+color: #FF7A34;
+text-transform: capitalize;
+opacity: 1;
+}
+.billingInfo{
+    display: flex;
+    justify-content: space-between;
+}
+.billingtitle{
+    top: 273px;
+left: 225px;
+margin: 20px;
+width: 155px;
+height: 19px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.title{
+    top: 249px;
+left: 225px;
+width: 100%;
+margin: 50px;
+height: 24px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 20px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+
+
+.hrbottom{
+    top: 624px;
+left: 225px;
+width: 100%;
+height: 0px;
+/* UI Properties */
+border: 1px solid #D9D9D9;
+opacity: 1;
+}
+
+
+.para{
+    top: 303px;
+left: 225px;
+width: 540px;
+height: 34px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+margin: 50px;
+}
+.ordercontainer{
+display: flex;
+justify-content: space-between;
+width: 80%;
+margin: auto;
+}
+.ordertitle{
+    top: 399px;
+    left: 225px;
+    width: 202px;
+    height: 19px;
+    text-align: left;
+    font: normal normal bold 16px/19px Roboto;
+    letter-spacing: 0px;
+    color: #2A2A2A;
+    opacity: 1;
+}
+.ordertitlespan{
+    top: 589px;
+left: 225px;
+width: 140px;
+height: 85px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+opacity: 1;
+}
+.ordercontaineraddress{
+    display: flex;
+justify-content: space-between;
+width: 80%;
+margin: auto;
+}

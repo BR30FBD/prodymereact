@@ -1,6 +1,6 @@
 .conatinerrrr{
     /* top: 717px; */
-left: 207px;
+left:50px;
 width: 100%;
 display: flex;
 justify-content: center;
@@ -12,6 +12,7 @@ opacity: 1;
     top: 717px;
 left: 225px;
 width: 258px;
+
 height: 162px;
 /* UI Properties */
 background: #F8F8F8 0% 0% no-repeat padding-box;

@@ -10,6 +10,7 @@ import { IP_ADDRESS } from '../../ip'
 import  Axios  from 'axios';
 import axios from 'axios';
 import { BorderStyleTwoTone } from '@mui/icons-material';
+import { useLocation } from 'react-router-dom';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -84,6 +85,7 @@ const [data,setdata]=useState({
 
 const [textarea,settextarea]=useState(false)
 const [open, setOpen] = React.useState(false);
+const [addressid,setaddressid]=useState('')
 const handleOpen = () => setOpen(true);
 const handleClose = () => setOpen(false);
 const [openmodal, setOpenModal] = React.useState(false);
@@ -136,21 +138,39 @@ const dataget=()=>{
   })
 }
 const handleedit=(e)=>{
-  console.log(list[e.target.id])
+  
   setdata(list[e.target.id])
+  setaddressid(list[e.target.id].address_id)
+  setHouseNo(list[e.target.id].address.houseNo)
+  settown(list[e.target.id].address.town)
+  setlandmark(list[e.target.id].address.landmark);
+  setpincode(list[e.target.id].address.pincode)
   handleOpen1()
+  console.log("hello",list)
 }
 const handleupdate=()=>{
   let config={
     headers: { Authorization: `Token ${accessToken}` }
 }
-  Axios.post(`${IP_ADDRESS}api/UpdateAddress/`,data,config).then((res)=>{
+const body={
+  address_id:addressid,
+  address_type:data.address_type,
+  address_nickname:data.address_nickname,
+  address:{
+    houseNo:houseNo,
+    town:town,
+    landmark:landmark,
+    pincode:pincode
+  }
+}
+  Axios.post(`${IP_ADDRESS}api/UpdateAddress/`,body,config).then((res)=>{
     console.log(res,"upadte")
     if(res.data.data===1){
       setmsg('Address Update Successfully !')
+      dataget()
       setTimeout(()=>{
         setmsg('')
-        dataget()
+       
         handleClose1()
       },2000)
     }
@@ -179,6 +199,8 @@ const handledelete=(e)=>{
     console.log(err)
   })
 }
+const location=useLocation()
+console.log(location,"location")
 useEffect(()=>{
   dataget()
 },[])
@@ -271,19 +293,26 @@ useEffect(()=>{
         <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
         </div>
         <div className='form-control'>
-        <label className='label-form'>Address Nickname</label>
+        <label className='label-form'>House No</label>
         
-        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={houseNo}  onChange={(e)=>setHouseNo(e.target.value)} />
         </div>
         <div className='form-control'>
-        <label className='label-form'>Address Nickname</label>
+        <label className='label-form'>Town</label>
         
-        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={data.address_nickname} onChange={(e)=>handlechange(e)} />
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={town} onChange={(e)=>settown(e.target.value)} />
         </div>
-        <div className='form-control' style={{width:"100%",padding:"10px"}}>
-        <label className='label-form'>Address*</label>
-        <input type="text" style={{width:"95%",marginLeft:"10px"}}  required placeholder='Address'className='form-input' id="address" value={data.address} onChange={(e)=>handlechange(e)} />
+        <div className='form-control'>
+        <label className='label-form'>LandMark</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={landmark} onChange={(e)=>setlandmark(e.target.value)} />
         </div>
+        <div className='form-control'>
+        <label className='label-form'>Pincode</label>
+        
+        <input type="text"  required placeholder='Address Nickname'className='form-input' id="address_nickname" value={pincode} onChange={(e)=>setpincode(e.target.value)} />
+        </div>
+        
        
           </div>
           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
@@ -295,15 +324,16 @@ useEffect(()=>{
       </Modal>
       <section className="main-myaccount">
     <div className='main-child' style={{justifyContent:"space-between"}}>
+      {location.pathname!=="/shipping" &&   
     <h2 style={{textAlign:"left"}} className='h3-font'>Your Addresses</h2>
-    {textarea ?
-    <button className='main-child-btn'onClick={()=>settextarea(!textarea)}>Submit</button>
-
-    :
+      
+      }
+       {location.pathname!=="/shipping" &&  
     <div className='main-child-btn'onClick={handleOpen}>Add Address</div>
+}
 
 
-  }
+  
 
    
      </div>
@@ -315,8 +345,9 @@ useEffect(()=>{
         <div className='address-card' style={{background:"#F8F8F8",margin:"5px",width:"33%"}}>
           
           <div style={{display:"flex",justifyContent:"start",alignItems:"baseline"}}>
-            <input type="radio" style={{color:"#ff7a34"}}/>
-     <textarea cols="25" rows="5" id="textarea" className='label-form'>{data.address}</textarea>
+            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}} checked="checked" /> :  <input type="radio"  style={{color:"#ff7a34"}}/>}
+          
+     <textarea cols="25" rows="5" id="textarea" className='label-form'>{data.address.houseNo}</textarea>
      </div>
      <div style={{display:"flex",justifyContent:"end"}}>
             {/* <EditIcon/>
@@ -334,8 +365,9 @@ useEffect(()=>{
           <div className='address-card' style={{background:"#F8F8F8",margin:"5px",width:"33%"}}>
             
             <div style={{display:"flex",justifyContent:"start",alignItems:"baseline"}}>
-              <input type="radio" style={{color:"#ff7a34"}}/>
-       <textarea cols="25" rows="5" id="textarea" className='label-form'>{data.address}</textarea>
+            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}} checked="checked" /> :  <input type="radio"  style={{color:"#ff7a34"}}/>}
+          
+       <textarea cols="25" rows="5" id="textarea" className='label-form'>{`${data.address.houseNo},${data.address.town},${data.address.landmark},${data.address.pincode}`}</textarea>
        </div>
        <div style={{display:"flex",justifyContent:"end"}}>
               {/* <EditIcon/>

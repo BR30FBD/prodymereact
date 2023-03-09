@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from "./shipping.module.css"
 import pdf from "./pdf.svg"
 import share from "./share.svg"
@@ -7,9 +7,57 @@ import backarrow from "./backarrow.svg"
 import Address from '../../auth/myaccount/address'
 import AddressShipping from './addressshipping'
 import Cart from './cart'
+import { useNavigate } from 'react-router-dom'
+
 const Shipping = () => {
+   
+    const [billinginfo,setbillinginfo]=useState({
+        fname:"",
+        lname:"",
+        company:"",
+        po:"",
+        gst:"",
+        email:"",
+        mobile:""
+
+    })
+    const [newaddress,setnewaddress]=useState({
+        fname:"",
+        lname:"",
+        plot:"",
+        address1:"",
+        address2:"",
+        landmark:"",
+        city:"",
+        pincode:""
+    })
+    const nav=useNavigate()
+    const handlechange=(e)=>{
+        const newdata={...billinginfo};
+        newdata[e.target.id]=e.target.value;
+        setbillinginfo(newdata);
+        console.log(billinginfo)
+    }
+    const handleaddress=(e)=>{
+        const newdata={...newaddress};
+        newdata[e.target.id]=e.target.value;
+        setnewaddress(newdata);
+        console.log(newaddress)
+    }
+ 
+    const handlepay=()=>{
+        console.log("hello")
+        
+        nav('/payments')
+        localStorage.setItem('billingInfo',JSON.stringify(billinginfo))
+        localStorage.setItem('newaddress',JSON.stringify(newaddress))
+      
+           
+          
+    }
   return (
     <>
+    
     <div className={`${style.container}`}>
         <div className={style.sidebar}>
             
@@ -52,31 +100,31 @@ const Shipping = () => {
                     <div className={style.formconatiner}>
                         <div className={style.formcontrol}>
                             <label className={style.label}>First Name*</label>
-                            <input type="text" placeholder='First Name*' className={style.input} />
+                            <input type="text" placeholder='First Name*' className={style.input} id="fname" value={billinginfo.fname} onChange={(e)=>handlechange(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Last Name*</label>
-                            <input type="text" placeholder='Last Name*' className={style.input} />
+                            <input type="text" placeholder='Last Name*' className={style.input} id="lname" value={billinginfo.lname} onChange={(e)=>handlechange(e)}/>
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Company Name</label>
-                            <input type="text" placeholder='Company Name' className={style.input} />
+                            <input type="text" placeholder='Company Name' className={style.input} id="company" value={billinginfo.company} onChange={(e)=>handlechange(e)}/>
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>P. O. Number</label>
-                            <input type="text" placeholder='P. O. Number' className={style.input} />
+                            <input type="text" placeholder='P. O. Number' className={style.input} id="po" value={billinginfo.po} onChange={(e)=>handlechange(e)}/>
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>GST Number</label>
-                            <input type="text" placeholder='GST Number' className={style.input} />
+                            <input type="text" placeholder='GST Number' className={style.input} id="gst" value={billinginfo.gst} onChange={(e)=>handlechange(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Email*</label>
-                            <input type="text" placeholder='Email*' className={style.input} />
+                            <input type="text" placeholder='Email*' className={style.input} id="email" value={billinginfo.email} onChange={(e)=>handlechange(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Phone Number*</label>
-                            <input type="text" placeholder='Phone Number*' className={style.input} />
+                            <input type="text" placeholder='Phone Number*' className={style.input} id="mobile" value={billinginfo.mobile} onChange={(e)=>handlechange(e)}/>
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Enter OTP</label>
@@ -108,35 +156,35 @@ const Shipping = () => {
                     <div className={style.formconatiner} style={{width:"100%"}}>
                         <div className={style.formcontrol}>
                             <label className={style.label}>First Name*</label>
-                            <input type="text" placeholder='First Name*' className={style.input} />
+                            <input type="text" placeholder='First Name*' className={style.input} id="fname" value={newaddress.fname} onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Last Name*</label>
-                            <input type="text" placeholder='Last Name*' className={style.input} />
+                            <input type="text" placeholder='Last Name*' className={style.input} id="lname" value={newaddress.lname}    onChange={(e)=>handleaddress(e)}/>
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Plot Number*</label>
-                            <input type="text" placeholder='Plot Number*' className={style.input} />
+                            <input type="text" placeholder='Plot Number*' className={style.input} id="plot" value={newaddress.plot}   onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Street Address 1*</label>
-                            <input type="text" placeholder='Street Address 1*' className={style.input} />
+                            <input type="text" placeholder='Street Address 1*' className={style.input} id="address1" value={newaddress.address1}   onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Street Address 2*</label>
-                            <input type="text" placeholder='Street Address 2*' className={style.input} />
+                            <input type="text" placeholder='Street Address 2*' className={style.input} id="address2" value={newaddress.address2}   onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Landmark*</label>
-                            <input type="text" placeholder='Email*' className={style.input} />
+                            <input type="text" placeholder='Email*' className={style.input} id="landmark" value={newaddress.landmark}   onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>City*</label>
-                            <input type="text" placeholder='City*' className={style.input} />
+                            <input type="text" placeholder='City*' className={style.input} id="city" value={newaddress.city} onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Pincode*</label>
-                            <input type="text" placeholder='Pincode*' className={style.input} />
+                            <input type="text" placeholder='Pincode*' className={style.input} id="pincode" value={newaddress.pincode} onChange={(e)=>handleaddress(e)} />
                         </div>
                      
                     </div>
@@ -146,7 +194,7 @@ const Shipping = () => {
                         <span className={style.spantext}>Billing info same as shipping info</span>
                     </div>
                     <hr className={style.hrbottom}/>
-                    <button className={style.proceed}>Proceed to Pay</button>
+                    <button className={style.proceed} onClick={handlepay}>Proceed to Pay</button>
                     </div>
                     </div>
                 </div>
