@@ -25,6 +25,7 @@ import PDF from './common/pdf';
 import Invoice from './common/invoice';
 import OrderDetails from './pages/orderdetails';
 import ContactUs from './contactus';
+import MyMessage from './pages/mymessage';
 
 function App() {
 const [dis,setdis]=useState(false)
@@ -40,7 +41,7 @@ const [dis,setdis]=useState(false)
         <Route path='/cateogry' element={<Category/>}/>
         <Route path='/details' element={<Details/>}/>
         <Route path='/myaccount' element={<MyAccount/>}/>
-        {/* <Route path='/checkout' element={<Checkout/>}/> */}
+        <Route path='/mymessage' element={<MyMessage/>}/>
         <Route path='/myorder' element={<MyOrder/>}/>
         <Route path='/searchresults' element={<SearchResults/>}/>
         <Route path='/mywishlist' element={<MyWishlist/>}/>

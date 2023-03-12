@@ -273,7 +273,9 @@ const Header = ({dis}) => {
     :
     <button data-v-aaec3394=""  className="label-form" onClick={()=>setdisplay(!display)}>Login / Sign Up</button>
   }
-    
+     <NavLink to='/contactus'  className="label-form" style={{textDecoration:"none"}}>
+  Contact Us
+    </NavLink>
    {display &&
     <Auth fun={auth}/>
    
