@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    height: 250vh;
+    height: 200vh;
     display: flex;
     /* justify-content: baseline; */
     position: relative;
@@ -19,10 +19,43 @@
     width: 100%;
     margin-top: 100px;
 }
+.nav{
+    text-decoration: none;
+}
+.h3{
+    top: 249px;
+left: 225px;
+width: 100px;
+height: 19px;
+/* UI Properties */
+font-family: Roboto,Helvetica,Arial,sans-serif;
+text-align: left;
+font: normal normal bold 16px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+opacity: 1;
+}
+.tr{
+    top: 319px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+left: 245px;
+width: 96px;
+height: 14px;
+/* UI Properties */
+text-align: center;
+font: normal normal bold 12px/32px Roboto;
+letter-spacing: 0px;
+color: #646464;
+text-transform: uppercase;
+opacity: 1;
+}
 .breadcrumb{
     top: 90px;
     left: 225px;
-    width: 100px;
+    margin: 20px;
+    text-decoration: none;
+    width: 300px;
     height: 14px;
     /* UI Properties */
     text-align: left;
@@ -113,9 +146,9 @@ opacity: 1;
     background-color: #FFFFFF;
 }
 .cart{
-    width: 30%;
+    width: 40%;
     height: 100%;
-    background-color: #FFFFFF; 
+    background-color: #E1E1E1; 
 }
 .backbtn{
     top: 209px;
@@ -168,151 +201,67 @@ color: #2A2A2A;
 text-transform: capitalize;
 opacity: 1;
 }
-.edit{
-    top: 277px;
-left: 745px;
-width: 20px;
-margin: 20px;
-height: 14px;
-/* UI Properties */
-text-align: right;
-text-decoration: underline;
-font: normal normal normal 12px/14px Roboto;
-letter-spacing: 0px;
-color: #FF7A34;
-opacity: 1;
-}
-.formconatiner{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 90%;
-    align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.formcontrol{
-    display: flex;
-    justify-content: baseline;
-    align-items: baseline;
-    flex-direction: column;
-    width: 45%;
-    padding: 10px;
-}
-.label{
-    top: 310px;
-margin-left: 40px;
-width: 100%;
-height: 14px;
-/* UI Properties */
-font-size: medium;
-text-align: left;
-font: normal normal normal 12px/14px Roboto;
-letter-spacing: 0px;
-color: #888888;
-opacity: 1;
-}
-.input{
-    top: 326px;
+.title{
+    top: 249px;
 left: 225px;
-width: 258px;
-height: 40px;
-/* UI Properties */
-border: 1px solid #E1E1E1;
-opacity: 1;
-}
-.inputotp{
-    top: 326px;
-    left: 225px;
-    width: 30px;
-    height: 40px;
-    /* UI Properties */
-    border: 1px solid #E1E1E1;
-    opacity: 1;   
-    margin: 10px;
-}
-.otp{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.buttonverify{
-    top: 554px;
-left: 695px;
-width: 70px;
-height: 40px;
-/* UI Properties */
-background: #FFFFFF 0% 0% no-repeat padding-box;
-border: 1px solid #FF7A34;
-border-radius: 20px;
-opacity: 1;
-}
-.timing{
-    top: 606px;
-left: 509px;
-width: 111px;
-height: 14px;
+width: 100%;
+margin: 50px;
+height: 24px;
 /* UI Properties */
 text-align: left;
-font: normal normal normal 12px/14px Roboto;
+font: normal normal bold 20px/20px Roboto;
 letter-spacing: 0px;
-color: #888888;
+color: #2A2A2A;
 opacity: 1;
 }
+
+
 .hrbottom{
     top: 624px;
 left: 225px;
-width: 500px;
+width: 100%;
 height: 0px;
 /* UI Properties */
 border: 1px solid #D9D9D9;
 opacity: 1;
 }
-.addresscontainer{
-    top: 239px;
-left: 175px;
-width: 620px;
-/* height:100%; */
-/* UI Properties */
-opacity: 1;
-}
-.shopping{
-    top: 644px;
-left: 225px;
-width: 200px;
-height: 19px;
-/* UI Properties */
-text-align: left;
-font: normal normal bold 16px/20px Roboto;
-letter-spacing: 0px;
-color: #2A2A2A;
-font-family: Roboto,Helvetica,Arial,sans-serif;
-text-transform: capitalize;
-opacity: 1;
-margin: 20px;
-}
-.saveaddress{
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    padding: 10px;
-    height: 400px;
 
-}
-.radioactive{
-    top: 681px;
-left: 250px;
-width: 15px;
-height: 15px;
+
+.para{
+    top: 303px;
+left: 225px;
+width: 540px;
+height: 34px;
 /* UI Properties */
-border: 1px solid #FF7A34;
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
 opacity: 1;
+margin: 50px;
 }
-.saveaddress{
-    top: 680px;
-left: 260px;
-width: 150px;
-height: 17px;
+.ordercontainer{
+display: flex;
+justify-content: space-between;
+width: 80%;
+margin: auto;
+}
+.ordertitle{
+    top: 399px;
+    left: 225px;
+    width: 202px;
+    height: 19px;
+    text-align: left;
+    font: normal normal bold 16px/19px Roboto;
+    letter-spacing: 0px;
+    color: #2A2A2A;
+    opacity: 1;
+}
+.ordertitlespan{
+    top: 589px;
+left: 225px;
+width: 140px;
+height: 85px;
 /* UI Properties */
 text-align: left;
 font: normal normal normal 14px/17px Roboto;
@@ -320,14 +269,16 @@ letter-spacing: 0px;
 color: #2A2A2A;
 opacity: 1;
 }
-.addressform{
-    height: 400px;
-    /* background-color:; */
+.ordercontaineraddress{
+    display: flex;
+justify-content: space-between;
+width: 80%;
+margin: auto;
 }
-.billingaddress{
-    top: 1324px;
-left: 225px;
-width: 109px;
+.servicetitle{
+    top: 249px;
+left: 805px;
+width: 97px;
 height: 19px;
 /* UI Properties */
 text-align: left;
@@ -336,48 +287,57 @@ letter-spacing: 0px;
 color: #2A2A2A;
 text-transform: capitalize;
 opacity: 1;
-margin-left: 50px;
 }
-.checkbox{
+.titlecontainer{
+    width: 400px;
+    margin: 20px;
     display: flex;
-    justify-content:start;
+    justify-content: space-around;
     align-items: center;
-    margin-left: 50px;
 }
-.inputcheck{
-    top: 1376px;
-left: 225px;
-width: 20px;
-height: 20px;
-/* UI Properties */
-background: #FFFFFF 0% 0% no-repeat padding-box;
-border: 1px solid #FF7A34;
-border-radius: 3px;
-opacity: 1;
-}
-.spantext{
-top: 1377px;
-left: 259px;
-width: 206px;
-height: 17px;
-/* UI Properties */
-text-align: left;
-font: normal normal normal 14px/17px Roboto;
-letter-spacing: 0px;
-color: #2A2A2A;
-font-family: Roboto,Helvetica,Arial,sans-serif;
-opacity: 1;
-}
-.proceed{
-    top: 1436px;
-left: 225px;
-width: 164px;
+.btncheckout{
+    top: 239px;
+left: 1051px;
+width: 90px;
 height: 40px;
 /* UI Properties */
 background: #FF7A34 0% 0% no-repeat padding-box;
 border-radius: 20px;
-opacity: 1;
 border: 1px solid #fff;
-color:#fff;
-margin: 20px;
+color: #ffff;
+opacity: 1;
+}
+.deleteicon{
+    top: 419px;
+left: 745px;
+width: 20px;
+height: 20px;
+/* UI Properties */
+opacity: 1;
+cursor: pointer;
+}
+.tablecontainer{
+    height: 300px;
+    overflow-y: scroll;
+}
+.pricesection{
+    display: flex;
+    justify-content: space-between;
+
+}
+.total{
+    top: 690px;
+left: 642px;
+width: 66px;
+height: 17px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 14px/20px Roboto;
+letter-spacing: 0px;
+color: #2A2A2A;
+text-transform: capitalize;
+margin-left: 100px;
+margin-top: 20px;
+font-family: Roboto,Helvetica,Arial,sans-serif;
+opacity: 1;
 }

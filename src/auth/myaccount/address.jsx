@@ -25,6 +25,7 @@ const style = {
     p: 4
   };
 const Address = () => {
+  const [selectedValue, setSelectedValue] = useState("");
     let accessToken=localStorage.getItem('prodymeApiToken')
     const [msg,setmsg]=useState('')
     const [list,setlist]=useState([])
@@ -203,7 +204,18 @@ const location=useLocation()
 console.log(location,"location")
 useEffect(()=>{
   dataget()
+setTimeout(()=>{
+  console.log(list,"addddd")
+  // localStorage.setItem('address',JSON.stringify(list[0]))
+},2000)
+
+ 
 },[])
+const handleaddress=(e)=>{
+  setSelectedValue(e.target.id);
+
+  localStorage.setItem('address',JSON.stringify(list[e.target.id]))
+}
   return (
     <>
       <Modal
@@ -322,7 +334,7 @@ useEffect(()=>{
           </div>
         </Box>
       </Modal>
-      <section className="main-myaccount">
+      <section className="main-myaccount" style={{padding:`${location.pathname===''}`}}>
     <div className='main-child' style={{justifyContent:"space-between"}}>
       {location.pathname!=="/shipping" &&   
     <h2 style={{textAlign:"left"}} className='h3-font'>Your Addresses</h2>
@@ -345,7 +357,8 @@ useEffect(()=>{
         <div className='address-card' style={{background:"#F8F8F8",margin:"5px",width:"33%"}}>
           
           <div style={{display:"flex",justifyContent:"start",alignItems:"baseline"}}>
-            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}} checked="checked" /> :  <input type="radio"  style={{color:"#ff7a34"}}/>}
+            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}}    value={index}
+            checked={selectedValue == index} id={index} onChange={(e)=>handleaddress(e)} /> :  <input type="radio"  style={{color:"#ff7a34"}} id={index} onChange={(e)=>handleaddress(e)}  />}
           
      <textarea cols="25" rows="5" id="textarea" className='label-form'>{data.address.houseNo}</textarea>
      </div>
@@ -365,7 +378,9 @@ useEffect(()=>{
           <div className='address-card' style={{background:"#F8F8F8",margin:"5px",width:"33%"}}>
             
             <div style={{display:"flex",justifyContent:"start",alignItems:"baseline"}}>
-            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}} checked="checked" /> :  <input type="radio"  style={{color:"#ff7a34"}}/>}
+            {index===0 ?  <input type="radio"  style={{color:"#ff7a34"}}    value={index}
+            checked={selectedValue == index} id={index} onChange={(e)=>handleaddress(e)} /> :  <input type="radio"  style={{color:"#ff7a34"}} id={index} value={index}
+            checked={selectedValue == index}  onChange={(e)=>handleaddress(e)}  />}
           
        <textarea cols="25" rows="5" id="textarea" className='label-form'>{`${data.address.houseNo},${data.address.town},${data.address.landmark},${data.address.pincode}`}</textarea>
        </div>

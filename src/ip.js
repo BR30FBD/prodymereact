@@ -1,1 +1,1 @@
-export const IP_ADDRESS="http://127.0.0.1:8000/";
+export const IP_ADDRESS="https://praveenrrc.pythonanywhere.com/";

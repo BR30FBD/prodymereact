@@ -1,6 +1,6 @@
 import  Axios  from 'axios'
 import React, { useEffect, useMemo, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { IP_ADDRESS } from '../../ip'
 import Pagination from '../../pagination'
 import img from "./b1.png"
@@ -8,6 +8,7 @@ import  style from "./myorder.css"
 let PageSize = 8;
 const MyOrder = () => {
   const [data,setdata]=useState([])
+  const nav=useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   let accessToken=localStorage.getItem('prodymeApiToken')
   const currentTableData = useMemo(() => {
@@ -26,6 +27,10 @@ const MyOrder = () => {
       console.log(err)
     })
   },[])
+  const handleorder=(data)=>{
+    console.log(data,"data")
+    nav('/orderdetails',{state:{id:"23",data:data.orderData.orderData,total:data.totalAmount}})
+  }
   return (
     <div {...style}>
      <section  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -85,7 +90,7 @@ Order Status</td>
         {data.length>0 && currentTableData.map((data,index)=>(
   <tr>
   <td>{data.Date}</td>
-  <td><a className='href-link' href="#">{data.orderId}</a></td>
+  <td><a className='href-link' role="button" onClick={()=>handleorder(data)}>{data.orderId}</a></td>
   <td>{data.DeliveryDate}</td>
   <td>INR {data.totalAmount}</td>
   <td><button className='myorder-tbody-btn' style={{background:`${data%2==0 ? "#ffd2c4":""}`}}>{data.status}</button></td>

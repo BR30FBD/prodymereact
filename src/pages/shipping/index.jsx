@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "./shipping.module.css"
 import pdf from "./pdf.svg"
 import share from "./share.svg"
@@ -8,9 +8,36 @@ import Address from '../../auth/myaccount/address'
 import AddressShipping from './addressshipping'
 import Cart from './cart'
 import { useNavigate } from 'react-router-dom'
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import  Axios  from 'axios';
+import { IP_ADDRESS } from '../../ip';
+const styles = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  borderRadius:"6px",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Shipping = () => {
-   
+    const [open, setOpen] = React.useState(false);
+  const [box,setbox]=useState([])
+  const [email,setemail]=useState('');
+  const [name,setname]=useState('');
+  const [guest,setguest]=useState(false)
+
+  const [msg,setmsg]=useState('')
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  let accessToken=localStorage.getItem('prodymeApiToken')
     const [billinginfo,setbillinginfo]=useState({
         fname:"",
         lname:"",
@@ -32,6 +59,10 @@ const Shipping = () => {
         pincode:""
     })
     const nav=useNavigate()
+    const cardata=JSON.parse(localStorage.getItem('Cart')) || [];
+    const total=localStorage.getItem('Cart') && JSON.parse(localStorage.getItem('Cart')).map((data,index)=>{
+      return data.price*data.qty
+    }).reduce((partialSum, a) => partialSum + a, 0)
     const handlechange=(e)=>{
         const newdata={...billinginfo};
         newdata[e.target.id]=e.target.value;
@@ -47,17 +78,83 @@ const Shipping = () => {
  
     const handlepay=()=>{
         console.log("hello")
-        
-        nav('/payments')
-        localStorage.setItem('billingInfo',JSON.stringify(billinginfo))
-        localStorage.setItem('newaddress',JSON.stringify(newaddress))
+       
+                nav('/payments')
+                localStorage.setItem('billingInfo',JSON.stringify(billinginfo))
+                localStorage.setItem('newaddress',JSON.stringify(newaddress))
+              
+  
       
            
           
     }
+    const handlesubmit=(e)=>{
+        e.preventDefault()
+        const obj={
+          email:email,
+          name:name,
+          totalAmount:total,
+          orderData:cardata
+        }
+        console.log(obj,"obj")
+        Axios.post(`${IP_ADDRESS}GuestCheckout/`,obj).then((res)=>{
+          console.log(res)
+          setmsg(res.data.message)
+          setTimeout(()=>{
+            setmsg('')
+            nav('/')
+            localStorage.removeItem('Cart')
+            handleClose()
+          },2000)
+        }).catch((err)=>{
+          console.log(err)
+          setmsg(err.message)
+        })
+      }
+      useEffect(()=>{
+        window.scrollTo(0,0)
+        },[])
+        const handlebillingaddress=()=>{
+            let getaddress=JSON.parse(localStorage.getItem('address')) || newaddress;
+            localStorage.setItem('billingaddresssame',JSON.stringify(getaddress))
+        }
   return (
     <>
-    
+       <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styles}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center",marginBottom:"20px"}}>
+         {msg}
+          </Typography>
+          {guest &&
+           <form onSubmit={handlesubmit}>
+           <div className='main-child'>
+           <div className='form-control'>
+         <label className='label-form'>Name</label>
+         
+         <input type="text"  required placeholder='Name'className='form-input'  onChange={(e)=>setname(e.target.value)} />
+         </div>
+         <div className='form-control'>
+         <label className='label-form'>Email</label>
+         
+         <input type="email"  required placeholder='Email'className='form-input' onChange={(e)=>setemail(e.target.value)} />
+         </div>
+      
+           </div>
+           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
+           <button className='main-child-btn ' onClick={()=>handleClose()}>Cancel</button>
+           <button className='main-child-btn' type='submit'>Submit</button>
+ 
+           </div>
+           </form>
+          }
+         
+        </Box>
+      </Modal>
     <div className={`${style.container}`}>
         <div className={style.sidebar}>
             
@@ -176,7 +273,7 @@ const Shipping = () => {
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>Landmark*</label>
-                            <input type="text" placeholder='Email*' className={style.input} id="landmark" value={newaddress.landmark}   onChange={(e)=>handleaddress(e)} />
+                            <input type="text" placeholder='Landmark*' className={style.input} id="landmark" value={newaddress.landmark}   onChange={(e)=>handleaddress(e)} />
                         </div>
                         <div className={style.formcontrol}>
                             <label className={style.label}>City*</label>
@@ -190,7 +287,7 @@ const Shipping = () => {
                     </div>
                     <h2 className={style.billingaddress}>Billing Address</h2>
                     <div className={style.checkbox}>
-                        <input type="checkbox"  className={style.inputcheck}/>
+                        <input type="checkbox"  className={style.inputcheck} onClick={handlebillingaddress}/>
                         <span className={style.spantext}>Billing info same as shipping info</span>
                     </div>
                     <hr className={style.hrbottom}/>

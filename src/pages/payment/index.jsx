@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cart from '../shipping/cart'
 import style from "./payment.module.css"
 import pdf from "./pdf.svg"
@@ -34,29 +34,49 @@ const Payments = () => {
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [guest,setguest]=useState(false)
+    const [email,setemail]=useState('');
+    const [name,setname]=useState('');
     const [msg,setmsg]=useState('')
     const nav=useNavigate();
     const total=localStorage.getItem('Cart') && JSON.parse(localStorage.getItem('Cart')).map((data,index)=>{
         return data.price*data.qty
-      }).reduce((partialSum, a) => partialSum + a, 0)
+      }).reduce((partialSum, a) => partialSum + a, 0) || 0;
     const cardata1=JSON.parse(localStorage.getItem('Cart')) || [];
     const billinginfo=JSON.parse(localStorage.getItem('billingInfo'));
+    let accessToken=localStorage.getItem('prodymeApiToken')
+    let getaddress=JSON.parse(localStorage.getItem('address')) || {};
+
     const handlepayment=()=>{
    
        
-        let accessToken=localStorage.getItem('prodymeApiToken')
     
         let config={
             headers: { Authorization: `Token ${accessToken}` }
         }
+
+        console.log("hello1")
+
         const obj={
           orderData:{
             billinginfo:billinginfo,
             orderData:cardata1,
-            billingaddress:billinginfo
+            billingaddress:billinginfo,
+            address:getaddress,
+            shippingAddress:JSON.parse(localStorage.getItem('billingaddresssame'))|| {}
           },
           totalAmount:total
         }
+        if(!accessToken){
+                handleOpen()
+                setmsg('Please Fill The Information !')
+                setguest(true)
+                setTimeout(()=>{
+                //   handleClose()
+                      },2000)
+              }
+              else{
+                console.log("hello")
         Axios.post(`${IP_ADDRESS}postOrder/`,obj,config)
         .then((res)=>{
     console.log(res.data) 
@@ -78,9 +98,45 @@ const Payments = () => {
           },2000)
         })
     }
+    }
+    const handlesubmit=(e)=>{
+        e.preventDefault()
+        let getaddress=JSON.parse(localStorage.getItem('address')) || {};
+        let orderData={
+            billinginfo:billinginfo,
+            orderData:cardata1,
+            billingaddress:billinginfo,
+            address:getaddress,
+            shippingAddress:JSON.parse(localStorage.getItem('billingaddresssame'))|| {}
+          };
+        const obj={
+          email:email,
+          name:name,
+          totalAmount:total,
+          orderData:orderData
+        }
+        console.log(obj,"obj")
+        Axios.post(`${IP_ADDRESS}GuestCheckout/`,obj).then((res)=>{
+          console.log(res)
+          setmsg(res.data.message)
+          setTimeout(()=>{
+            setmsg('')
+            nav('/')
+            localStorage.removeItem('Cart')
+            handleClose()
+          },2000)
+        }).catch((err)=>{
+          console.log(err)
+          setmsg(err.message)
+        })
+      }
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+        },[])
   return (   
     <>
-       <Modal
+        <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -90,7 +146,28 @@ const Payments = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center",marginBottom:"20px"}}>
          {msg}
           </Typography>
+          {guest &&
+           <form onSubmit={handlesubmit}>
+           <div className='main-child'>
+           <div className='form-control'>
+         <label className='label-form'>Name</label>
          
+         <input type="text"  required placeholder='Name'className='form-input'  onChange={(e)=>setname(e.target.value)} />
+         </div>
+         <div className='form-control'>
+         <label className='label-form'>Email</label>
+         
+         <input type="email"  required placeholder='Email'className='form-input' onChange={(e)=>setemail(e.target.value)} />
+         </div>
+      
+           </div>
+           <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
+           <button className='main-child-btn ' onClick={()=>handleClose()}>Cancel</button>
+           <button className='main-child-btn' type='submit'>Submit</button>
+ 
+           </div>
+           </form>
+          }
          
         </Box>
       </Modal>

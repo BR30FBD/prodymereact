@@ -21,6 +21,10 @@ import Shipping from './pages/shipping';
 import Payments from './pages/payment';
 import ThankYouOrder from './pages/thankyouorder';
 import CheckoutOne from './pages/checkoutone';
+import PDF from './common/pdf';
+import Invoice from './common/invoice';
+import OrderDetails from './pages/orderdetails';
+import ContactUs from './contactus';
 
 function App() {
 const [dis,setdis]=useState(false)
@@ -44,6 +48,9 @@ const [dis,setdis]=useState(false)
         <Route path='/payments' element={<Payments/>}/>
         <Route path='/thankyou' element={<ThankYouOrder/>}/>
         <Route path='/checkout' element={<CheckoutOne/>}/>
+        <Route path='/Pdf' element={<Invoice/>}/>
+        <Route path='/orderdetails' element={<OrderDetails/>}/>
+        <Route path='/contactus' element={<ContactUs/>}/>
       </Routes>
    <Footer/>
 

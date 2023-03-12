@@ -11,9 +11,12 @@ const ThankYouOrder = () => {
     useEffect(()=>{
         setTimeout(()=>{
             nav('/myorder')
-
+            localStorage.removeItem('Cart')
         },2000)
     },[])
+    useEffect(()=>{
+        window.scrollTo(0,0)
+        },[])
   return (
     <>
       <div className={`${style.container}`}>
