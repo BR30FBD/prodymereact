@@ -1,0 +1,131 @@
+.container-wrapper-result{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #F8F8F8;
+}
+.aside-wrapper-results{
+    width: 15%;
+    /* height: 100%; */
+    background-color: black;
+}
+.content-wrapper-results{
+    width: 83%;
+    height: 100%;
+    padding: 10px;
+}
+.p-filter{
+    color: #F4F4F4;
+    margin: 10px;
+    top: 323px;
+    font-size: 16px;
+left: 25px;
+width: 69px;
+height: 19px;
+opacity: 1;
+display: flex;
+justify-content: space-around;
+font: normal normal 300 16px/20px Roboto;
+align-items: center;
+    
+}
+.empty-box-wrapper{
+    width: 100%;
+    height: 200px;
+}
+.aside-searchbar{
+    background-color: black;
+    color: aliceblue;
+    margin-left: 10px !important;
+}
+.search-icon-bar{
+    color: aliceblue;
+    width: 19px;
+    height: 19px;
+}
+.btn-tags{
+    background-color: #FF7A34;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+    top: 326px;
+    width: auto;
+    padding: 7px;
+    border-radius: 17px;
+    color: #fff;
+left: 25px;
+border: 2px solid #FF7A34;
+opacity: 1;
+margin: 5px;
+}
+.dropdown-category
+{
+    color: #F4F4F4;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid !important;
+}
+.drop-down-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #646464;
+    width: 80%;
+    margin-left: 13px;
+    border-radius: 3px;
+}
+.ul-wrapper{
+    margin-top: 2px;
+    
+}
+.li-dropdown{
+    color: #C5C5C5;
+    list-style: none;
+    margin: 10px;
+    margin-left: -10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.check-box{
+    width: 20px;
+    height: 20px;
+    background-color: #F4F4F4;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.empty-box-wrapper-footer{
+    height: 100px;
+}
+.bredcrumb{
+
+}
+.text-home{
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.text-align{
+    color: #FF7A34;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.card-results{
+    width:22% !important;
+    margin: 10px;
+}
+.blog-container{
+    margin-bottom: -28px;
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+.text-ell{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

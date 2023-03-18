@@ -15,6 +15,9 @@ height: 400px;
 background: transparent linear-gradient(180deg, #FFFFFF00 0%, #3030309B 29%, #000000 100%) 0% 0% no-repeat padding-box;
 opacity: 0.6;
 background-image: url(../contactus/b1.png);
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .formcontainer{
     top: 205px;

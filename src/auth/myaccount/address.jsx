@@ -29,7 +29,7 @@ const Address = () => {
     let accessToken=localStorage.getItem('prodymeApiToken')
     const [msg,setmsg]=useState('')
     const [list,setlist]=useState([])
-    let sideno=list.length;
+    let sideno=list.length || 0;
 var settings = {
   dots: false,
   infinite: true,

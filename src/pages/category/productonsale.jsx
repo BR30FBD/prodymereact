@@ -67,6 +67,25 @@ const Productonsale = () => {
          
       })
       },[])
+      const handlproductonsaledatabycategory=()=>{
+        Axios.get(`${IP_ADDRESS}getDataProductSale/`,{
+          cache: "no-store",
+         
+      }).then((data)=>{
+        setsale(data.data.data)
+        nav("/allcategory",{state:{id:"1",data:data.data.data}})
+    
+      }).catch((err)=>{
+          Axios.get(`${IP_ADDRESS}getDataProductSale/`,{
+            cache: "no-store",
+           
+        }).then((data)=>{
+          nav("/allcategory",{state:{id:"1",data:data.data.data}})
+      
+        })
+         
+      })
+      }
       const currentTableData1 = useMemo(() => {
         const firstPageIndex = (currentPage1 - 1) * PageSize1|| 0;
         const lastPageIndex = firstPageIndex + PageSize1 || PageSize1;
@@ -172,7 +191,7 @@ const Productonsale = () => {
        
         </Box>
       </Modal>
-<h2 className="product-heading h3-font"> Products On Sale</h2>
+<h2 className="product-heading h3-font" onClick={handlproductonsaledatabycategory}> Products On Sale</h2>
           <aside style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
             {currentTableData1.length >0 ? 
             currentTableData1.map((item,index) => (

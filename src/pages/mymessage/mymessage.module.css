@@ -16,6 +16,9 @@ height: 400px;
 background: transparent linear-gradient(180deg, #FFFFFF00 0%, #3030309B 29%, #000000 100%) 0% 0% no-repeat padding-box;
 opacity: 0.6;
 background-image: url(../mymessage/b1.png);
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .tabscontainer{
     width: 80%;
@@ -121,7 +124,8 @@ letter-spacing: 0px;
 opacity: 1;
 }
 .status{
-    top: 414px;
+    top: 450px;
+    padding: 5px;
 left: 970px;
 width: 151px;
 height: 32px;

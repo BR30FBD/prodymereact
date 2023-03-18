@@ -85,8 +85,8 @@ const Category = () => {
   }).then((res)=>{
    
 
-    nav("/cateogry",{state:{id:"1",data:res.data}})
-    window.location.reload()
+    nav("/allcategory",{state:{id:"1",data:res.data}})
+    
   })
    }
     const handledetails=(e)=>{
@@ -213,6 +213,20 @@ const Category = () => {
         console.log(err)
       })
     }
+    const handlecategorybyname=(e)=>{
+      console.log("ccc")
+      fetch(`${IP_ADDRESS}api/getproduct/${e}`,{
+        cache: "no-store",
+       
+    }).then((res)=>{
+        return res.json()
+    }).then((res)=>{
+     
+  
+      nav("/allcategory",{state:{id:"1",data:res.data}})
+      
+    })
+     }
   return (
     <>
       <Modal
@@ -228,7 +242,7 @@ const Category = () => {
        
         </Box>
       </Modal>
-          <section className="container" style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <section className="container"  style={{marginTop:"100px",backgroundImage:`url(${img})`,height:"300px",display:"flex",justifyContent:"center",alignItems:"center"}}>
            
              <h1 style={{color:"whitesmoke"}}>
               <NavLink to='/' style={{color:"whitesmoke",textDecoration:"none"}}>Home</NavLink>\Category
@@ -311,7 +325,7 @@ const Category = () => {
           </span>
         </div>
         <div>
-          <h2 className="product-heading h3-font">{location.state.category || ""} Products</h2>
+          <h2 className="product-heading h3-font" onClick={()=>handlecategorybyname(location.state.category)} >{location.state.category || ""} Products</h2>
           <aside className="card-p20" style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
             {currentTableData.length >0 ? 
             currentTableData.map((item,index) => (
@@ -419,7 +433,7 @@ const Category = () => {
         </div>
       </section>
       <Carousal fivestar={fivestar} threestar={threestar}/>
-      <h2 className="product-heading h3-font">{location.state.category || ""} Products</h2>
+      <h2 className="product-heading h3-font" onClick={()=>handlecategorybyname(location.state.category)}>{location.state.category || ""} Products</h2>
           <aside className="card-p20" style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
             {currentTableData.length >0 ? 
             currentTableData.map((item,index) => (

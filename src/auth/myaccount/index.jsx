@@ -83,7 +83,7 @@ const [disable,setdisable]=useState(true)
     <section className="main-myaccount">
     <div className='myorder-main-child' style={{background:"#fff"}}>
     <NavLink to='/myaccount' className="myorder-main-child-link">MY PROFILE</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">MY MESSAGES</NavLink>
+              <NavLink to='/mymessage' className="myorder-main-child-link">MY MESSAGES</NavLink>
               <NavLink to='/myorder' className="myorder-main-child-link">MY ORDERS</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY DESIGNS</NavLink>
               <NavLink to='/mywishlist' className="myorder-main-child-link">WISHLIST</NavLink>

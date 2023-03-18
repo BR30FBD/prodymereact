@@ -29,7 +29,18 @@ const MyOrder = () => {
   },[])
   const handleorder=(data)=>{
     console.log(data,"data")
-    nav('/orderdetails',{state:{id:"23",data:data.orderData.orderData,total:data.totalAmount}})
+    nav('/orderdetails',{state:{id:"23",data:data.orderData,total:data.totalAmount}})
+  }
+  const handlequery=(e)=>{
+    Axios.get(`${IP_ADDRESS}api/getspecificloggedTickets/${e.target.id}/`,{
+      headers:{
+        Authorization: `Token ${accessToken}`
+      }
+    }).then((res)=>{
+      console.log(res.data.data,"myorder")
+    nav('/mymessage',{state:{id:"68",data:res.data.data}})
+
+    })
   }
   return (
     <div {...style}>
@@ -48,7 +59,7 @@ const MyOrder = () => {
         <section className='myorder-main'>
             <div className='myorder-main-child'>
               <NavLink to='/myaccount' className="myorder-main-child-link">MY PROFILE</NavLink>
-              <NavLink to='/' className="myorder-main-child-link">MY MESSAGES</NavLink>
+              <NavLink to='/mymessage' className="myorder-main-child-link">MY MESSAGES</NavLink>
               <NavLink to='/myorder' className="myorder-main-child-link">MY ORDERS</NavLink>
               <NavLink to='/' className="myorder-main-child-link">MY DESIGNS</NavLink>
               <NavLink to='/mywishlist' className="myorder-main-child-link">WISHLIST</NavLink>
@@ -94,7 +105,7 @@ Order Status</td>
   <td>{data.DeliveryDate}</td>
   <td>INR {data.totalAmount}</td>
   <td><button className='myorder-tbody-btn' style={{background:`${data%2==0 ? "#ffd2c4":""}`}}>{data.status}</button></td>
-  <td>&#9993;</td>
+  <td id="3" style={{cursor:"pointer"}} onClick={(e)=>handlequery(e)}>&#9993;</td>
   </tr>
         ))}
       

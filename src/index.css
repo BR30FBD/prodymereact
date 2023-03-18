@@ -63,3 +63,6 @@
   button{
     cursor: pointer;
   }
+  .product-heading{
+    cursor: pointer !important;
+  }

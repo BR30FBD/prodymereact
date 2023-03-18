@@ -69,9 +69,12 @@ margin: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 10px
 }
 .name{
     top: 317px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 left: 995px;
 width: 77px;
 height: 46px;

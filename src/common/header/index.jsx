@@ -255,7 +255,7 @@ const Header = ({dis}) => {
     <NavLink to='/mywishlist'>
     <IconButton aria-label="cart" className='btn-clor' sx={{background:"#ffff"}}>
       <StyledBadge badgeContent={wishlist.length} color="secondary" className='btn-cl'>
-      <FavoriteBorderIcon sx={{margin:"20px"}} className='btn-cl' />
+      <FavoriteBorderIcon  className='btn-cl' />
 
       </StyledBadge>
     </IconButton>
@@ -267,15 +267,16 @@ const Header = ({dis}) => {
       </StyledBadge>
     </IconButton>
     </NavLink>
+    <NavLink to='/contactus'  className="label-form" style={{textDecoration:"none"}}>
+  Contact Us
+    </NavLink>
     {token ? 
     
     <Profileicon/>
     :
     <button data-v-aaec3394=""  className="label-form" onClick={()=>setdisplay(!display)}>Login / Sign Up</button>
   }
-     <NavLink to='/contactus'  className="label-form" style={{textDecoration:"none"}}>
-  Contact Us
-    </NavLink>
+    
    {display &&
     <Auth fun={auth}/>
    

@@ -256,6 +256,31 @@ const Carousal = ({fivestar,threestar}) => {
           console.log(err)
         })
       }
+      const handlestarrproductthree=()=>{
+        fetch(`${IP_ADDRESS}getThreeRatingData/`,{
+          cache: "no-store",
+         
+      }).then((res)=>{
+          return res.json()
+      }).then((res)=>{
+        nav("/allcategory",{state:{id:"67",data:res.data[0]}})
+      }).catch((err)=>{
+          console.log(err,"err")
+      })
+      }
+      const handlestarrproductfive=()=>{
+        fetch(`${IP_ADDRESS}getFiveRatingData/`,{
+          cache: "no-store",
+         
+      }).then((res)=>{
+          return res.json()
+      }).then((res)=>{
+        console.log(res,"five")
+        nav("/allcategory",{state:{id:"67",data:res.data[0]}})
+      }).catch((err)=>{
+          console.log(err,"err")
+      })
+      }
   return (
     <>
     <Modal
@@ -273,7 +298,7 @@ const Carousal = ({fivestar,threestar}) => {
       </Modal>
     <div className='carousal-container' {...stylecarousal}>
 <div className='carousal-container-40'>
-<h1 className='h1-font-txt h3-font'>5 Star Products!</h1>
+<h1 className='h1-font-txt h3-font' onClick={handlestarrproductfive}>5 Star Products!</h1>
 
     <div className='fivestart-container'>  
     <Slider {...settings} style={{width:"100%"}}>
@@ -360,7 +385,7 @@ const Carousal = ({fivestar,threestar}) => {
     </div>
 </div>
 <div className='carousal-container-60'>
-<h1 className='h1-font-txt h3-font'>3 Star Products!</h1>
+<h1 className='h1-font-txt h3-font' onClick={handlestarrproductthree}>3 Star Products!</h1>
 
 <div className='fivestart-container'>  
 <Slider {...settings1} style={{width:"95%"}}>
