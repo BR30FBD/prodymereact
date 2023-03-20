@@ -210,9 +210,9 @@ const Header = ({dis}) => {
                   onChange={(e)=>handlechange(e)}
                 >
                  
-                  {users && users.map(item => (
+                  {users && users.map((item ,index)=> (
                     
-                    <option value={item} >
+                    <option value={item}  key={index}>
                
                       {item}
                     </option>

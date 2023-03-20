@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import  Axios  from 'axios';
 import { IP_ADDRESS } from '../../ip';
+import PriceRangeSelector from '../../common/priceselector';
 let PageSize = 4;
 let PageSize1 = 4;
 const style = {
@@ -249,6 +250,7 @@ const Category = () => {
              </h1>
           
           </section>
+
      <section style={{marginTop:"10px",borderTop:"2px #ff7a34"}}>
         <div  style={{display:"flex",justifyContent:"start",flexWrap:"wrap",marginLeft:"auto",marginRight:"auto"}}>
           {currentTableData1.map((item,index) => (

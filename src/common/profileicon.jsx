@@ -27,7 +27,7 @@ const Profileicon = () => {
 nav('/')
       }
   return (
-    <React.Fragment sx={{backgroundColor:"none"}}>
+    <div sx={{backgroundColor:"none"}}>
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',backgroundColor:"none" }}>
       <Tooltip title="Account settings" sx={{backgroundColor:"none"}}  >
         <Box
@@ -97,7 +97,7 @@ nav('/')
         Logout
       </MenuItem>
     </Menu>
-  </React.Fragment>
+  </div>
   )
 }
 

@@ -66,3 +66,13 @@
   .product-heading{
     cursor: pointer !important;
   }
+  .css-eg0mwd-MuiSlider-thumb{
+    background-color: skyblue;
+  }
+  .css-1aznpnh-MuiSlider-root {
+    color: skyblue;
+  }
+  .css-1aznpnh-MuiSlider-root{
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+  }

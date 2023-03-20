@@ -103,3 +103,14 @@ font-family: sans-serif;
     align-items: center;
     flex-direction: column;
 }
+.form-control-date{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.date-container{
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

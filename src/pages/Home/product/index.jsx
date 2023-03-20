@@ -136,8 +136,8 @@ const Product = () => {
       </header>
       <aside  >
       <Slider {...settings123}>
-          {data.map(card => (
-            <Card card={card} fun={handlewishlist} />
+          {data.map((card,index) => (
+            <Card card={card} fun={handlewishlist} key={index} />
           ))}
         </Slider>
       </aside>

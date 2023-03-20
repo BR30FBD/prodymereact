@@ -18,6 +18,7 @@ import  Axios  from 'axios';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import { IP_ADDRESS } from '../../ip';
+import PriceRangeSelector from '../../common/priceselector';
 let PageSize = 20;
 let PageSize1 = 4;
 const style = {
@@ -39,6 +40,7 @@ const Categorydataall = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const  [stateData,setStateData]=useState([])
   
       const [state,setState]=useState([])
       const [threestar,setthreestar]=useState([])
@@ -54,8 +56,8 @@ const Categorydataall = () => {
       const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize|| 0;
         const lastPageIndex = firstPageIndex + PageSize || PageSize;
-        return productdata.slice(firstPageIndex, lastPageIndex);
-      }, [currentPage]);
+        return stateData.slice(firstPageIndex, lastPageIndex);
+      }, [currentPage,stateData]);
     
       const handlecart=(e)=>{
         let qtyval=e.target.parentElement.childNodes[0].childNodes[1].value;
@@ -109,8 +111,17 @@ const Categorydataall = () => {
       })
      
       }
-  
+      const handleprice=(e)=>{
+        console.log(e,"rrrr")
+        Axios.get(`${IP_ADDRESS}api/productFilterPrice/${e}/`).then((res)=>{
+          console.log(res.data.data,"res")
+          setStateData(res.data.data)
+        }).catch((err)=>{
+          console.log(err)
+        })
+      }
       useEffect(()=>{
+        setStateData(productdata)
       fetch(`${IP_ADDRESS}api/getCategoryImage/`,{
           cache: "no-store",
          
@@ -288,6 +299,7 @@ const Categorydataall = () => {
         })
        
       }, []);
+   
   return (
     <div >
     <div className='container-wrapper-result'>
@@ -296,6 +308,7 @@ const Categorydataall = () => {
             <p className='p-filter label-form'><FilterAltOutlinedIcon sx={{color:"#FF7A34"}} /><p className='label-form'>Filters</p>
             
             </p>
+
             <span
   data-v-849a1390=""
   className="search-bar ant-input-search ant-input-affix-wrapper"
@@ -374,6 +387,8 @@ const Categorydataall = () => {
         </NavLink>
   
      </div>
+     <PriceRangeSelector fun={handleprice}/>
+
         <div className="d-flex" style={{marginTop:"100px",justifyContent:"space-between"}}>
           <section className="features">
             

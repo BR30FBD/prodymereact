@@ -317,7 +317,7 @@ opacity: 1;
 cursor: pointer;
 }
 .tablecontainer{
-    height: 300px;
+    max-height: 300px;
     overflow-y: scroll;
 }
 .pricesection{
@@ -328,8 +328,8 @@ cursor: pointer;
 .total{
     top: 690px;
 left: 642px;
-width: 66px;
-height: 17px;
+width: 200px;
+height: 30px;
 /* UI Properties */
 text-align: left;
 font: normal normal normal 14px/20px Roboto;

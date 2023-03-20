@@ -16,10 +16,13 @@ const OrderDetails = () => {
     const pdfExportComponent = useRef(null);
   const location=useLocation();
   console.log(location,"loaction")
-  const cardata1=location.state.data || [];
+  const cardata1=location.state.data.orderData || [];
   const sum=location.state.total || 0;
+  const date=location.state.date || "";
+  const ddate=location.state.ddate || "";
 
 
+console.log(date,ddate,"dddddd",cardata1)
   const handleClick = () => {
     document.getElementById('demo').style.display="block"
     sethide(false)
@@ -86,31 +89,26 @@ window.scrollTo(0,0)
             <table className='checkout-main-table'>
                 <thead className='checkout-table-head'>
                     <tr className={style.tr}>
-                      {hide && 
-                        <td></td>
+                        <td>S.NO.</td>
                       
-                      }
-                        <td>YOUR PRODUCT</td> <td>RATE</td> <td>QUANTITY
-</td><td colSpan="2">PRICE</td>
+                        <td>PRODUCT ID</td> <td>PRODUCT NAME</td> <td colSpan="2">PRICE</td>
                     </tr>
                 </thead>
-                <tbody className='checkout-table-body'  style={{width:"100%",tableLayout:"fixed"}}>
+                <tbody className='checkout-table-body'  style={{width:"auto",tableLayout:"fixed"}}>
                     {cardata1 && cardata1.map((data,index)=>(
   <tr className={style.tr}>
-    {hide && 
+
      <td>
+      {index+1}
      </td>
-    }
  
-  <td style={{display:"flex",justifyContent:"space-between"}}>
-  {hide &&  <img src={data.productImage} alt="" style={{width:"50px"}} />
-}
-    {data.productName}</td>
-     <td>{data.price}</td>
+  <td>
+  
+    {data.product_id}</td>
+     <td>{data.productName}</td>
      <td className='checkout-table-body-td'>
-    {data.qty}
+    {data.price}
     </td>
-    <td>{data.qty*data.price}</td>
    
    
   </tr>
@@ -124,8 +122,15 @@ window.scrollTo(0,0)
             </div>
             <div className={style.pricesection}>
               <span className={style.total}><b>Total</b></span>
-              <span className={style.total}><b>{cardata1.length}<br/>Items</b></span>
-              <span className={style.total}><b>{sum}</b></span>
+              <span className={style.total}><b>&#8377; {sum}</b></span>
+            </div>
+            <div className={style.pricesection}>
+              <span className={style.total}><b>Order Date</b></span>
+              <span className={style.total}><b>{date}</b></span>
+            </div>
+            <div className={style.pricesection}>
+              <span className={style.total}><b>Delivery Date</b></span>
+              <span className={style.total}><b>{ddate}</b></span>
             </div>
             <section className='checkout-main-second'>
         </section>

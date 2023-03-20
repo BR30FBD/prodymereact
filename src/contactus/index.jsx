@@ -48,7 +48,7 @@ const ContactUs = () => {
     }
     const handlesubmit=(e)=>{
       e.preventDefault();
-      Axios.post(`https://praveenrrc.pythonanywhere.com/api/getintouch/`,data).then((res)=>{
+      Axios.post(`${IP_ADDRESS}api/getintouch/`,{...data,brand:"none"}).then((res)=>{
         console.log(res,"form")
         setmsg(res.data.message);
         setOpen(true);
